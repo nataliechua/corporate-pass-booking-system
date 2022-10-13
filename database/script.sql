@@ -6,7 +6,7 @@ SET GLOBAL local_infile = true;
 
 CREATE TABLE STAFF
 (
-Staff_ID varchar(5) NOT NULL PRIMARY KEY,
+Staff_ID BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 Staff_Name varchar(50) NOT NULL,
 Staff_Email varchar(50) NOT NULL,
 Contact_Num varchar(20) NOT NULL,
@@ -33,7 +33,7 @@ Is_Pass_Active varchar(5) NOT NULL
 CREATE TABLE LOAN
 (
 Loan_ID varchar(6) NOT NULL PRIMARY KEY,
-Staff_ID varchar(5) NOT NULL,
+Staff_ID BIGINT NOT NULL,
 Loan_Date date NOT NULL,
 Attraction varchar(50) NOT NULL,
 Pass_ID varchar(255) NOT NULL,

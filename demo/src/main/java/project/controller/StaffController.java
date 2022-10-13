@@ -24,7 +24,7 @@ public class StaffController {
     }
 
     @GetMapping("/staff")
-    public List<Staff> fetchDepartmentList() {
+    public List<Staff> fetchStaffList() {
         return staffService.getAllStaff();
     }
 

@@ -37,9 +37,13 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Staff updateStaff(Long staffId, Staff staff) {
         Staff staffDB = staffRepository.findById(staffId).get();
+        System.out.println(Objects.nonNull(staff.getStaffName()));
+        System.out.println(Objects.nonNull("".equalsIgnoreCase(staff.getStaffName())));
+        
 
         // Check if parameters are null
         if (Objects.nonNull(staff.getStaffName()) && !("".equalsIgnoreCase(staff.getStaffName()))) {
+            System.out.println("hello");
             staffDB.setStaffName(staff.getStaffName());
         }
 
