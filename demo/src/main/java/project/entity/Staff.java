@@ -12,20 +12,21 @@ import javax.persistence.*;
 @Data // to allow class to use Lombok. Defines getters, setters, hashcode, toString and equals
 // @NoArgsConstructor
 // @AllArgsConstructor
+@Table(name="staff")
 public class Staff {
     @Id
-    @SequenceGenerator(
-        name="staff_sequence",
-        sequenceName="staff_sequence",
-        allocationSize=1
-    )
-    @GeneratedValue(
-        strategy=GenerationType.SEQUENCE,
-        generator="staff_sequence"
-    )
+    // @SequenceGenerator(
+    //     name="staff_sequence",
+    //     sequenceName="staff_sequence",
+    //     allocationSize=1
+    // )
+    // @GeneratedValue(
+    //     strategy=GenerationType.SEQUENCE,
+    //     generator="staff_sequence"
+    // )
     private Long staffId;
-    private String name;
-    private String email;
+    private String staffName;
+    private String staffEmail;
     private String contactNum;
     private String password;
     private String isAdminHold;
@@ -90,8 +91,8 @@ public class Staff {
     
     public Staff(String name, String email, String contactNum, String password, String isAdminHold,
             String isUserActive, String staffType) {
-        this.name = name;
-        this.email = email;
+        this.staffName = name;
+        this.staffEmail = email;
         this.contactNum = contactNum;
         this.password = password;
         this.isAdminHold = isAdminHold;
@@ -101,7 +102,7 @@ public class Staff {
 
     @Override
     public String toString() {
-        return "Staff [staffId=" + staffId + ", name=" + name + ", email=" + email + ", contactNum=" + contactNum
+        return "Staff [staffId=" + staffId + ", name=" + staffName + ", email=" + staffEmail + ", contactNum=" + contactNum
                 + ", password=" + password + ", isAdminHold=" + isAdminHold + ", isUserActive=" + isUserActive
                 + ", staffType=" + staffType + "]";
     }
