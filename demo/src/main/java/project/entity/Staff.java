@@ -2,9 +2,9 @@ package project.entity;
 
 import javax.persistence.Entity;
 
-import lombok.AllArgsConstructor;
+// import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+// import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 

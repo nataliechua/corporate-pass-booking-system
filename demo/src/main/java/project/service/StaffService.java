@@ -5,11 +5,11 @@ import java.util.*;
 import project.entity.*;
 
 public interface StaffService {
-    // public List<Staff> getAllStaff();
-
-    // public Staff getStaffById(String staffId);
+    public Staff getStaffById(Long staffId);
 
     public Staff saveStaff(Staff staff);
 
-    // public Staff updateStaffById(String staffId, Staff staff);
+    public List<Staff> getAllStaff();
+
+    public Staff updateStaff(Long staffId, Staff staff);
 }
