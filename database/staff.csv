@@ -1,0 +1,10 @@
+﻿staffID,staffName,staffEmail,contactNum,password,isAdminHold,isUserActive,staffType
+S0001,Eva,Eva.Yong@sportsschool.edu.sg,12345678,admin1#,FALSE,TRUE,Admin
+S0002,Sophia,Sophia.Toh@sportsschool.edu.sg,22345678,admin2#,FALSE,TRUE,Admin
+S0003,Liam,Liam.The@sportsschool.edu.sg,32345678,staff1#,FALSE,TRUE,Staff 
+S0004,Noah,Noah.Ng@sportsschool.edu.sg,42345678,staff2#,FALSE,TRUE,Staff 
+S0005,Oliver,Oliver.Tan@sportsschool.edu.sg,52345678,staff3#,FALSE,TRUE,Staff 
+S0006,William,William.Fu@sportsschool.edu.sg,62345678,staff4#,FALSE,TRUE,Staff 
+S0007,James,James.Tong@sportsschool.edu.sg,72345678,staff5#,TRUE,TRUE,Staff 
+S0008,Eric,Eric.Loh@sportsschool.edu.sg,82345678,staff6#,FALSE,FALSE,Staff 
+S0009,Noah,Noah.Goh@sportsschool.edu.sg,33345678,gopstaff1#,FALSE,TRUE,GOP

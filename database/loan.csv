@@ -1,0 +1,7 @@
+﻿loanID,staffID,loanDate,attraction,passList,loanStatus,
+L00001,S0001,5/10/2022,Singapore Zoo,P001,returned,
+L00002,S0003,6/10/2022,Singapore Zoo,P002,returned,
+L00003,S0004,7/10/2022,Singapore Zoo,P003,returned,
+L00004,S0005,7/10/2022,Jurong Bird Park,P001,collected,
+L00005,S0006,10/10/2022,Jurong Bird Park,P002,not collected,
+,,,,,, 
