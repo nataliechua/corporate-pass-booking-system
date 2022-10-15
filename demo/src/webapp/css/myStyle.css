@@ -1,3 +1,12 @@
 .inputFieldBorderRadius {
     border-radius: 1rem !important;
 }
+.modalHeadSuccess{
+    color: white !important;
+    background-color: #1cc88a !important;
+}
+
+.modalHeadFail{
+    color: white !important;
+    background-color: red !important;
+}
