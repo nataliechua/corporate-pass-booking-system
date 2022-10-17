@@ -10,3 +10,6 @@
 - Create new pass: POST http://localhost:8080/passes
 - Update pass by ID: PUT http://localhost:8080/passes/id
 
+## Loan
+- Get all loans: GET http://localhost:8080/loans
+- Get loans by ID: GET http://localhost:8080/loans/id
