@@ -2,20 +2,24 @@ package project.entity;
 
 import javax.persistence.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.*;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
-@Data // to allow class to use Lombok. Defines getters, setters, hashcode, toString and equals
+// @Data // to allow class to use Lombok. Defines getters, setters, hashcode, toString and equals
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name="pass")
 public class Pass {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    // @JsonView({JsonViewProfiles.Loan.class, JsonViewProfiles.Pass.class, JsonViewProfiles.Staff.class })
     private Long passId;
     private String passType;
     private String attractions;
@@ -26,13 +30,9 @@ public class Pass {
     private String passExpiryDate;
     private float replacementFee;
     private String isPassActive;
-    
-    @Override
-    public String toString() {
-        return "Pass [passId=" + passId + ", passType=" + passType + ", attractions=" + attractions + ", peoplePerPass="
-                + peoplePerPass + ", isDigital=" + isDigital + ", digitalPath=" + digitalPath + ", passStartDate="
-                + passStartDate + ", passExpiryDate=" + passExpiryDate + ", replacementFee=" + replacementFee
-                + ", isPassActive=" + isPassActive + "]";
-    }
+
+    @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "passList"})
+    private Set<Loan> loans = new HashSet<Loan>();
     
 }

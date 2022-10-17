@@ -2,16 +2,19 @@ package project.entity;
 
 import javax.persistence.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
-@Data // to allow class to use Lombok. Defines getters, setters, hashcode, toString and equals
+// @Data // to allow class to use Lombok. Defines getters, setters, hashcode, toString and equals
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name="staff")
 public class Staff {
     @Id
@@ -23,30 +26,16 @@ public class Staff {
     private String password;
     private String isAdminHold;
     private String isUserActive;
-    private String staffType;    
+    private String staffType;
     
-    // public Staff() {
+    @OneToMany(
+        cascade=CascadeType.ALL,
+        mappedBy="staff",
+        orphanRemoval=true,
+        fetch = FetchType.LAZY
+    )
 
-    // }
-    
-    // public Staff(String name, String email, String contactNum, String password, String isAdminHold,
-    //         String isUserActive, String staffType) {
-    //     this.staffName = name;
-    //     this.staffEmail = email;
-    //     this.contactNum = contactNum;
-    //     this.password = password;
-    //     this.isAdminHold = isAdminHold;
-    //     this.isUserActive = isUserActive;
-    //     this.staffType = staffType;
-    // }
-
-    @Override
-    public String toString() {
-        return "Staff [staffId=" + staffId + ", name=" + staffName + ", email=" + staffEmail + ", contactNum=" + contactNum
-                + ", password=" + password + ", isAdminHold=" + isAdminHold + ", isUserActive=" + isUserActive
-                + ", staffType=" + staffType + "]";
-    }
-
-    
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
+    private List<Loan> loans = new ArrayList<>();
     
 }

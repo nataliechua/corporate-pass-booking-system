@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
 
 import project.entity.*;
 import project.service.*;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 // import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -29,7 +33,6 @@ public class StaffController {
     }
 
     @GetMapping("/staff/{id}")
-    // Path variable is input parameter to our method
     public Staff getStaffById(@PathVariable("id") Long staffId) {
         return staffService.getStaffById(staffId);
     }
