@@ -71,6 +71,8 @@
                             <h6 class="m-0 font-weight-bold text-primary">SSP Staff List</h6>
                         </div>
                         <div class="card-body">
+                            (rough idea of how the controller page is passing the data to the frontend)
+                            <p th:text="${staffs}"></p>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -83,7 +85,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr th:each="staff : ${staffs}">
+                                            <td th:text="${staff.staffName}"></td>
+                                            <td th:text="${staff.staffEmail}"></td>
+                                            <td th:text="${staff.contactNum}">91234566</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-flag"></i>
+                                                    </span>
+                                                    <span class="text">Add admin</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-danger btn-icon-split btn-sm">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                    <span class="text">Disable</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
                                             <td>Tiger Nixon</td>
                                             <td>123@gmail.com</td>
                                             <td>91234566</td>
@@ -259,7 +282,7 @@
                                                     <span class="text">Disable</span>
                                                 </a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                         
                                     </tbody>
                                 </table>
