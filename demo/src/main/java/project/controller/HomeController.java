@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HomeController {
 
+    @GetMapping("/")
+    String index() {
+        return "index";
+    }
+
     @GetMapping("/login")
     public String welcome() {
         return "login";

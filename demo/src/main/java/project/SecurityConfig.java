@@ -22,9 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
             .antMatchers(staticResources).permitAll()
             .anyRequest().authenticated()
             .and()
-            .formLogin()
-            .loginPage("/login") // use a customised login page
-            .permitAll();
+                .formLogin()
+                .loginPage("/login") // use a customised login page
+                .permitAll()
+            .and()
+                .logout()
+                .logoutSuccessUrl("/index.html");
     }
     
 }
