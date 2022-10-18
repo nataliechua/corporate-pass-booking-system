@@ -26,15 +26,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
- 
-    <script>
-        $(function () {
-            $("#sidebar").load("./assets/components/sidebar.html");
-            $("#topbar").load("./assets/components/topbar.html");
-            $("#footer").load("./assets/components/footer.html");
-        });
-    </script>
-
 </head>
 
 <body id="page-top">
@@ -43,7 +34,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <div id="sidebar"></div>
+        <div th:replace="fragments/sidebar :: sidebar"></div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -53,7 +44,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <div id="topbar"></div>
+                <div th:replace="fragments/topbar :: topbar"></div>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -296,7 +287,7 @@
             </div>
             <!-- End of Main Content -->
 
-            <footer id="footer"></footer>
+            <div th:replace="fragments/footer :: footer"></div>
 
         </div>
         <!-- End of Content Wrapper -->
