@@ -69,75 +69,113 @@
                         </div>
                         <div class="card-body">
                             <h6 class=""><b>Pick A Date</b></h6>
-                            <input type="date" id="start" name="trip-start" :value="oneDayAfterToday" :min="oneDayAfterToday" :max="eightWeekAfter" >
+                            <input type="date" id="start" name="date-picker" v-model="chosenDate" :min="todayDate" :max="eightWeekAfter" >
                             
-                            <!--Available Passes - START-->
-                            <h4 class="pt-4">Available</h4>
-                            <div class="row">
-                                <div class="col-md-3 col-xs-12">
-                                    <div class="card h-100 shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="mb-0">Before working with this theme, you should become familiar with the
-                                                Bootstrap framework, especially the utility classes.</p><br/>
-                                            <div class="input-group">
-                                                <input type="number" min="1" max="2" value="1" class="form-control">
-                                                <button class="btn btn-sm btn-primary shadow-sm" type="button" data-toggle="modal" data-target="#bookingSuccessModal">Book</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div v-if="chosenDate == todayDate">
+                                <div class="table-responsive pt-4">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Pass</th>
+                                                <th>Name</th>
+                                                <th>Contact Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Gardens By the Bay</td>
+                                                <td>Tiger Nixon</td>
+                                                <td>91234566</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jurong Bird Park</td>
+                                                <td>Garrett Winters</td>
+                                                <td>91234566</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Singapore Zoo</td>
+                                                <td>Ashton Cox</td>
+                                                <td>91234566</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="col-md-3 col-xs-12">
-                                    <div class="card h-100 shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="mb-0">Before working with this theme, you should become familiar with the
-                                                Bootstrap framework, especially the utility classes.</p><br/>
-                                            <div class="input-group">
-                                                <input type="number" min="1" max="2" value="1" class="form-control">
-                                                <button class="btn btn-sm btn-primary shadow-sm" type="button" data-toggle="modal" data-target="#bookingFailModal">Book</button>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-        
                             </div>
-                            <!-- Available Passes - END-->
 
-                            <!--Unavailable Passes - START-->
-                            <h4 class="pt-4">Unavailable</h4>
-                            <div class="row">
-                                <div class="col-md-3 col-xs-12">
-                                    <div class="card h-100 shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="mb-0"><b>Name: </b>Jane Doe</p>
-                                            <p class="mb-0"><b>Pass Num: </b>x123</p>
-                                            <p class="mb-0"><b>Contact: </b>91234567</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-xs-12">
-                                    <div class="card h-100 shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="mb-0"><b>Name: </b>Jane Doe</p>
-                                            <p class="mb-0"><b>Pass Num: </b>x123</p>
-                                            <p class="mb-0"><b>Contact: </b>91234567</p>
+                            <div v-else>
+                                <!--Available Passes - START-->
+                                <h4 class="pt-4">Available</h4>
+                                <div class="row">
+                                    <div class="col-md-3 col-xs-12">
+                                        <div class="card h-100 shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="mb-0">Before working with this theme, you should become familiar with the
+                                                    Bootstrap framework, especially the utility classes.</p><br/>
+                                                <p class="mb-0" style="color:red;">Left: 2</p><br/>
+                                                <div class="input-group">
+                                                    <input type="number" min="1" max="2" value="1" class="form-control">
+                                                    <button class="btn btn-sm btn-primary shadow-sm" type="button" data-toggle="modal" data-target="#bookingSuccessModal">Book</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-3 col-xs-12">
+                                        <div class="card h-100 shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="mb-0">Before working with this theme, you should become familiar with the
+                                                    Bootstrap framework, especially the utility classes.</p><br/>
+                                                <p class="mb-0" style="color:red;">Left: 2</p><br/>
+                                                <div class="input-group">
+                                                    <input type="number" min="1" max="2" value="1" class="form-control">
+                                                    <button class="btn btn-sm btn-primary shadow-sm" type="button" data-toggle="modal" data-target="#bookingFailModal">Book</button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+            
                                 </div>
+                                <!-- Available Passes - END-->
+
+                                <!--Unavailable Passes - START-->
+                                <h4 class="pt-4">Unavailable</h4>
+                                <div class="table-responsive pt-4">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Pass</th>
+                                                <th>Name</th>
+                                                <th>Contact Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Gardens By the Bay</td>
+                                                <td>Tiger Nixon</td>
+                                                <td>91234566</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jurong Bird Park</td>
+                                                <td>Garrett Winters</td>
+                                                <td>91234566</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Singapore Zoo</td>
+                                                <td>Ashton Cox</td>
+                                                <td>91234566</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--Unavailable Passes - END-->
                             </div>
-                            <!--Unavailable Passes - END-->
+                            
                         </div>
 
 
@@ -244,33 +282,40 @@
             data() {
                 return {
                     oneDayAfterToday: "",
-                    eightWeekAfter: ""
+                    eightWeekAfter: "",
+                    todayDate: "",
+                    chosenDate: "",
                 }
             },
             methods: {
-                getTodayDate (){
+                getAddDateFromToday(addDays){
+
                     var today = new Date();
-                    var dd = String(today.getDate() + 1).padStart(2, '0');
                     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                     var yyyy = today.getFullYear();
-                    this.oneDayAfterToday = yyyy + '-' + mm + '-' + dd;
-                },
-                getEightWeekFromToday(){
-                    var now = new Date();
-                    now.setDate(now.getDate()+55);
-                    var dd = String(now.getDate() + 1).padStart(2, '0');
-                    var mm = String(now.getMonth() + 1).padStart(2, '0'); //January is 0!
-                    var yyyy = now.getFullYear();
-                    this.eightWeekAfter = yyyy + '-' + mm + '-' + dd;
-                    console.log(this.eightWeekAfter)
+                    var dd = String(today.getDate() + addDays).padStart(2, '0');
+                    if (addDays == 55){
+                        var now = new Date();
+                        now.setDate(now.getDate()+55);
+                        var dd = String(now.getDate() + 1).padStart(2, '0');
+                        var mm = String(now.getMonth() + 1).padStart(2, '0'); //January is 0!
+                        var yyyy = now.getFullYear();
+                        this.eightWeekAfter = yyyy + '-' + mm + '-' + dd;
+                    }else if(addDays == 1){
+                        this.oneDayAfterToday = yyyy + '-' + mm + '-' + dd;
+                        this.chosenDate = this.oneDayAfterToday;
+                    }else if(addDays == 0){
+                        this.todayDate = yyyy + '-' + mm + '-' + dd;
+                    }
                 }
             },
             computed:{
                 
             }, 
             created() {
-                this.getTodayDate();
-                this.getEightWeekFromToday();
+                this.getAddDateFromToday(55);
+                this.getAddDateFromToday(1);
+                this.getAddDateFromToday(0);
             }
         });
         const vm = app.mount("#app");
