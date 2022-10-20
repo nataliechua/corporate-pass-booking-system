@@ -64,6 +64,21 @@ public class HomeController {
     public String loanedPasses() {
         return "loanedPasses";
     }
+
+    @GetMapping("/viewLoanHistory")
+    public String viewLoanHistory() {
+        return "adminViewLoanHistory";
+    }
+
+    @GetMapping("/bookingCriteria") 
+    public String bookingCriteria() {
+        return "bookingCriteria";
+    }
+
+    @GetMapping("/templateList") 
+    public String templateList() {
+        return "templateList";
+    }
     
     // @RequestMapping(value="/logout", method=RequestMethod.GET)  
     // public String logoutPage(HttpServletRequest request, HttpServletResponse response) {  
