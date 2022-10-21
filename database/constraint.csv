@@ -1,0 +1,4 @@
+﻿constraintID,constraintName,constraintData
+1,Loan_Per_Month,2
+2,Pass_Per_Loan_Per_Day,2
+3,Pass_Per_Month_Per_Staff_Per_Attraction,2

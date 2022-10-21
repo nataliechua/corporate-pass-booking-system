@@ -53,13 +53,13 @@ CONSTRAINT loanpass_fk2 FOREIGN KEY (Pass_ID) REFERENCES PASS(Pass_ID)
 
 CREATE TABLE CONSTRAINTS
 (
-Loan_Per_Month int NOT NULL,
-Pass_Per_Loan_Per_Day int NOT NULL,
-Pass_Per_Month_Per_Staff_Per_Attraction int NOT NULL
+Constraint_ID bigint not null,
+Constraint_Name varchar(255) not null,
+Constraint_Data int not null
 );
 
 /*Import Staff CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/database/staff.csv'
+LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/staff.csv'
 INTO TABLE STAFF   
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
@@ -67,7 +67,7 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;  
 
 /*Import Pass CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/database/pass.csv'
+LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/pass.csv'
 INTO TABLE PASS 
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
@@ -75,7 +75,7 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;  
 
 /*Import Loan CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/database/loan.csv'
+LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/loan.csv'
 INTO TABLE LOAN
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
@@ -83,7 +83,7 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;  
 
 /*Import Constraints CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/database/constraints.csv'
+LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/constraint.csv'
 INTO TABLE CONSTRAINTS   
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
