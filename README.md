@@ -13,3 +13,8 @@
 ## Loan
 - Get all loans: GET http://localhost:8080/loans
 - Get loans by ID: GET http://localhost:8080/loans/id
+
+## Constraint
+- Get all constraints: GET http://localhost:8080/constraint
+- Get constraint by ID: GET http://localhost:8080/constraint/id
+- Update constraint data by ID: PUT http://localhost:8080/constraint/id
