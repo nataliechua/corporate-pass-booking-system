@@ -26,6 +26,10 @@ public class HomeController {
 
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private LoanService loanService;
+    @Autowired
+    private ConstraintService constraintService;
 
     @GetMapping("/")
     public String index() {
@@ -46,7 +50,9 @@ public class HomeController {
     }
 
     @GetMapping("/viewPasses")
-    public String viewPasses() {
+    public String viewPasses(Model model) {
+        List<Constraint> constraints = constraintService.getAllConstraint();
+        model.addAttribute("constraints",  constraints);
         return "passes";
     }
 
