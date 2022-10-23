@@ -35,7 +35,9 @@ public class Staff {
         fetch = FetchType.LAZY
     )
 
+    
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
+    @ToString.Exclude
     private List<Loan> loans = new ArrayList<>();
     
 }

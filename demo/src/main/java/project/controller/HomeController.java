@@ -37,7 +37,7 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping("/viewStaffs") 
+    @GetMapping("/viewStaffs") 
     public String viewStaffs(Model model) {
 
         List<Staff> staffs = staffService.getAllStaff(); 
