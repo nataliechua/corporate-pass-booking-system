@@ -18,3 +18,6 @@
 - Get all constraints: GET http://localhost:8080/constraint
 - Get constraint by ID: GET http://localhost:8080/constraint/id
 - Update constraint data by ID: PUT http://localhost:8080/constraint/id
+
+## Live Reload
+- Install this extension: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
