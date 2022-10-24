@@ -3,6 +3,7 @@ package project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.dto.*;
 import project.entity.*;
 import project.repository.*;
 import java.util.*;
@@ -13,7 +14,11 @@ public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
 
     @Override
-    public Staff saveStaff(Staff staff) {
+    public Staff saveStaff(StaffDto staffDto) {
+        Staff staff = new Staff(staffDto.getStaffName(), staffDto.getStaffEmail(),
+            staffDto.getContactNum(), staffDto.getPassword(), 
+            staffDto.getIsAdminHold(), staffDto.getIsUserActive(), 
+            staffDto.getStaffType());
         return staffRepository.save(staff);
     }
 

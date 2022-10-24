@@ -1,11 +1,35 @@
 package project;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import project.service.*;
+
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace default login page w our customised ver
+
+//     @Autowired
+//     private StaffService staffService;
+
+//     @Bean
+//     public BCryptPasswordEncoder passwordEncoder() {
+//         return new BCryptPasswordEncoder();
+//     }
+
+//     @Bean
+//     public DaoAuthenticationProvider authenticationProvider() {
+//         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+//         auth.setUserDetailsService(staffService);
+//         auth.setPasswordEncoder(passwordEncoder());
+//         return auth;
+//     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,9 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .loginPage("/login") // use a customised login page
                 .permitAll()
             .and()
-                .logout((logout) -> logout.permitAll());
-                // .logout()
-                // .logoutSuccessUrl("/");
+                // .logout((logout) -> logout.permitAll());
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll();
     }
     
 }
