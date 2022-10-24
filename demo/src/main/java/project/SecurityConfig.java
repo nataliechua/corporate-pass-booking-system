@@ -26,8 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .loginPage("/login") // use a customised login page
                 .permitAll()
             .and()
-                .logout()
-                .logoutSuccessUrl("/");
+                .logout((logout) -> logout.permitAll());
+                // .logout()
+                // .logoutSuccessUrl("/");
     }
     
 }
