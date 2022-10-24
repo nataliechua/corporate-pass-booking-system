@@ -80,7 +80,8 @@
                                             <td th:text="${staff.staffName}"></td>
                                             <td th:text="${staff.staffEmail}"></td>
                                             <td th:text="${staff.contactNum}">91234566</td>
-                                            <td>
+                                            <td th:if="${staff.staffType == 'Admin'}"></td>
+                                            <td th:unless="${staff.staffType == 'Admin'}">
                                                 <a href="#" class="btn btn-primary btn-icon-split btn-sm">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-flag"></i>
@@ -88,7 +89,8 @@
                                                     <span class="text">Add admin</span>
                                                 </a>
                                             </td>
-                                            <td>
+                                            <td th:if="${staff.isAdminHold}"></td>
+                                            <td th:unless="${staff.isAdminHold}">
                                                 <a href="#" class="btn btn-danger btn-icon-split btn-sm">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>

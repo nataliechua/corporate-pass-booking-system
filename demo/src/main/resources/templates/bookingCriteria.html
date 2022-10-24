@@ -63,6 +63,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Edit Criteria</h6>
                         </div>
                         <div class="card-body">
+                            <p th:text="${constraints}"></p>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -72,26 +73,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="text" name="" id="" value="Loan Per Month" size="50"></td>
-                                            <td><input type="number" name="" id="" value="2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" name="" id="" value="Pass Per Loan Per Day" size="50"></td>
-                                            <td><input type="number" name="" id="" value="2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="text" name="" id="" value="Pass Per Month Per Staff Per Attraction" size="50"></td>
-                                            <td><input type="number" name="" id="" value="2"></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-sm">
-                                                    <span class="text">Save</span>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            <tr th:each="constraint : ${constraints}" th:id="${constraint.constraintId}">
+                                                <td><p th:text="${constraint.constraintName}" name="constraintName"></p></td>
+                                                <td><input type="number" name="constraintData" th:value="${constraint.constraintData}"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <a href="" class="btn btn-primary btn-sm">
+                                                        <span class="text">Save</span>
+                                                    </a>
+                                                </td>
+                                            </tr> 
+                                        
                                     </tbody>
                                 </table>
                             </div>
