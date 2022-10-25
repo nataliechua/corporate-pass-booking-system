@@ -1,24 +1,37 @@
 package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import project.dto.*;
 import project.entity.*;
 import project.repository.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffRepository staffRepository;
 
+    // @Autowired
+    // private BCryptPasswordEncoder passwordEncoder; 
+
     @Override
     public Staff saveStaff(StaffDto staffDto) {
+        
         Staff staff = new Staff(staffDto.getStaffName(), staffDto.getStaffEmail(),
-            staffDto.getContactNum(), staffDto.getPassword(), 
+            staffDto.getContactNum(), new BCryptPasswordEncoder().encode(staffDto.getPassword()), 
             staffDto.getIsAdminHold(), staffDto.getIsUserActive(), 
             staffDto.getStaffType());
+        System.out.println("===========================");
+        System.out.println(staff);
+        System.out.println("===========================");
         return staffRepository.save(staff);
     }
 
@@ -80,4 +93,35 @@ public class StaffServiceImpl implements StaffService {
         return staffRepository.save(staffDB);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        
+        Staff staff = staffRepository.findByStaffEmail(email);
+
+        if (staff==null) {
+            throw new UsernameNotFoundException("Invalid email or password");
+        }
+
+        return new org.springframework.security.core.userdetails.User(staff.getStaffEmail(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType())) ;
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
+        //Collection<SimpleGrantedAuthority> oldAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+        List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
+        updatedAuthorities.add(authority);
+        //updatedAuthorities.addAll(oldAuthorities);
+
+        // SecurityContextHolder.getContext().setAuthentication(
+        //         new UsernamePasswordAuthenticationToken(
+        //                 SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+        //                 SecurityContextHolder.getContext().getAuthentication().getCredentials(),
+        //                 updatedAuthorities)
+        // );
+        return updatedAuthorities;
+    }
+    // private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
+    //     return new SimpleGrantedAuthority(role).collect(role);
+    //     //return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    // }
 }

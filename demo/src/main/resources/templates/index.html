@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 
     <meta charset="utf-8">
@@ -44,12 +45,12 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <div th:replace="fragments/topbar :: topbar"></div>
+                <h2 th:replace="fragments/topbar :: topbar"></h2>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    Welcome <span sec:authentication="principal.username">User</span>
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
