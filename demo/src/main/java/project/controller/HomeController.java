@@ -1,21 +1,14 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-// import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;   
-// import org.springframework.security.core.Authentication;
 
-import project.dto.*;
 import project.entity.*;
 import project.service.*;
 
 import java.util.*;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;  
 
 @Controller
 public class HomeController {

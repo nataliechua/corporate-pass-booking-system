@@ -19,9 +19,6 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffRepository staffRepository;
 
-    // @Autowired
-    // private BCryptPasswordEncoder passwordEncoder; 
-
     @Override
     public Staff saveStaff(StaffDto staffDto) {
         
@@ -106,22 +103,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
-        //Collection<SimpleGrantedAuthority> oldAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
         List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
         updatedAuthorities.add(authority);
-        //updatedAuthorities.addAll(oldAuthorities);
 
-        // SecurityContextHolder.getContext().setAuthentication(
-        //         new UsernamePasswordAuthenticationToken(
-        //                 SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-        //                 SecurityContextHolder.getContext().getAuthentication().getCredentials(),
-        //                 updatedAuthorities)
-        // );
         return updatedAuthorities;
     }
-    // private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
-    //     return new SimpleGrantedAuthority(role).collect(role);
-    //     //return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-    // }
 }

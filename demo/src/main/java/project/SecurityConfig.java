@@ -19,16 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
     @Autowired
     private StaffService staffService;
 
-    // @Bean
-    // public BCryptPasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(staffService);
-        // auth.setPasswordEncoder(passwordEncoder());
         auth.setPasswordEncoder(new BCryptPasswordEncoder());
         return auth;
     }
@@ -58,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .loginPage("/login") // use a customised login page
                 .permitAll()
             .and()
-                // .logout((logout) -> logout.permitAll());
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
