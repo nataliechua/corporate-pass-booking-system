@@ -19,5 +19,19 @@
 - Get constraint by ID: GET http://localhost:8080/constraint/id
 - Update constraint data by ID: PUT http://localhost:8080/constraint/id
 
+## User Account
+### Admin
+- Eva.Yong@sportsschool.edu.sg; 123456
+- Sophia.Toh@sportsschool.edu.sg; 123456
+### Staff
+- Liam.The@sportsschool.edu.sg; 123456
+- Noah.Ng@sportsschool.edu.sg; 123456
+- Oliver.Tan@sportsschool.edu.sg; 123456
+- William.Fu@sportsschool.edu.sg; 123456
+- James.Tong@sportsschool.edu.sg; 123456
+- Eric.Loh@sportsschool.edu.sg; 123456
+### GOP
+- Noah.Goh@sportsschool.edu.sg; 123456
+
 ## Live Reload
 - Install this extension: https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
