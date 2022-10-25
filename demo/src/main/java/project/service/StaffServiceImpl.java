@@ -98,8 +98,13 @@ public class StaffServiceImpl implements StaffService {
         if (staff==null) {
             throw new UsernameNotFoundException("Invalid email or password");
         }
-
-        return new org.springframework.security.core.userdetails.User(staff.getStaffEmail(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType())) ;
+        UserDetails result = new org.springframework.security.core.userdetails.User(staff.getStaffName(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType()));
+        System.out.println("***********************");
+        System.out.println(result);
+        System.out.println("***********************");
+        // AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true
+        // org.springframework.security.core.userdetails.User [Username=Sophia, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[Admin]]
+        return result;
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
