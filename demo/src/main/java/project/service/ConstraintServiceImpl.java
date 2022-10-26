@@ -26,6 +26,18 @@ public class ConstraintServiceImpl implements ConstraintService {
     }
 
     @Override
+    public Constraint updateConstraint(Constraint constraint) {
+        Constraint constraintDB = constraintRepository.findById(constraint.getConstraintId()).get();
+
+        // Check if parameters are null
+        if (Objects.nonNull(constraint.getConstraintData())) {
+            constraintDB.setConstraintData(constraint.getConstraintData());
+        }
+
+        return constraintRepository.save(constraintDB);
+    }
+
+    @Override
     public Constraint updateConstraintById(Long constraintId, Constraint constraint) {
         Constraint constraintDB = constraintRepository.findById(constraintId).get();
 

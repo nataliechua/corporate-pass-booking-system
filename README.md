@@ -17,6 +17,11 @@
 ## Constraint
 - Get all constraints: GET http://localhost:8080/constraint
 - Get constraint by ID: GET http://localhost:8080/constraint/id
+- Update constraint: PUT http://localhost:8080/constraint
+- Update constraint data by ID: PUT http://localhost:8080/constraint/id
+
+## Booker
+- 
 - Update constraint data by ID: PUT http://localhost:8080/constraint/id
 
 ## User Account
