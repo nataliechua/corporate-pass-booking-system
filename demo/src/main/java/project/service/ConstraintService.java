@@ -9,5 +9,7 @@ public interface ConstraintService {
 
     public List<Constraint> getAllConstraint();
 
+    public Constraint updateConstraint(Constraint constraint);
+
     public Constraint updateConstraintById(Long constraintId, Constraint constraint);
 }

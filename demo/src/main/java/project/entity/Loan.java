@@ -61,5 +61,12 @@ public class Loan {
         this.passList.remove(pass);
         pass.getLoans().remove(this);
     }
-    
+
+    public Loan(Staff staff, String loanDate, String attraction, Set<Pass> passList, String loanStatus) {
+        // this.staff = staff;
+        // this.loanDate = loanDate;
+        // this.attraction = attraction;
+        // this.passList = passList;
+        // this.loanStatus = loanStatus;
+    }
 }
