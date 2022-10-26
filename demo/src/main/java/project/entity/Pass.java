@@ -30,9 +30,10 @@ public class Pass {
     private String passExpiryDate;
     private float replacementFee;
     private String isPassActive;
+    private String loans;
 
-    @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "passList"})
-    private Set<Loan> loans = new HashSet<Loan>();
+    // @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY)
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "passList"})
+    // private Set<Loan> loans = new HashSet<Loan>();
     
 }

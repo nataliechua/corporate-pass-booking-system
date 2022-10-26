@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
+import project.dto.*;
 import project.entity.*;
 import project.service.*;
 
@@ -23,7 +24,7 @@ public class StaffController {
     private StaffService staffService;
 
     @PostMapping("/staff")
-    public Staff saveStaff(@RequestBody Staff staff) {
+    public Staff saveStaff(@RequestBody StaffDto staff) {
         return staffService.saveStaff(staff);
     }
 

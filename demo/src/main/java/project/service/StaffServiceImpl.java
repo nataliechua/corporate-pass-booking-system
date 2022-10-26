@@ -1,11 +1,18 @@
 package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import project.dto.*;
 import project.entity.*;
 import project.repository.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -13,7 +20,15 @@ public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
 
     @Override
-    public Staff saveStaff(Staff staff) {
+    public Staff saveStaff(StaffDto staffDto) {
+        
+        Staff staff = new Staff(staffDto.getStaffName(), staffDto.getStaffEmail(),
+            staffDto.getContactNum(), new BCryptPasswordEncoder().encode(staffDto.getPassword()), 
+            staffDto.getIsAdminHold(), staffDto.getIsUserActive(), 
+            staffDto.getStaffType());
+        System.out.println("===========================");
+        System.out.println(staff);
+        System.out.println("===========================");
         return staffRepository.save(staff);
     }
 
@@ -75,4 +90,29 @@ public class StaffServiceImpl implements StaffService {
         return staffRepository.save(staffDB);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        
+        Staff staff = staffRepository.findByStaffEmail(email);
+
+        if (staff==null) {
+            throw new UsernameNotFoundException("Invalid email or password");
+        }
+        UserDetails result = new org.springframework.security.core.userdetails.User(staff.getStaffName(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType()));
+        System.out.println("***********************");
+        System.out.println(result);
+        System.out.println("***********************");
+        // AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true
+        // org.springframework.security.core.userdetails.User [Username=Sophia, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[Admin]]
+        return result;
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
+
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+        List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
+        updatedAuthorities.add(authority);
+
+        return updatedAuthorities;
+    }
 }

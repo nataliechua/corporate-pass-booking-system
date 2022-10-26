@@ -52,21 +52,14 @@ public class Loan {
 
     // Helper methods to update both ends of the bidirectional many-to-many relationship
     // Between loan and pass
-    public void addPass(Pass pass) {
-        this.passList.add(pass);
-        pass.getLoans().add(this);
-    }
+    // public void addPass(Pass pass) {
+    //     this.passList.add(pass);
+    //     pass.getLoans().add(this);
+    // }
 
-    public void removePass(Pass pass) {
-        this.passList.remove(pass);
-        pass.getLoans().remove(this);
-    }
-
-    public Loan(Staff staff, String loanDate, String attraction, Set<Pass> passList, String loanStatus) {
-        // this.staff = staff;
-        // this.loanDate = loanDate;
-        // this.attraction = attraction;
-        // this.passList = passList;
-        // this.loanStatus = loanStatus;
-    }
+    // public void removePass(Pass pass) {
+    //     this.passList.remove(pass);
+    //     pass.getLoans().remove(this);
+    // }
+    
 }

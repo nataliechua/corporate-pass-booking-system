@@ -15,7 +15,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name="staff")
+@Table(name="staff", uniqueConstraints = @UniqueConstraint(columnNames = "staffEmail"))
 public class Staff {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,6 +28,17 @@ public class Staff {
     private String isUserActive;
     private String staffType;
     
+    public Staff(String staffName, String staffEmail, String contactNum, String password, 
+        String isAdminHold, String isUserActive, String staffType) {
+        this.staffName = staffName;
+        this.staffEmail = staffEmail;
+        this.contactNum = contactNum;
+        this.password = password;
+        this.isAdminHold = isAdminHold;
+        this.isUserActive = isUserActive;
+        this.staffType = staffType;
+    }
+
     @OneToMany(
         cascade=CascadeType.ALL,
         mappedBy="staff",
@@ -35,7 +46,9 @@ public class Staff {
         fetch = FetchType.LAZY
     )
 
+    
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
+    @ToString.Exclude
     private List<Loan> loans = new ArrayList<>();
     
 }
