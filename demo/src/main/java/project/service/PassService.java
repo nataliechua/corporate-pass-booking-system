@@ -13,4 +13,8 @@ public interface PassService {
     public Pass savePass(Pass pass);
 
     public Pass updatePass(Long passId, Pass pass);
+
+    public Map<String, Integer> getTotalPassNum();
+
+    public Map<String, Integer> getPassAvailabilityByDate(String date);
 }

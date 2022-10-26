@@ -21,11 +21,13 @@ public class Loan {
     private Long loanId;
 
     @ManyToOne(
-        fetch = FetchType.LAZY
+        fetch = FetchType.EAGER,
+        cascade=CascadeType.ALL
     )
-    // Define foreign key column name created in Loan as "staff_id"
+    // Creates a foreign key in Loan called "staff_id"
     @JoinColumn(name= "staff_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"})
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"})
+    // @JsonIgnore
     private Staff staff;
     private String loanDate;
     private String attraction;
@@ -33,7 +35,7 @@ public class Loan {
     // Specify a many to many relationship
     @ManyToMany(
         cascade=CascadeType.ALL,
-        fetch = FetchType.LAZY
+        fetch = FetchType.EAGER
     )
     // JPA will automatically create a new association table
     // Specify the details of an association table called loan_pass
@@ -45,7 +47,8 @@ public class Loan {
         inverseJoinColumns=@JoinColumn(name="pass_id")
     )
     // Many to Many rs requires use of set
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"}) 
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"}) 
+    // @JsonIgnore
     private Set<Pass> passList = new HashSet<Pass>();
     
     private String loanStatus;

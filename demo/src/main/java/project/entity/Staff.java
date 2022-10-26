@@ -45,10 +45,25 @@ public class Staff {
         orphanRemoval=true,
         fetch = FetchType.LAZY
     )
-
-    
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
+    @JsonIgnore
     @ToString.Exclude
     private List<Loan> loans = new ArrayList<>();
+
+    public Staff(String name, String email, String contact, String password, String type) {
+        this.staffName = name;
+        this.staffEmail = email;
+        this.contactNum = contact;
+        this.password = password;
+        this.staffType = type;
+
+        this.isAdminHold = "FALSE";
+        this.isUserActive = "TRUE";
+    }
+
+    public List<Loan> addLoan(Loan loan) {
+        this.loans.add(loan);
+        return this.loans;
+    }
     
 }
