@@ -34,4 +34,27 @@ public class LoanServiceImpl implements LoanService {
         return loanRepository.save(loan);
     }
 
+    @Override
+    public Map<String, Integer> getPassAvailabilityByDate(String date) {
+
+        List<Loan> loanList = loanRepository.findByLoanDate(date);
+        Map<String, Integer> map = new HashMap<>();
+
+        for (Loan oneLoan : loanList) {
+            Set<Pass> passSet = oneLoan.getPassList();
+            for (Pass pass : passSet) {
+                String type = pass.getPassType();
+
+                if (map.containsKey(type)) {
+                    map.put(type, map.get(type) + 1);
+                } else {
+                    map.put(type, 1);
+                }
+
+            }
+        }
+
+        return map;
+    }
+
 }

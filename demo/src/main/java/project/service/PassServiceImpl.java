@@ -11,6 +11,8 @@ import java.util.*;
 public class PassServiceImpl implements PassService {
     @Autowired
     private PassRepository passRepository;
+    @Autowired
+    private LoanRepository loanRepository;
 
     @Override
     public List<Pass> getAllPasses() {
@@ -65,5 +67,43 @@ public class PassServiceImpl implements PassService {
         
         return passRepository.save(passDB);
     }
+
+    public Map<String, Integer> getTotalPassNum() {
+        Map<String, Integer> map = new HashMap<>();
+
+        List<Pass> passList = passRepository.findAll();
+
+        for (Pass onePass : passList) {
+            String type = onePass.getPassType();
+
+            if (map.containsKey(type)) {
+                map.put(type, map.get(type) + 1);
+            } else {
+                map.put(type,1);
+            }
+        }
+
+        return map;
+    }
+
+    public Map<String, Integer> getPassAvailabilityByDate(String date) {
+        List<Loan> loanList = loanRepository.findByLoanDate(date);
+        Map<String, Integer> map = new HashMap<>();
+
+        for (Loan oneLoan : loanList) {
+            Set<Pass> passSet = oneLoan.getPassList();
+            for (Pass pass : passSet) {
+                String type = pass.getPassType();
+
+                if (map.containsKey(type)) {
+                    map.put(type, map.get(type) + 1);
+                } else {
+                    map.put(type, 1);
+                }
+
+            }
+        }
+        return map;
+    } 
 
 }

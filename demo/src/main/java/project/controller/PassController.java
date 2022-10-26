@@ -42,5 +42,10 @@ public class PassController {
         return passService.updatePass(passId, pass);
     }
 
+    @GetMapping("/getTotalPassNum")
+    public Map<String, Integer> getTotalPassNum(){
+        return passService.getTotalPassNum();
+    }
+
 
 }

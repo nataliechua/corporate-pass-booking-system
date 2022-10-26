@@ -42,6 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
             "/vendor/bootstrap/js/**",
             "/vendor/jquery-easing/**",
             "/js/**",
+            "/staff/**",
+            "staff**",
+            "/passes/**",
+            "passes**",
+            "loans**",
+            "/loans/**"
         };
         http
             .authorizeRequests()

@@ -30,10 +30,11 @@ public class Pass {
     private String passExpiryDate;
     private float replacementFee;
     private String isPassActive;
-    private String loans;
+    // private String loans;
 
-    // @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY)
+    // @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "passList"})
+    // @ToString.Exclude
     // private Set<Loan> loans = new HashSet<Loan>();
     
 }

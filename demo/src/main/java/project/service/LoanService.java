@@ -12,4 +12,6 @@ public interface LoanService {
 
     public Loan saveLoan(Loan loan);
     
+    public Map<String, Integer> getPassAvailabilityByDate(String date);
+    
 }
