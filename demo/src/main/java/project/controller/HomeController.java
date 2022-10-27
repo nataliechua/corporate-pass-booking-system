@@ -67,12 +67,18 @@ public class HomeController {
         return "adminViewLoanHistory";
     }
 
-    @GetMapping("/bookingCriteria") 
-    public String bookingCriteria(Model model) {
-        List<Constraint> constraints = constraintService.getAllConstraint(); 
-        model.addAttribute("constraints", constraints);
-        return "bookingCriteria";
-    }
+    // @GetMapping("/bookingCriteria") 
+    // public String bookingCriteria(Model model) {
+    //     List<Constraint> constraints = constraintService.getAllConstraint(); 
+    //     model.addAttribute("constraints", constraints);
+    //     return "bookingCriteria";
+    // }
+
+    // @RequestMapping(value="/bookingCriteria", method=(RequestMethod.PUT))
+    // public String updateBookingCriteria(Model model, Long constraintId, Constraint constraint){
+    //     constraintService.updateConstraintById(constraintId, constraint);
+    //     return "bookingCriteria";
+    // }
 
     @GetMapping("/templateList") 
     public String templateList() {
