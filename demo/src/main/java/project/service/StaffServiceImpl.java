@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import project.dto.*;
 import project.entity.*;
 import project.repository.*;
 import java.util.*;
@@ -20,16 +19,15 @@ public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
 
     @Override
-    public Staff saveStaff(StaffDto staffDto) {
+    public Staff saveStaff(Staff staff) {
         
-        Staff staff = new Staff(staffDto.getStaffName(), staffDto.getStaffEmail(),
-            staffDto.getContactNum(), new BCryptPasswordEncoder().encode(staffDto.getPassword()), 
-            staffDto.getIsAdminHold(), staffDto.getIsUserActive(), 
-            staffDto.getStaffType());
+        Staff staffRecord = new Staff(staff.getStaffName(), staff.getStaffEmail(),
+            staff.getContactNum(), new BCryptPasswordEncoder().encode(staff.getPassword()),
+            staff.getStaffType());
         System.out.println("===========================");
-        System.out.println(staff);
+        System.out.println(staffRecord);
         System.out.println("===========================");
-        return staffRepository.save(staff);
+        return staffRepository.save(staffRecord);
     }
 
     @Override
