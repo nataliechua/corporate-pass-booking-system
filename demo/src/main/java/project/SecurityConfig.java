@@ -69,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
         
         // uncomment here to disable login screen
         // http
+        //     .csrf().disable()
         //     .authorizeRequests()
         //     .antMatchers("/**").permitAll();
     }
