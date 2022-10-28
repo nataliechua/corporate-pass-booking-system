@@ -63,7 +63,9 @@ public class HomeController {
     }
 
     @GetMapping("/viewLoanHistory")
-    public String viewLoanHistory() {
+    public String viewLoanHistory(Model model) {
+        List<Loan> loans = loanService.getAllLoans();
+        model.addAttribute("loans", loans);
         return "adminViewLoanHistory";
     }
 
