@@ -18,6 +18,25 @@ public class PassRepositoryTest {
         System.out.println("passList = " + passList);
     }
 
+        @Test
+    public void createAPass() {
+        Pass p = new Pass("Art Science Museum",
+                        "Star Wars",
+                        4,
+                        "FALSE", 
+                        "", 
+                        "2022-10-29", 
+                        "2024-01-02", 
+                        20.0f, 
+                        "TRUE");
+
+        
+        passRepository.save(p);
+
+        List<Pass> passList = passRepository.findAll();
+        System.out.println("passList = " + passList);
+    }
+
     @Test
     public void printAvailablePassesOnADate() {
         // String date = "2020-10-07";

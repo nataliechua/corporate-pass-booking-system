@@ -22,7 +22,7 @@ public class Loan {
 
     @ManyToOne(
         fetch = FetchType.EAGER,
-        cascade=CascadeType.ALL
+        cascade=CascadeType.MERGE
     )
     // Creates a foreign key in Loan called "staff_id"
     @JoinColumn(name= "staff_id")
@@ -34,7 +34,7 @@ public class Loan {
 
     // Specify a many to many relationship
     @ManyToMany(
-        cascade=CascadeType.ALL,
+        cascade=CascadeType.MERGE,
         fetch = FetchType.EAGER
     )
     // JPA will automatically create a new association table
@@ -52,6 +52,13 @@ public class Loan {
     private Set<Pass> passList = new HashSet<Pass>();
     
     private String loanStatus;
+
+    public Loan(String loanDate, String attraction) {
+        this.loanDate = loanDate;
+        this.attraction = attraction;
+        // this.passList = passes;
+        this.loanStatus = "not collected";
+    };
 
     // Helper methods to update both ends of the bidirectional many-to-many relationship
     // Between loan and pass

@@ -30,7 +30,7 @@ public class PassServiceImplTest {
 
     @Test
     public void printTotalPassNumByDate() {
-        String date = "2020-10-07";
+        String date = "2022-10-07";
         Map<String, Integer> map = passServiceImpl.getPassAvailabilityByDate(date);
 
         System.out.println(map);

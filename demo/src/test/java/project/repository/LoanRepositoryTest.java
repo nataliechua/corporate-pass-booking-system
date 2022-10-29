@@ -14,10 +14,45 @@ public class LoanRepositoryTest {
     @Autowired
     private LoanRepository loanRepository;
 
+    @Autowired
+    private StaffRepository staffRepository;
+
+    @Autowired
+    private PassRepository passRepository;
+
     @Test
     public void printAllLoans() {
         List<Loan> loanList = loanRepository.findAll();
         System.out.println("loanList = " + loanList);
+    }
+
+    @Test
+    public void createLoan() {
+        System.out.println("Find Staff:");
+        Staff staff = staffRepository.findById(2L).get();
+
+        Set<Pass> passes = new HashSet<>();
+
+        System.out.println("Find Passes:");
+        Pass pass1 = passRepository.findById(1L).get();
+        Pass pass2 = passRepository.findById(2L).get();
+
+        passes.add(pass1);
+        passes.add(pass2);
+
+        System.out.println(passes);
+        System.out.println("Create new loan:");
+        Loan loan = new Loan("2022-10-10","Art Science Museum");
+
+        loan.setStaff(staff);
+        loan.setPassList(passes);
+        staff.getLoans().add(loan);
+        
+        System.out.println("Save loan: ");
+        loanRepository.save(loan);
+
+        List<Loan> loanList = loanRepository.findAll();
+        System.out.println("loanList with new = " + loanList);
     }
 
     @Test

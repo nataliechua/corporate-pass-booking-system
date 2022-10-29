@@ -27,6 +27,17 @@ public class Staff {
     private String isAdminHold;
     private String isUserActive;
     private String staffType;
+
+    @OneToMany(
+        // cascade=CascadeType.MERGE,
+        mappedBy="staff",
+        orphanRemoval=true,
+        fetch = FetchType.EAGER
+    )
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
+    @JsonIgnore
+    @ToString.Exclude
+    private List<Loan> loans = new ArrayList<>();
     
     public Staff(String staffName, String staffEmail, String contactNum, String password, 
         String isAdminHold, String isUserActive, String staffType) {
@@ -38,17 +49,6 @@ public class Staff {
         this.isUserActive = isUserActive;
         this.staffType = staffType;
     }
-
-    @OneToMany(
-        cascade=CascadeType.ALL,
-        mappedBy="staff",
-        orphanRemoval=true,
-        fetch = FetchType.LAZY
-    )
-    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
-    @JsonIgnore
-    @ToString.Exclude
-    private List<Loan> loans = new ArrayList<>();
 
     public Staff(String name, String email, String contact, String password, String type) {
         this.staffName = name;

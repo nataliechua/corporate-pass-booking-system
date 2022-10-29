@@ -30,6 +30,18 @@ public class Pass {
     private String passExpiryDate;
     private float replacementFee;
     private String isPassActive;
+
+    public Pass(String passType, String attractions, int peoplePerPass, String isDigital, String digitalPath, String passStartDate, String passExpiryDate, float replacementFee, String isPassActive) {
+        this.passType = passType;
+        this.attractions = attractions;
+        this.peoplePerPass = peoplePerPass;
+        this.isDigital = isDigital;
+        this.digitalPath = digitalPath;
+        this.passStartDate = passStartDate;
+        this.passExpiryDate = passExpiryDate;
+        this.replacementFee = replacementFee;
+        this.isPassActive = isPassActive;
+    }
     // private String loans;
 
     // @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
