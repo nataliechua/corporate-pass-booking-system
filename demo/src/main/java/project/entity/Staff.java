@@ -34,13 +34,6 @@ public class Staff {
         orphanRemoval=true,
         fetch = FetchType.EAGER
     )
-    
-    @OneToMany(
-        cascade=CascadeType.ALL,
-        mappedBy="staff",
-        orphanRemoval=true,
-        fetch = FetchType.LAZY
-    )
     // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
     @JsonIgnore
     @ToString.Exclude
