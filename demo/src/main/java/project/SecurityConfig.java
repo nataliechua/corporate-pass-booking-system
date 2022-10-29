@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // uncomment here to enable login screen
         String[] staticResources  =  {
             "/registration**",
             "/css/**",
@@ -64,6 +66,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+        
+        // uncomment here to disable login screen
+        // http
+        //     .csrf().disable()
+        //     .authorizeRequests()
+        //     .antMatchers("/**").permitAll();
     }
+    
     
 }

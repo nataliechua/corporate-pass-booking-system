@@ -63,16 +63,24 @@ public class HomeController {
     }
 
     @GetMapping("/viewLoanHistory")
-    public String viewLoanHistory() {
+    public String viewLoanHistory(Model model) {
+        List<Loan> loans = loanService.getAllLoans();
+        model.addAttribute("loans", loans);
         return "adminViewLoanHistory";
     }
 
-    @GetMapping("/bookingCriteria") 
-    public String bookingCriteria(Model model) {
-        List<Constraint> constraints = constraintService.getAllConstraint(); 
-        model.addAttribute("constraints", constraints);
-        return "bookingCriteria";
-    }
+    // @GetMapping("/bookingCriteria") 
+    // public String bookingCriteria(Model model) {
+    //     List<Constraint> constraints = constraintService.getAllConstraint(); 
+    //     model.addAttribute("constraints", constraints);
+    //     return "bookingCriteria";
+    // }
+
+    // @RequestMapping(value="/bookingCriteria", method=(RequestMethod.PUT))
+    // public String updateBookingCriteria(Model model, Long constraintId, Constraint constraint){
+    //     constraintService.updateConstraintById(constraintId, constraint);
+    //     return "bookingCriteria";
+    // }
 
     @GetMapping("/templateList") 
     public String templateList() {

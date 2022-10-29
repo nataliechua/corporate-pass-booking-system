@@ -34,21 +34,17 @@ public class Staff {
         orphanRemoval=true,
         fetch = FetchType.EAGER
     )
+    
+    @OneToMany(
+        cascade=CascadeType.ALL,
+        mappedBy="staff",
+        orphanRemoval=true,
+        fetch = FetchType.LAZY
+    )
     // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "staff"})
     @JsonIgnore
     @ToString.Exclude
     private List<Loan> loans = new ArrayList<>();
-    
-    public Staff(String staffName, String staffEmail, String contactNum, String password, 
-        String isAdminHold, String isUserActive, String staffType) {
-        this.staffName = staffName;
-        this.staffEmail = staffEmail;
-        this.contactNum = contactNum;
-        this.password = password;
-        this.isAdminHold = isAdminHold;
-        this.isUserActive = isUserActive;
-        this.staffType = staffType;
-    }
 
     public Staff(String name, String email, String contact, String password, String type) {
         this.staffName = name;
