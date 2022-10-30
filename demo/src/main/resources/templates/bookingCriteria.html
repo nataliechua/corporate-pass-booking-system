@@ -63,54 +63,53 @@
                             <h6 class="m-0 font-weight-bold text-primary">Edit Criteria</h6>
                         </div>
                         <div class="card-body">
-                            <p th:text="${constraints}"></p>
+                            
+
+                            <!-- ALERT - START-->
+                            <div id="alertBoxDiv" th:if="${param.success}">
+                                <div class="alert alert-success" v-show="showAlert" id="alertDiv" role="alert">
+                                    <button onclick="document.getElementById('alertDiv').style.opacity = '0'" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Success!</strong> Booking Constraints Updated!
+                                </div>
+                            </div>
+                            <!-- ALERT - ENDS-->
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>   
                                             <th>No.</th>
                                             <th>Criteria</th>
-                                            <th>Number</th>
-                                            <th>Action</th>
+                                            <th>Old</th>
+                                            <th>New</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        <form th:object="${constraint}">
-                                            <tr th:each="constraint : ${constraints}" >
-                                                <td><p id="constraintId" th:field="*{constraintId}" th:text="${constraint.constraintId}"></p></td>
-                                                <td><p id="constraintName" th:field="*{constraintName}" th:text="${constraint.constraintName}"></p></td>
-                                                <td><input id="constraintData" type="number" th:value="${constraint.constraintData}"/></td>
+                                        <tr th:each="constraint : ${constraints}" >
+                                            <td>
+                                                <p th:text="${constraint.constraintId}"></p>
+                                            <td>
+                                                <p th:text="${constraint.constraintName}"></p>
+                                            </td>
+                                            <td>
+                                                <p th:text="${constraint.constraintData}"></p>
+                                            </td>
+                                            <form th:action="@{/bookingCriteria/} + ${constraint.constraintId} + '/' + ${constraint.constraintName}" th:object="${constraint}" th:method="PUT">
                                                 <td>
-                                                    <a href="" class="btn btn-primary btn-sm">
-                                                        <span class="text">Save</span>
-                                                    </a>
+                                                    <input id="constraintData" type="number" name="constraintData" th:field="*{constraintData}"/>
                                                 </td>
-                                            </tr>
-                                        </form>
-                                        <!-- <form th:action="@{/createPass}" th:object="${constraint}" method="POST">
-                                            <tr th:each="constraint : ${constraints}" >
-                                                <td><p id="constraintId" th:field="*{constraintId}" th:text="${constraint.constraintId}"></p></td>
-                                                <td><p id="constraintName" th:field="*{constraintName}" th:text="${constraint.constraintName}"></p></td>
-                                                <td><input id="constraintData" th:field="*{constraintData}" type="number" th:value="${constraint.constraintData}"/></td>
                                                 <td>
-                                                    <a href="" class="btn btn-primary btn-sm">
-                                                        <span class="text">Save</span>
-                                                    </a>
+                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                        <span class="text">Update</span>
+                                                    </button>
                                                 </td>
-                                            </tr>
-                                        </form> -->
-                                            <!-- <tr>
-                                                <td></td>
-                                                <td>
-                                                    <a th:href="@/" class="btn btn-primary btn-sm">
-                                                        <span class="text">Save</span>
-                                                    </a>
-                                                </td>
-                                            </tr>  -->
+                                            </form>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            <p class="pt-5" th:text="${constraints}"></p>
                         </div>
                     </div>
 
@@ -169,6 +168,15 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    
+    <!-- Alert Fade -->
+    <script>
+        window.setTimeout(function() {
+                        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                            $(this).remove(); ;
+                        });
+                    }, 2000);
+    </script>
 
 </body>
 

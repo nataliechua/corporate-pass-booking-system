@@ -38,13 +38,13 @@ public class ConstraintUpdateController {
         model.addAttribute("constraints", constraints);
         return "bookingCriteria";
     }
-
-    @PutMapping
-    public String updateBookingConstraint(@ModelAttribute("constraints") Constraint constraint) {
-
-        System.out.println(constraint.toString());
+    
+    @PutMapping("/{id}/{name}")
+    public String updateBookingConstraint(@PathVariable("id") Long constraintId, @PathVariable("name") String constraintName, @ModelAttribute("constraints") Constraint constraint) {
+        constraint.setConstraintId(constraintId);
+        constraint.setConstraintName(constraintName);
         constraintService.updateConstraint(constraint);
-        return "bookingCriteria";
+        return "redirect:/bookingCriteria?success";
         
         //return "redirect:/registration?success";
     }
