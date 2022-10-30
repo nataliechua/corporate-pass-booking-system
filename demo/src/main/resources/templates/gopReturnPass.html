@@ -19,14 +19,14 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- CSS Stylesheet -->
     <link href="css/myStyle.css" type="text/css" rel="stylesheet" />
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
-
 </head>
 
 <body id="page-top">
@@ -52,87 +52,85 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Passes</h1>
+                    <h1 class="h3 mb-2 text-gray-800">All Loaned Passes</h1>
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Loans</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan ID</th>
+                                            <th>Pass ID + Name</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Contact Number</th>
+                                            <th>Loan Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="loan : ${loans}">
+                                            <td th:text="${loan.loanId}"></td>
+                                            <td><li th:each="pass : ${loan.passList}" th:text="|ID${pass.passId}: ${pass.passType}|"></li></td>
+                                            <td th:text="${loan.staff.staffName}"></td>
+                                            <td th:text="${loan.staff.staffEmail}"></td>
+                                            <td th:text="${loan.staff.contactNum}"></td>
+                                            <td th:text="${loan.loanDate}"></td>
+                                            <td th:block th:switch="${loan.loanStatus}">
+                                                <div th:case="'collected'">
+                                                    <!-- <a href="#" data-toggle="modal" th:attr="data-target='#deactivePassModal'+ ${pass.passId}"  class="mt-3 d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">Deactivate</a> -->
+                            
+                                                    <button type="submit" class="btn btn-secondary btn-sm btn-block">
+                                                        <span class="text">Returned</span>
+                                                    </button>
+                                                </div>
+                                                <div th:case="'returned'">
+                                                    <button type="submit" disabled class="btn btn-light btn-sm btn-block">
+                                                        <span class="text">Returned</span>
+                                                    </button>
+                                                    </form>
+                                                </div>
+                                                <div th:case="'not collected'">
+                                                    <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                                        <span class="text">Collected</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <!-- Pass Update Confirmation Modal - STARTS -->
+                                            <!-- <div class="modal fade" th:id="'deactivePassModal' + ${pass.passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Deactive Pass?</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">Select "Deactive" below if you are sure to set pass as inactive.</div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                            <form th:action="@{/viewPasses/} + ${pass.passId}" th:object="${pass}" th:method="PUT">
+                                                                <button type="submit" class="btn btn-primary">Deactive</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        <!-- Pass Update Confirmation Modal - ENDS -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Content Row -->
-                    <h4>For collection</h4>
-                    <div class="row">
-                        
-                        <div class="col-md-3 col-xs-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p><br/>
-                                    <a href="#" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12">Collected</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-xs-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p><br/>
-                                    <a href="#" data-toggle="modal" data-target="#returnPassModel" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">Collected</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <!-- Content Row -->
-                    <h4>To return</h4>
-                    <div class="row">
-                        
-                        <div class="col-md-3 col-xs-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p><br/>
-                                    <a href="#" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm col-12">Returned</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-xs-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p><br/>
-                                    <a href="#" data-toggle="modal" data-target="#returnPassModel" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm col-12 ">Returned</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-xs-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p><br/>
-                                    <a href="#" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm col-12">Returned</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Content Row -->
 
                 </div>
                 <!-- /.container-fluid -->
@@ -173,26 +171,6 @@
         </div>
     </div>
 
-    <!-- Return Pass Modal-->
-    <div class="modal fade" id="returnPassModel" tabindex="-1" role="dialog" aria-labelledby="returnPassModel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Return pass</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "comfirm" below if the borrower has returned the card.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="gopReturnPass.html">Comfirm</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -204,11 +182,11 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

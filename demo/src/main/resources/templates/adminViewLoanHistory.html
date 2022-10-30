@@ -27,8 +27,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- VueJS -->
-    <script src="https://unpkg.com/vue@next"></script>
-
+    <script src="https://unpkg.com/vue@next"></script>  
 
 </head>
 
@@ -85,7 +84,7 @@
                                             <td><p th:text="${loan.staff.staffName}"></td>
                                             <td><p th:text="${loan.staff.staffEmail}"></p></td>
                                             <td><p th:text="${loan.staff.contactNum}"></p></td>
-                                            <td><li th:each="pass : ${loan.passList}" th:text="${pass.passType}"></li></td>
+                                            <td><li th:each="pass : ${loan.passList}" th:text="|ID${pass.passId}: ${pass.passType}|"></li></td>
                                             <td><p th:text="${loan.loanDate}"></p></td>
                                             <td th:block th:switch="${loan.loanStatus}">
                                                 <p th:case="'collected'" style="color: blue;">Collected</p>
@@ -93,24 +92,8 @@
                                                 <p th:case="'not collected'" style="color: black;">Not collected</p>
                                             </td>
                                         </tr>
-                                        <!-- <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>123@gmail.com</td>
-                                            <td>91234566</td>
-                                            <td>Jurong Bird Park</td>
-                                            <td>2022-11-02</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>123@gmail.com</td>
-                                            <td>91234566</td>
-                                            <td>Garden</td>
-                                            <td>2022-11-02</td>
-                                        </tr> -->
-                                        
                                     </tbody>
                                 </table>
-                            </div><p th:text="${loans}"></p>
                         </div>
                     </div>
 
@@ -164,18 +147,11 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 </body>
 
 </html>

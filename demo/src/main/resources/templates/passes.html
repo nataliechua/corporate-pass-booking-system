@@ -67,6 +67,7 @@
                                     <h6 th:text="${pass.passType}" class="m-0 font-weight-bold text-primary"></h6>
                                 </div>
                                 <div class="card-body">
+                                    <p class="mb-0"><b>Pass ID: </b><span th:text="${pass.passId}"></span></p>
                                     <p class="mb-0"><b>Attractions: </b><span th:text="${pass.attractions}"></span></p>
                                     <p class="mb-0"><b>People Per Pass: </b><span th:text="${pass.peoplePerPass}"></span></p>
                                     <p class="mb-0"><b>isDigital: </b><span th:text="${pass.isDigital}"></span></p>
@@ -74,11 +75,32 @@
                                     <p class="mb-0"><b>Pass Start Date: </b><span th:text="${pass.passStartDate}"></span></p>
                                     <p class="mb-0"><b>Pass Expiry Date: </b><span th:text="${pass.passExpiryDate}"></span></p>
                                     <p class="mb-0"><b>Replacement Fee: </b>$<span th:text="${pass.replacementFee}"></span></p>
+                                    <a href="#" data-toggle="modal" th:attr="data-target='#deactivePassModal'+ ${pass.passId}"  class="mt-3 d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">Deactivate</a>
                                 </div>
                             </div>
+                            <!-- Deactive Pass Modal - STARTS -->
+                            <div class="modal fade" th:id="'deactivePassModal' + ${pass.passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deactive Pass?</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Select "Deactive" below if you are sure to set pass as inactive.</div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                            <form th:action="@{/viewPasses/} + ${pass.passId}" th:object="${pass}" th:method="PUT">
+                                                <button type="submit" class="btn btn-primary">Deactive</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- Deactive Pass Modal - ENDS -->
                         </div>
                     </div>
-                    <p th:text="${passes}"></p>
                 
                     <!--
                     <h4>Lost</h4>
@@ -141,6 +163,27 @@
         </div>
     </div>
 
+    <!-- Deactive Pass Modal - STARTS -->
+        <div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Deactive Pass?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Deactive" below if you are sure to set pass as inactive.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="@{/viewPasses/} + ${constraint.constraintId}">Deactive</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Deactive Pass Modal - ENDS -->
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -150,13 +193,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

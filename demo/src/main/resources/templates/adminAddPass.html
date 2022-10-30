@@ -26,6 +26,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- Add sidebar active state - STARTS -->
+    <script>
+        $(function(){
+            var current = location.pathname;
+            $('#nav li a').each(function(){
+                var $this = $(this);
+                console.log(current);
+                console.log($this.attr('href'))
+                // if the current path is like this link, make it active
+                if($this.attr('href').indexOf(current) !== -1){
+                    $this.addClass('active');
+                }
+            })
+        })
+    </script>
+    <!-- Add sidebar active state - ENDS -->
 </head>
 
 <body id="page-top">
@@ -179,13 +196,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
