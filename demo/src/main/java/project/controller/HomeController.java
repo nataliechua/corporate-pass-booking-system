@@ -32,13 +32,13 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/viewStaffs") 
-    public String viewStaffs(Model model) {
+    // @GetMapping("/viewStaffs") 
+    // public String viewStaffs(Model model) {
 
-        List<Staff> staffs = staffService.getAllStaff(); 
-        model.addAttribute("staffs", staffs);
-        return "staffs";
-    }
+    //     List<Staff> staffs = staffService.getAllStaff(); 
+    //     model.addAttribute("staffs", staffs);
+    //     return "staffs";
+    // }
 
     @GetMapping("/viewPasses")
     public String viewPasses(Model model) {
@@ -47,10 +47,19 @@ public class HomeController {
         return "passes";
     }
 
-    @GetMapping("/gopReturnPass")
-    public String gopReturnPass() {
-        return "gopReturnPass";
+    @PutMapping("/viewPasses/{id}")
+    public String updatePassInactive(@PathVariable("id")Long passId) {
+        Pass pass = passService.getPassById(passId);
+        pass.setIsPassActive("FALSE");
+        passService.updatePass(passId, pass);
+        return "redirect:/viewPasses";
+        //return "redirect:/registration?success";
     }
+
+    // @GetMapping("/gopReturnPass")
+    // public String gopReturnPass() {
+    //     return "gopReturnPass";
+    // }
 
     @GetMapping("/bookAPass")
     public String bookAPass() {

@@ -10,7 +10,7 @@ Staff_ID bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
 Staff_Name varchar(50) NOT NULL,
 Staff_Email varchar(50) NOT NULL,
 Contact_Num varchar(20) NOT NULL,
-Password varchar(50) NOT NULL,
+Password varchar(100) NOT NULL,
 Is_Admin_Hold varchar(5) NOT NULL,
 Is_User_Active varchar(5) NOT NULL,
 Staff_Type varchar(10) NOT NULL
@@ -69,7 +69,7 @@ LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/pass.c
 INTO TABLE PASS 
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
-LINES TERMINATED BY '\n'   
+LINES TERMINATED BY '\r\n'   
 IGNORE 1 ROWS;  
 
 /*Import Loan CSV File*/ 
