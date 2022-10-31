@@ -42,11 +42,22 @@ public class Pass {
         this.replacementFee = replacementFee;
         this.isPassActive = isPassActive;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Pass) {
+            Pass p = (Pass) o;
+            return passId == p.passId;
+        }
+    
+        return false;
+    }
     // private String loans;
 
-    // @ManyToMany(mappedBy = "passList", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "passList", fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
     // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "passList"})
-    // @ToString.Exclude
-    // private Set<Loan> loans = new HashSet<Loan>();
+    @JsonIgnore
+    @ToString.Exclude
+    private Set<Loan> loans = new HashSet<Loan>();
     
 }

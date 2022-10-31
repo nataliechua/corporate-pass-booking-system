@@ -3,7 +3,8 @@ package project.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import project.entity.*;
 import java.util.*;
 
@@ -38,9 +39,27 @@ public class PassRepositoryTest {
     }
 
     @Test
-    public void printAvailablePassesOnADate() {
-        // String date = "2020-10-07";
-        // List<Object> passList = passRepository.getPassByAvailability();
-        // System.out.println("passList = " + passList);
+    public void getPassesForAnAttraction() {
+        List<Pass> passes = passRepository.findByAttractionsContaining("Singapore Zoo");
+        System.out.println("passList = " + passes);
     }
+
+    // @Test
+    // public void checkPreviousDayBorrower() {
+    //     // String str_date = "2022-10-04";
+
+    //     // DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+    //     // Date date = formatter.parse(str_date);
+
+    //     List<Pass> passes = passRepository.findByLoanDateAndPass("2022-10-03", 1L);
+
+    //     System.out.println("passList=" + passes);
+    // }
+
+    // @Test
+    // public void printAvailablePassesOnADate() {
+    //     // String date = "2020-10-07";
+    //     // List<Object> passList = passRepository.getPassByAvailability();
+    //     // System.out.println("passList = " + passList);
+    // }
 }

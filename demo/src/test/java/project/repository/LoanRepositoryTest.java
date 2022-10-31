@@ -45,14 +45,14 @@ public class LoanRepositoryTest {
         Loan loan = new Loan("2022-10-10","Art Science Museum");
 
         loan.setStaff(staff);
-        loan.setPassList(passes);
         staff.getLoans().add(loan);
+        loan.addPasses(passes);
         
         System.out.println("Save loan: ");
-        loanRepository.save(loan);
+        Loan newLoan = loanRepository.save(loan);
 
         List<Loan> loanList = loanRepository.findAll();
-        System.out.println("loanList with new = " + loanList);
+        System.out.println("loanList with new = " + newLoan);
     }
 
     @Test
@@ -78,5 +78,70 @@ public class LoanRepositoryTest {
         System.out.println(map);
     }
 
-    
+    @Test
+    public void printPassesByAttractionAndDate() {
+
+        List<Pass> allPassesForAnAttraction = passRepository.findByAttractionsContaining("Singapore Zoo");
+
+        String attraction = "Singapore Zoo";
+        List<Loan> loansList = loanRepository.findByLoanDate("2022-10-03");
+        List<Pass> borrowedPassesForAnAttraction = new ArrayList<>();
+        List<Pass> availablePasses = new ArrayList<>();
+
+        for (Loan l : loansList) {
+            Set<Pass> passes = l.getPassList();
+
+            for (Pass p : passes) {
+                if (p.getAttractions().contains(attraction)) {
+                    borrowedPassesForAnAttraction.add(p);
+                }
+            }
+
+        }
+
+        for (Pass p : allPassesForAnAttraction) {
+            for (Pass borrowedPass : borrowedPassesForAnAttraction) {
+                if (!p.equals(borrowedPass)) {
+                    availablePasses.add(p);
+                }
+            }
+        }
+
+        String s = "";
+        for(Pass p : allPassesForAnAttraction) {
+            s += p.getPassId() + ", ";
+        }
+
+        System.out.println("all passes for an attraction=" + s);
+
+        String s2 = "";
+        for(Pass p : borrowedPassesForAnAttraction) {
+            s2 += p.getPassId() + ", ";
+        }
+
+        System.out.println("all passes for an attraction=" + s2);
+
+        String s3 = "";
+        for(Pass p : availablePasses) {
+            s3 += p.getPassId() + ", ";
+        }
+
+        System.out.println("all passes for an attraction=" + s3);
+    }
+
+    @Test
+    public void printLoansByStaffId() {
+        System.out.println(loanRepository.findByStaffStaffId(1L)); 
+    }
+
+    @Test
+    public void printUpdatedLoan() {
+        Loan loan = loanRepository.findById(1L).get();
+
+        String status = "collected";
+
+        loan.setLoanStatus(status);
+
+        loanRepository.save(loan);
+    }
 }

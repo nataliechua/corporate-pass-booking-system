@@ -35,43 +35,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // uncomment here to enable login screen
-        String[] staticResources  =  {
-            "/registration**",
-            "/css/**",
-            "/vendor/fontawesome-free/css/**",
-            "/vendor/jquery/**",
-            "/vendor/bootstrap/js/**",
-            "/vendor/jquery-easing/**",
-            "/js/**",
-            "/staff/**",
-            "staff**",
-            "/passes/**",
-            "passes**",
-            "loans**",
-            "/loans/**"
-        };
-        http
-            .authorizeRequests()
-            .antMatchers(staticResources).permitAll()
-            .anyRequest().authenticated()
-            .and()
-                .formLogin()
-                .loginPage("/login") // use a customised login page
-                .permitAll()
-            .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll();
+        // // uncomment here to enable login screen
+        // String[] staticResources  =  {
+        //     "/registration**",
+        //     "/css/**",
+        //     "/vendor/fontawesome-free/css/**",
+        //     "/vendor/jquery/**",
+        //     "/vendor/bootstrap/js/**",
+        //     "/vendor/jquery-easing/**",
+        //     "/js/**",
+        //     "/staff/**",
+        //     "staff**",
+        //     "/passes/**",
+        //     "passes**",
+        //     "loans**",
+        //     "/loans/**"
+        // };
+        // http
+        //     .authorizeRequests()
+        //     .antMatchers(staticResources).permitAll()
+        //     .anyRequest().authenticated()
+        //     .and()
+        //         .formLogin()
+        //         .loginPage("/login") // use a customised login page
+        //         .permitAll()
+        //     .and()
+        //         .logout()
+        //         .invalidateHttpSession(true)
+        //         .clearAuthentication(true)
+        //         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        //         .logoutSuccessUrl("/login?logout")
+        //         .permitAll();
         
         // uncomment here to disable login screen
-        // http
-        //     .csrf().disable()
-        //     .authorizeRequests()
-        //     .antMatchers("/**").permitAll();
+        http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/**").permitAll();
     }
     
     
