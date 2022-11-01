@@ -9,7 +9,9 @@ import project.entity.*;
 public interface StaffService extends UserDetailsService {
     public Staff getStaffById(Long staffId);
 
-    public Staff getStaffByEmail(String email);
+    public Staff getStaffByEmail(String email); // added this
+
+    public Long getStaffIdFromLogin(); // added this
 
     public Staff saveStaff(Staff staff);
 

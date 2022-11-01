@@ -3,6 +3,7 @@ package project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -75,6 +76,26 @@ public class StaffServiceImpl implements StaffService {
         //    }
 
         return staff;
+    }
+
+    @Override
+    public Long getStaffIdFromLogin() { // not sure if we need this
+        
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String email = "";
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails)principal).getUsername();
+        } else {
+            email = principal.toString();
+        }
+
+        if (email.equals("")) {
+            return null;
+        }
+        Staff result = getStaffByEmail(email);
+        System.out.println(result);
+        return result.getStaffId();
     }
 
     @Override

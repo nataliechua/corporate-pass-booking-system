@@ -3,120 +3,146 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion h-100" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/" sec:authorize="hasAuthority('Admin')">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
             <div class="sidebar-brand-text mx-3">SSP Admin</div>
         </a>
         <!-- End of Sidebar - Brand -->
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/bookAPass" sec:authorize="hasAuthority('Staff')">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SSP Staff</div>
+        </a>
+        <!-- End of Sidebar - Brand -->
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/gopReturnPass" sec:authorize="hasAuthority('GOP')">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">SSP GOP</div>
+        </a>
+        <!-- End of Sidebar - Brand -->
+        <!--Admin View-->
+        <div sec:authorize="hasAuthority('Admin')">
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <!-- End of Nav Item - Dashboard -->
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-        <!-- End of Nav Item - Dashboard -->
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Pass -->
+            <li class="nav-item">
+                <a class="nav-link" href="/viewPasses">
+                    <i class="fas fa-fw fa-ticket-alt"></i>
+                    <span>Pass</span></a>
+            </li>
+            <!-- End of Nav Item - Pass -->
 
-        <!-- Nav Item - Pass -->
-        <li class="nav-item">
-            <a class="nav-link" href="/viewPasses">
-                <i class="fas fa-fw fa-ticket-alt"></i>
-                <span>Pass</span></a>
-        </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Admin List -->
+            <li class="nav-item">
+                <a class="nav-link" href="/viewStaffs">
+                    <i class="fas fa-fw fa-address-card"></i>
+                    <span>Staff List</span></a>
+            </li>
+            <!-- End of Nav Item - Admin List -->
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+                    <!-- Nav Item - Loan -->
+            <li class="nav-item">
+                <a class="nav-link" href="/viewLoanHistory">
+                    <i class="fas fa-fw fa-history"></i>
+                    <span>Loan History</span></a>
+            </li>
+            <!-- End of Nav Item - Loan -->
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Edit
+            </div>
+
+            <!-- Nav Item - Email Template -->
+            <li class="nav-item">
+                <a class="nav-link" href="/templateList">
+                    <i class="fas fa-fw fa-envelope"></i>
+                    <span>Email Template</span></a>
+            </li>
+            <!-- End of Nav Item - Email Template -->
+
+            <!-- Nav Item - Booking Criteria -->
+            <li class="nav-item">
+                <a class="nav-link" href="/bookingCriteria">
+                    <i class="fas fa-fw fa-check-circle"></i>
+                    <span>Booking Criteria</span></a>
+            </li>
+            <!-- End of Nav Item - Booking Criteria -->
+        </div>
+        <!--//Admin View End-->
+
+        <!--GOP-->
+        <div sec:authorize="hasAuthority('GOP')">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                GOP
+            </div>
+
+            <!-- Nav Item - Pass -->
+            <li class="nav-item">
+                <a class="nav-link" href="/gopReturnPass">
+                    <i class="fas fa-fw fa-ticket-alt"></i>
+                    <span>Pass</span></a>
+            </li>
+        </div>
         <!-- End of Nav Item - Pass -->
+        <!--//GOP-->
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+        <!--Staff-->
+        <div sec:authorize="hasAuthority('Staff')">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-        <!-- Nav Item - Admin List -->
-        <li class="nav-item">
-            <a class="nav-link" href="/viewStaffs">
-                <i class="fas fa-fw fa-address-card"></i>
-                <span>Staff List</span></a>
-        </li>
-        <!-- End of Nav Item - Admin List -->
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                STAFF
+            </div>
+            
+            <!-- Nav Item - Booking Calendar -->
+            <li class="nav-item">
+                <a class="nav-link" href="/bookAPass">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    <span>Calendar</span></a>
+            </li>
+            <!-- End of Nav Item - Booking Calendar -->
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-                <!-- Nav Item - Loan -->
-        <li class="nav-item">
-            <a class="nav-link" href="/viewLoanHistory">
-                <i class="fas fa-fw fa-history"></i>
-                <span>Loan History</span></a>
-        </li>
-        <!-- End of Nav Item - Loan -->
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Edit
+            <!-- Nav Item - Loan Passes -->
+            <li class="nav-item">
+                <a class="nav-link" href="/loanedPasses">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Loaned Passes</span></a>
+            </li>
         </div>
-
-        <!-- Nav Item - Email Template -->
-        <li class="nav-item">
-            <a class="nav-link" href="/templateList">
-                <i class="fas fa-fw fa-envelope"></i>
-                <span>Email Template</span></a>
-        </li>
-        <!-- End of Nav Item - Email Template -->
-
-        <!-- Nav Item - Booking Criteria -->
-        <li class="nav-item">
-            <a class="nav-link" href="/bookingCriteria">
-                <i class="fas fa-fw fa-check-circle"></i>
-                <span>Booking Criteria</span></a>
-        </li>
-        <!-- End of Nav Item - Booking Criteria -->
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            GOP
-        </div>
-
-        <!-- Nav Item - Pass -->
-        <li class="nav-item">
-            <a class="nav-link" href="/gopReturnPass">
-                <i class="fas fa-fw fa-ticket-alt"></i>
-                <span>Pass</span></a>
-        </li>
-        <!-- End of Nav Item - Pass -->
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            STAFF
-        </div>
-        
-        <!-- Nav Item - Booking Calendar -->
-        <li class="nav-item">
-            <a class="nav-link" href="/bookAPass">
-                <i class="fas fa-fw fa-calendar"></i>
-                <span>Calendar</span></a>
-        </li>
-        <!-- End of Nav Item - Booking Calendar -->
-
-        <!-- Nav Item - Loan Passes -->
-        <li class="nav-item">
-            <a class="nav-link" href="/loanedPasses">
-                <i class="fas fa-fw fa-book"></i>
-                <span>Loaned Passes</span></a>
-        </li>
         <!-- End of Nav Item - Loan -->
         
         <!-- Divider -->
@@ -133,6 +159,7 @@
             <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
             <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
         </div>
+        <!--//Staff-->
 
     </ul>
     <!-- End of Sidebar -->

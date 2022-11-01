@@ -9,12 +9,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import project.service.*;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace default login page w our customised ver
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
+    public void WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    }
 
     @Autowired
     private StaffService staffService;
@@ -54,10 +62,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
         http
             .authorizeRequests()
             .antMatchers(staticResources).permitAll()
+            // .antMatchers("/").hasRole("Admin")
             .anyRequest().authenticated()
             .and()
                 .formLogin()
                 .loginPage("/login") // use a customised login page
+                .successHandler(authenticationSuccessHandler)
                 .permitAll()
             .and()
                 .logout()
@@ -65,7 +75,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+            .and()
+                .exceptionHandling().accessDeniedPage("/404")    
+            ;
         
         // uncomment here to disable login screen
         // http

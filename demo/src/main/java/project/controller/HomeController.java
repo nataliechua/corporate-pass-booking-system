@@ -26,24 +26,32 @@ public class HomeController {
 
     @GetMapping("/")
     public String index() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String email = "";
-        if (principal instanceof UserDetails) {
-            email = ((UserDetails)principal).getUsername();
-        } else {
-            email = principal.toString();
-        }
-        // ***Todo: Create a session that stores user_id
-        // ***In the future when wanna insert record, just check if there's a user_id sess
-        // *** if dh, lookup
+        // String email = "";
+        // if (principal instanceof UserDetails) {
+        //     email = ((UserDetails)principal).getUsername();
+        // } else {
+        //     email = principal.toString();
+        // }
+        // // ***Todo: Create a session that stores user_id
+        // // ***In the future when wanna insert record, just check if there's a user_id sess
+        // // *** if dh, lookup
+        // System.out.println("hello: ");
+        // System.out.println(email);
+        // if (!email.equals("")) {
+        //     Staff result = staffService.getStaffByEmail(email);
+        //     System.out.println(result);
+        // }
+        System.out.println("************************* ");
         System.out.println("hello: ");
-        System.out.println(email);
-        if (!email.equals("")) {
-            Staff result = staffService.getStaffByEmail(email);
-            System.out.println(result);
-        }
-        System.out.println("hello: ");
+        System.out.println(staffService.getStaffIdFromLogin());
+        System.out.println("************************* ");
+        
+        // if staff:  
+            // return "redirect:/bookAPass";
+        // if gop: 
+            // return "redirect:/gopReturnPass";
         return "index";
     }
 
@@ -128,4 +136,8 @@ public class HomeController {
         return "templateList";
     }
     
+    @GetMapping("/404") 
+    public String errorPage() {
+        return "404";
+    }
 }
