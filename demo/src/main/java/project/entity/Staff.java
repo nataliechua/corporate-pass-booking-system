@@ -47,7 +47,7 @@ public class Staff {
         this.staffType = type;
 
         this.isAdminHold = "FALSE";
-        this.isUserActive = "TRUE";
+        this.isUserActive = "FALSE";
     }
 
     public List<Loan> addLoan(Loan loan) {
