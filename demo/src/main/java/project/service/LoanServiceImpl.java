@@ -138,7 +138,7 @@ public class LoanServiceImpl implements LoanService {
     };
 
     @Override
-    public Loan getLoanByStaffId(Long id) {
+    public List<Loan> getLoansByStaffId(Long id) {
         return loanRepository.findByStaffStaffId(id);
     }
 

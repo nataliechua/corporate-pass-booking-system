@@ -59,5 +59,9 @@ public class Pass {
     @JsonIgnore
     @ToString.Exclude
     private Set<Loan> loans = new HashSet<Loan>();
+
+    public String[] getAttractionList() {
+        return this.attractions.split(", ", -1);
+    }
     
 }

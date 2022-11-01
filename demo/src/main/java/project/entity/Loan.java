@@ -69,9 +69,11 @@ public class Loan {
         }
     }
 
-    // public void removePass(Pass pass) {
-    //     this.passList.remove(pass);
-    //     pass.getLoans().remove(this);
-    // }
+    public void removePasses(Set<Pass> passes) {
+        for (Pass p : passes) {
+            this.passList.remove(p);
+            p.getLoans().remove(this);
+        }
+    }
     
 }

@@ -19,7 +19,15 @@ public class PassRepositoryTest {
         System.out.println("passList = " + passList);
     }
 
-        @Test
+    @Test
+    public void printAPassesAttractions() {
+        Pass p = passRepository.findById(1L).get();
+        String[] result = p.getAttractionList();
+
+        System.out.println(Arrays.toString(result));
+    }
+
+    @Test
     public void createAPass() {
         Pass p = new Pass("Art Science Museum",
                         "Star Wars",
@@ -41,6 +49,12 @@ public class PassRepositoryTest {
     @Test
     public void getPassesForAnAttraction() {
         List<Pass> passes = passRepository.findByAttractionsContaining("Singapore Zoo");
+        System.out.println("passList = " + passes);
+    }
+
+    @Test
+    public void getAvailablePassesForPassTypeAndDate() {
+        List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate("Mandai Wildlife Reserve", "2022-10-03");
         System.out.println("passList = " + passes);
     }
 

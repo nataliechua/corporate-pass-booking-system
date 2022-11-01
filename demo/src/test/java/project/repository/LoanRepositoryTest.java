@@ -136,7 +136,7 @@ public class LoanRepositoryTest {
 
     @Test
     public void printUpdatedLoan() {
-        Loan loan = loanRepository.findById(1L).get();
+        Loan loan = loanRepository.findById(2L).get();
 
         String status = "collected";
 

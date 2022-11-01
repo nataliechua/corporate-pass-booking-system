@@ -17,7 +17,7 @@ public interface LoanService {
 
     public Loan createNewLoan(LoanRequestDTO loanRequest);
 
-    public Loan getLoanByStaffId(Long loanId);
+    public List<Loan> getLoansByStaffId(Long loanId);
 
     public Loan updateLoanStatus(Long loanId, String updatedStatus);
     

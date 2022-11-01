@@ -15,7 +15,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     List<Loan> findByLoanDate(String date);
 
-    Loan findByStaffStaffId(Long id);
+    List<Loan> findByStaffStaffId(Long id);
 
     // List<Pass> findPassesByAttractionAndDate(String date, String attraction);
 

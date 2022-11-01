@@ -9,12 +9,12 @@ import project.entity.*;
 import java.util.*;
 
 @SpringBootTest
-public class ConstraintServiceImpl {
+public class ConstraintServiceImplTest {
     @Autowired
     private ConstraintServiceImpl constraintServiceImpl;
 
     @Test
-    public List<Constraint> getAllConstraint() {
+    public void getAllConstraint() {
         List<Constraint> constraintList = constraintServiceImpl.getAllConstraint();
         System.out.println(constraintList);
     }
