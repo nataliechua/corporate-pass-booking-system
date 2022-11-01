@@ -19,7 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- CSS Stylesheet -->
     <link href="css/myStyle.css" type="text/css" rel="stylesheet" />
     <!-- Latest compiled and minified JavaScript -->
@@ -52,30 +53,60 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">My Loaned Passes</h1>
-                    </div>
+                    <h1 class="h3 mb-2 text-gray-800">Loans</h1>
+                    <p class="mb-4">You can only cancel loans that are <span class="text-danger">at least 1 day before</span> the intended visit date (any time before midnight).</p>
 
-                    <!-- Content Row -->
-                    <h4>Active</h4>
-                    <div class="row">
-                        
-                        <div class="col-md-3 col-xs-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gardens By The Bay</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p><br/>
-                                    <a href="#" class="d-sm-inline-block btn btn-sm btn-secondary shadow-sm col-12">Cancel Loan</a>
-                                </div>
-                            </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Booked Passes</h6>
                         </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan ID</th>
+                                            <th>Pass</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="loan : ${loans}">
+                                            <td><p th:text="${loan.loanId}"></p></td>
+                                            <td><li th:each="pass : ${loan.passList}" th:text="|ID${pass.passId}: ${pass.passType}|"></li></td>
+                                            <td><p th:text="${loan.loanDate}"></p></td>
+                                            <td th:block th:switch="${loan.loanStatus}">
+                                                <div th:case="'not collected'">
 
+                                                    <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                                        <span class="text">Cancel</span>
+                                                    </button>
+                                                </div>
+                                                    <!-- <div th:if="${loan.loanStatus} == 'collected'">
+                                                        
+                                                    <div th:if="(${loan.loanDate} - ${#temporals.format(localDate, 'yyyy-MM-dd')}) > 1">
+                                                        <a href="#" data-toggle="modal" th:attr="data-target='#de'+ ${loan.loanId} + ${#strings.replace(loan.loanStatus,' ','')}"  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
+                                                            Cancel
+                                                        </a>
+                                                    </div>
+                                                    <div th:unless="(${loan.loanDate} - ${#temporals.format(localDate, 'yyyy-MM-dd')}) > 1">Not Collected</div> -->
+                                                <div th:case="'collected'" class="text-primary" th:text="Collected"></div>
+                                                <div th:case="'returned'" class="text-success" th:text="Returned"></div>
+                                            </td>
+                                            <td th:if="${loan.loanStatus} =='collected'">
+                                                <button type="submit" class="btn btn-danger btn-sm btn-block">
+                                                    <span class="text">Report Lost</span>
+                                                </button>
+                                            </td>
+                                            <td th:unless="${loan.loanStatus} =='collected'"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
                     </div>
-
-                    <!-- Content Row -->
 
                 </div>
                 <!-- /.container-fluid -->
@@ -125,6 +156,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

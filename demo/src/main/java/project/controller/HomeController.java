@@ -91,7 +91,8 @@ public class HomeController {
 
     @PutMapping("/viewPasses/{id}")
     public String updatePassInactive(@PathVariable("id")Long passId) {
-        Pass pass = passService.getPassById(passId);
+        //Pass pass = passService.getPassById(passId);
+        Pass pass = new Pass();
         pass.setIsPassActive("FALSE");
         passService.updatePass(passId, pass);
         return "redirect:/viewPasses";
@@ -108,10 +109,10 @@ public class HomeController {
         return "bookAPass";
     }
 
-    @GetMapping("/loanedPasses")
-    public String loanedPasses() {
-        return "loanedPasses";
-    }
+    // @GetMapping("/loanedPasses")
+    // public String loanedPasses() {
+    //     return "loanedPasses";
+    // }
 
     @GetMapping("/viewLoanHistory")
     public String viewLoanHistory(Model model) {

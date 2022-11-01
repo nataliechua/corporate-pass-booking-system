@@ -34,19 +34,16 @@ public class LoanUpdateController {
         return "gopReturnPass";
     }
 
-    // @PutMapping("/{id}/{type}")
-    // public String updateLoanStatus(@PathVariable("id") Long staffId, @PathVariable("type") String updateType) {
-    //     Staff staff = staffService.getStaffById(staffId);
-    //     if (updateType.equals("addAdmin")){
-    //        staff.setStaffType("Admin"); 
-    //     }else if(updateType.equals("removeAdmin")){
-    //         staff.setStaffType("Staff");
-    //     }else if(updateType.equals("activateUser")){
-    //         staff.setIsUserActive("TRUE");
-    //     }else{
-    //         staff.setIsUserActive("FALSE");
-    //     }
-    //     staffService.updateStaff(staffId, staff);
-    //     return "redirect:/viewStaffs";  
-    // }
+    @PutMapping("/{id}/{status}")
+    public String gopUpdateLoanStatus(@PathVariable("id") Long loanId, @PathVariable("status") String loanStatus) {
+        Loan loan = new Loan();
+        if (loanStatus.equals("not collected")){
+            loan.setLoanStatus("collected");
+            loanService.updateLoan(loanId, loan);
+        }else{
+            loan.setLoanStatus("returned");
+            loanService.updateLoan(loanId, loan);
+        }
+        return "redirect:/gopReturnPass";  
+    }
 }
