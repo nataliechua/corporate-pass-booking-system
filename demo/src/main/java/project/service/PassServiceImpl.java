@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import project.entity.*;
 import project.repository.*;
+import project.exception.*;
 import java.util.*;
 
 @Service
@@ -21,12 +22,11 @@ public class PassServiceImpl implements PassService {
 
     @Override
     public Pass getPassById(Long passId) {
-        // .get() to get value of department
        Optional<Pass> pass = passRepository.findById(passId); 
 
-    //    if (!staff.isPresent()) {
-    //     throw new DepartmentNotFoundException("Department Not Available");
-    //    }
+        if (!pass.isPresent()) {
+            throw new ObjectNotFoundException("Pass does not exist in the database");
+        }
 
        return pass.get();
     }
@@ -87,22 +87,18 @@ public class PassServiceImpl implements PassService {
     }
 
     public Map<String, Integer> getPassAvailabilityByDate(String date) {
-        List<Loan> loanList = loanRepository.findByLoanDate(date);
+        List<Pass> passes = passRepository.findAvailablePassesForADate(date);
+        
         Map<String, Integer> map = new HashMap<>();
 
-        for (Loan oneLoan : loanList) {
-            Set<Pass> passSet = oneLoan.getPassList();
-            for (Pass pass : passSet) {
-                String type = pass.getPassType();
-
-                if (map.containsKey(type)) {
-                    map.put(type, map.get(type) + 1);
-                } else {
-                    map.put(type, 1);
-                }
-
+        for (Pass onePass : passes) {
+            if (map.containsKey(onePass.getPassType())) {
+                map.put(onePass.getPassType(), map.get(onePass.getPassType()) + 1);
+            } else {
+                map.put(onePass.getPassType(),1);
             }
         }
+        
         return map;
     } 
 

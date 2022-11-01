@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Long> {
     Staff findByStaffEmail(String email);
+
 }

@@ -6,6 +6,7 @@ import project.entity.*;
 import java.util.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.*;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
@@ -16,6 +17,9 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     List<Loan> findByLoanDate(String date);
 
     List<Loan> findByStaffStaffId(Long id);
+
+    @Query(value="select * from loan l where l.staff_id=:staffId and month(l.loan_date) = month(:date)", nativeQuery=true)
+    List<Loan> findByStaffAndMonth(@Param("staffId") Long staffId, @Param("date") String date);
 
     // List<Pass> findPassesByAttractionAndDate(String date, String attraction);
 
