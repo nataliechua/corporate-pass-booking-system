@@ -144,4 +144,10 @@ public class LoanRepositoryTest {
 
         loanRepository.save(loan);
     }
+
+    @Test
+    public void printLoanByStaffAndMonth() {
+        List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-11-24");
+        System.out.println(loans);
+    }
 }

@@ -58,6 +58,12 @@ public class PassRepositoryTest {
         System.out.println("passList = " + passes);
     }
 
+    @Test
+    public void getAvailablePassesForADate() {
+        List<Pass> passes = passRepository.findAvailablePassesForADate("2022-10-03");
+        System.out.println("passList = " + passes);
+    }
+
     // @Test
     // public void checkPreviousDayBorrower() {
     //     // String str_date = "2022-10-04";

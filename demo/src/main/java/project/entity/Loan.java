@@ -49,15 +49,15 @@ public class Loan {
     // Many to Many rs requires use of set
     // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"}) 
     // @JsonIgnore
-    private Set<Pass> passList = new HashSet<Pass>();
+    private Set<Pass> passList;
     
     private String loanStatus;
 
     public Loan(String loanDate, String attraction) {
         this.loanDate = loanDate;
         this.attraction = attraction;
-        // this.passList = passes;
         this.loanStatus = "not collected";
+        this.passList = new HashSet<Pass>();
     };
 
     // Helper methods to update both ends of the bidirectional many-to-many relationship

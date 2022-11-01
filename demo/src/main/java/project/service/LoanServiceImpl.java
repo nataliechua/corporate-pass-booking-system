@@ -27,12 +27,11 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public Loan getLoanById(Long loanId) {
-        // .get() to get value of department
        Optional<Loan> loan = loanRepository.findById(loanId); 
 
-       //    if (!staff.isPresent()) {
-       //     throw new DepartmentNotFoundException("Department Not Available");
-       //    }
+        if (!loan.isPresent()) {
+            throw new ObjectNotFoundException("Loan does not exist in the database");
+        }
    
         return loan.get();
     };
@@ -43,33 +42,10 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public Map<String, Integer> getPassAvailabilityByDate(String date) {
-
-        List<Loan> loanList = loanRepository.findByLoanDate(date);
-        Map<String, Integer> map = new HashMap<>();
-
-        for (Loan oneLoan : loanList) {
-            Set<Pass> passSet = oneLoan.getPassList();
-            for (Pass pass : passSet) {
-                String type = pass.getPassType();
-
-                if (map.containsKey(type)) {
-                    map.put(type, map.get(type) + 1);
-                } else {
-                    map.put(type, 1);
-                }
-
-            }
-        }
-
-        return map;
-    }
-
-    @Override
     // p
     public Loan createNewLoan(LoanRequestDTO loanRequest) {
         String date = loanRequest.getDate();
-        String attraction = loanRequest.getAttraction();
+        String attraction = loanRequest.getPassType();
         int numOfPasses = loanRequest.getNoOfPasses();
         Long staffId = loanRequest.getStaffId();
 
@@ -143,13 +119,71 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public Loan updateLoanStatus(Long loanId, String updatedStatus) {
-        Loan loan = loanRepository.findById(loanId).get();
+    public Loan updateLoan(Long loanId, Loan updatedLoan) {
+        Loan loanDB = loanRepository.findById(loanId).get();
+        
+        if (Objects.nonNull(updatedLoan.getStaff())) {
+            loanDB.setStaff(updatedLoan.getStaff());
+        }
 
-        loan.setLoanStatus(updatedStatus);
+        if (Objects.nonNull(updatedLoan.getLoanDate()) && !("".equalsIgnoreCase(updatedLoan.getLoanDate()))) {
+            loanDB.setLoanDate(updatedLoan.getLoanDate());
+        }
 
-        // Returns the updated loan object
-        return loanRepository.save(loan);
+        if (Objects.nonNull(updatedLoan.getAttraction()) && !("".equalsIgnoreCase(updatedLoan.getAttraction()))) {
+            loanDB.setAttraction(updatedLoan.getAttraction());
+        }
+
+        if (Objects.nonNull(updatedLoan.getPassList())) {
+            loanDB.setPassList(updatedLoan.getPassList());
+        }
+
+        if (Objects.nonNull(updatedLoan.getLoanStatus()) && !("".equalsIgnoreCase(updatedLoan.getLoanStatus()))) {
+            loanDB.setLoanStatus(updatedLoan.getLoanStatus());
+        }
+
+        return loanRepository.save(loanDB);
     }
+
+    @Override
+    public List<Loan> getLoansByLoanDate(String date) {
+        List<Loan> loans = loanRepository.findByLoanDate(date);
+        return loans;
+    }
+
+    @Override
+    public Map<String, Integer> getNumOfPassesByStaffAndMonthAndAttraction(Long staffId, String date) {
+        List<Loan> loans = loanRepository.findByStaffAndMonth(staffId, date);
+        Map<String, Integer> map = new HashMap<>();
+
+        for (Loan l : loans) {
+            if (map.containsKey(l.getAttraction())) {
+                map.put(l.getAttraction(), map.get(l.getAttraction()) + 1);
+            } else {
+                map.put(l.getAttraction(), 1);
+            }
+        }
+
+        return map;
+    }
+
+    @Override
+    public List<Loan> getLoansByStaffAndMonth(Long staffId, String date) {
+        List<Loan> loans = loanRepository.findByStaffAndMonth(staffId, date);
+
+        return loans;
+    }
+
+ 
+
+    // @Override
+    // public Loan updateLoanStatus(Long loanId, String updatedStatus) {
+    //     Loan loan = loanRepository.findById(loanId).get();
+
+    //     loan.setLoanStatus(updatedStatus);
+
+    //     // Returns the updated loan object
+    //     return loanRepository.save(loan);
+    // }
 
 }
