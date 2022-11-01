@@ -1,6 +1,7 @@
 package project.repository;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -44,6 +45,26 @@ public class StaffRepositoryTest {
         staff.setIsAdminHold("TRUE");
 
         System.out.println(staffRepository.save(staff));
+    }
+
+    @Test
+    public void printStaffPresentLoans() {
+        System.out.println("GET STAFF PRESENT LOANS");
+        Staff staff = staffRepository.findById(1L).get();
+        List<Loan> loans = staff.getLoans();
+        List<Loan> result = new ArrayList<>();
+
+        String date = "2022-10-04";
+
+        for (Loan l : loans) {
+            String ld = l.getLoanDate();
+            if ((ld).equals(date)) {
+                System.out.println("loan date ld:" + ld);
+                System.out.println("given date:" + date);
+                result.add(l);
+            }
+        }
+        System.out.println(loans);
     }
 
     // @Test

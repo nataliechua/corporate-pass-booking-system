@@ -12,13 +12,17 @@ public interface LoanService {
     public Loan getLoanById(Long loanId);
 
     public Loan saveLoan(Loan loan);
-    
-    public Map<String, Integer> getPassAvailabilityByDate(String date);
 
     public Loan createNewLoan(LoanRequestDTO loanRequest);
 
     public List<Loan> getLoansByStaffId(Long loanId);
 
-    public Loan updateLoanStatus(Long loanId, String updatedStatus);
+    public Loan updateLoan(Long loanId, Loan updatedLoan);
+
+    public List<Loan> getLoansByLoanDate(String date);
+
+    public Map<String, Integer> getNumOfPassesByStaffAndMonthAndAttraction(Long staffId, String date);
+
+    public List<Loan> getLoansByStaffAndMonth(Long staffId, String date);
     
 }

@@ -14,4 +14,11 @@ public interface StaffService extends UserDetailsService {
     public List<Staff> getAllStaff();
 
     public Staff updateStaff(Long staffId, Staff staff);
+
+    public List<Loan> getStaffPresentLoans(Long staffId, String date);
+
+    public List<Loan> getStaffPastLoans(Long staffId, String date);
+
+    // public List<Loan> getStaffLoansForAMonthAndAttraction()
+
 }

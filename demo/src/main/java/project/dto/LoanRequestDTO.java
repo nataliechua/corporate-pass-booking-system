@@ -11,7 +11,7 @@ import java.util.*;
 @ToString
 public class LoanRequestDTO {
     private String date;
-    private String attraction;
+    private String passType;
     private int noOfPasses;
     private Long staffId;
 }

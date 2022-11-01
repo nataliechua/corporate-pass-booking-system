@@ -33,4 +33,16 @@ public class StaffServiceImplTest {
         Long idToUpdate = 10L;
     }
 
+    @Test
+    public void printStaffPresentLoans() {
+        List<Loan> loans = staffServiceImpl.getStaffPresentLoans(1L, "2022-10-03");
+        System.out.println(loans);
+    }
+
+    @Test
+    public void printStaffPastLoans() {
+        List<Loan> loans = staffServiceImpl.getStaffPastLoans(1L, "2022-10-04");
+        System.out.println(loans);
+    }
+
 }

@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 
 import project.entity.*;
 import project.repository.*;
+import project.exception.*;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import java.text.SimpleDateFormat;  
+import java.util.Date;  
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -40,9 +44,9 @@ public class StaffServiceImpl implements StaffService {
         // .get() to get value of department
        Optional<Staff> staff = staffRepository.findById(staffId); 
 
-    //    if (!staff.isPresent()) {
-    //     throw new DepartmentNotFoundException("Department Not Available");
-    //    }
+        if (!staff.isPresent()) {
+            throw new ObjectNotFoundException("Staff does not exist in the database");
+        }
 
        return staff.get();
     }
@@ -87,6 +91,44 @@ public class StaffServiceImpl implements StaffService {
 
         return staffRepository.save(staffDB);
     }
+
+    @Override
+    public List<Loan> getStaffPresentLoans(Long staffId, String date) {
+        Staff staff = staffRepository.findById(staffId).get();
+        List<Loan> loans = staff.getLoans();
+        List<Loan> result = new ArrayList<>();
+
+        for (Loan l : loans) {
+            String ld = l.getLoanDate();
+            if ((ld).equals(date)) {
+                result.add(l);
+            }
+        }
+        return result;
+    };
+
+    @Override
+    public List<Loan> getStaffPastLoans(Long staffId, String date) {
+        Staff staff = staffRepository.findById(staffId).get();
+        List<Loan> loans = staff.getLoans();
+        List<Loan> result = new ArrayList<>();
+
+        try {
+            Date givenDateObj = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
+
+            for (Loan l : loans) {
+                String ld = l.getLoanDate();
+                Date loanDateObj = new SimpleDateFormat("yyyy-MM-dd").parse(ld);  
+                if ((loanDateObj).before(givenDateObj)) {
+                    result.add(l);
+                }
+            }
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    };
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

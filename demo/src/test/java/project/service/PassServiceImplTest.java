@@ -36,5 +36,11 @@ public class PassServiceImplTest {
         System.out.println(map);
     }
 
+    @Test
+    public void printPassAvailabilityByDate() {
+        Map<String, Integer> map = passServiceImpl.getPassAvailabilityByDate("2022-10-03");
+        System.out.println(map);
+    }
+
 
 }
