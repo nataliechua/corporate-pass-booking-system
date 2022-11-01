@@ -24,7 +24,4 @@ public interface StaffService extends UserDetailsService {
     public List<Loan> getStaffPastLoans(Long staffId, String date);
 
     // public List<Loan> getStaffLoansForAMonthAndAttraction()
-
-
-    public Staff updateStaffToActive(Long staffId); // not sure if there's a shorter way to do it
 }

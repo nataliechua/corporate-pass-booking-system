@@ -63,7 +63,9 @@ public class HomeController {
     @GetMapping("/updateStaffToActive/{id}") 
     public String updateStaffToActive(@PathVariable("id") Long staffId) {
         
-        Staff result = staffService.updateStaffToActive(staffId);
+        Staff s = new Staff();
+        s.setIsUserActive("TRUE");
+        Staff result = staffService.updateStaff(staffId, s);
         System.out.println("hello: ");
         System.out.println(result);
         if (result!=null)

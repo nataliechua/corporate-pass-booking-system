@@ -181,19 +181,6 @@ public class StaffServiceImpl implements StaffService {
         return result;
     };
 
-    @Override
-    public Staff updateStaffToActive(Long staffId) { // not sure if there's a shorter way to do it
-        
-        Staff staffDB = staffRepository.findById(staffId).get();
-        // *** Return null if staff is already active
-        if (staffDB.getIsUserActive().equals("TRUE")) {
-            return null;
-        }
-        
-        staffDB.setIsUserActive("TRUE");
-        return staffRepository.save(staffDB);
-    }
-
     @Override   
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         
