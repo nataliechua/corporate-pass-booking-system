@@ -1,6 +1,8 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +26,42 @@ public class HomeController {
 
     @GetMapping("/")
     public String index() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String email = "";
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails)principal).getUsername();
+        } else {
+            email = principal.toString();
+        }
+        // ***Todo: Create a session that stores user_id
+        // ***In the future when wanna insert record, just check if there's a user_id sess
+        // *** if dh, lookup
+        System.out.println("hello: ");
+        System.out.println(email);
+        if (!email.equals("")) {
+            Staff result = staffService.getStaffByEmail(email);
+            System.out.println(result);
+        }
+        System.out.println("hello: ");
         return "index";
     }
 
     @GetMapping("/login")
     public String welcome() {
         return "login";
+    }
+    
+    @GetMapping("/updateStaffToActive/{id}") 
+    public String updateStaffToActive(@PathVariable("id") Long staffId) {
+        
+        Staff result = staffService.updateStaffToActive(staffId);
+        System.out.println("hello: ");
+        System.out.println(result);
+        if (result!=null)
+            return "verified";
+
+        return "verifiedError";
     }
 
     // @GetMapping("/viewStaffs") 

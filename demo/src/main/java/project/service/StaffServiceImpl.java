@@ -24,9 +24,27 @@ public class StaffServiceImpl implements StaffService {
         Staff staffRecord = new Staff(staff.getStaffName(), staff.getStaffEmail(),
             staff.getContactNum(), new BCryptPasswordEncoder().encode(staff.getPassword()),
             staff.getStaffType());
+
         System.out.println("===========================");
         System.out.println(staffRecord);
         System.out.println("===========================");
+
+        // *** TODO: Ensure there's no duplication of email and contact number?
+        List<Staff> staffDb = getAllStaff();
+        
+        for (Staff indvStaffDb: staffDb) {
+            if (indvStaffDb.getStaffEmail().equals(staff.getStaffEmail())) {
+                // cannot insert
+                System.out.println("Cannot");
+                return null;
+            }
+            if (indvStaffDb.getContactNum().equals(staff.getContactNum())) {
+                // cannot insert
+                System.out.println("Cannot");
+                return null;
+            }
+        }
+        
         return staffRepository.save(staffRecord);
     }
 
@@ -38,13 +56,25 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Staff getStaffById(Long staffId) {
         // .get() to get value of department
-       Optional<Staff> staff = staffRepository.findById(staffId); 
+        Optional<Staff> staff = staffRepository.findById(staffId); 
 
-    //    if (!staff.isPresent()) {
-    //     throw new DepartmentNotFoundException("Department Not Available");
-    //    }
+        //    if (!staff.isPresent()) {
+        //     throw new DepartmentNotFoundException("Department Not Available");
+        //    }
 
-       return staff.get();
+        return staff.get();
+    }
+
+    @Override
+    public Staff getStaffByEmail(String email) { // not sure if we need this
+        // .get() to get value of department
+        Staff staff = staffRepository.findByStaffEmail(email);
+
+        //    if (!staff.isPresent()) {
+        //     throw new DepartmentNotFoundException("Department Not Available");
+        //    }
+
+        return staff;
     }
 
     @Override
@@ -89,6 +119,19 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public Staff updateStaffToActive(Long staffId) { // not sure if there's a shorter way to do it
+        
+        Staff staffDB = staffRepository.findById(staffId).get();
+        // *** Return null if staff is already active
+        if (staffDB.getIsUserActive().equals("TRUE")) {
+            return null;
+        }
+        
+        staffDB.setIsUserActive("TRUE");
+        return staffRepository.save(staffDB);
+    }
+
+    @Override   
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         
         Staff staff = staffRepository.findByStaffEmail(email);
@@ -96,7 +139,11 @@ public class StaffServiceImpl implements StaffService {
         if (staff==null) {
             throw new UsernameNotFoundException("Invalid email or password");
         }
-        UserDetails result = new org.springframework.security.core.userdetails.User(staff.getStaffName(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType()));
+        // staff cannot login if they haven't verify their account
+        if (!staff.getIsUserActive().equals("TRUE")) {
+            throw new UsernameNotFoundException("Invalid email or password");
+        }
+        UserDetails result = new org.springframework.security.core.userdetails.User(staff.getStaffEmail(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType()));
         System.out.println("***********************");
         System.out.println(result);
         System.out.println("***********************");
