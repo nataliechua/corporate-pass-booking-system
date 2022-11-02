@@ -13,8 +13,7 @@ public class RegisterUtil {
 
     // Check email domain
     public static List<String> validate(Staff staff) {
-
-        //String 
+        
         // check if email contains @sportsschool.edu.sg or @nysi.org.sg
         List<String> errorMsg = new ArrayList<String>();
 
