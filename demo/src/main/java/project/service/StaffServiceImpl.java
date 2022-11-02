@@ -41,12 +41,14 @@ public class StaffServiceImpl implements StaffService {
             if (indvStaffDb.getStaffEmail().equals(staff.getStaffEmail())) {
                 // cannot insert
                 System.out.println("Cannot");
-                return null;
+                // return null;
+                throw new RegistrationException("Staff already exist in the database");
             }
             if (indvStaffDb.getContactNum().equals(staff.getContactNum())) {
                 // cannot insert
                 System.out.println("Cannot");
-                return null;
+                // return null;
+                throw new RegistrationException("Staff already exist in the database");
             }
         }
         
@@ -191,7 +193,7 @@ public class StaffServiceImpl implements StaffService {
         }
         // staff cannot login if they haven't verify their account
         if (!staff.getIsUserActive().equals("TRUE")) {
-            throw new UsernameNotFoundException("Invalid email or password");
+            throw new UsernameNotFoundException("Your account has not been verified. Please verify it before you can login.");
         }
         UserDetails result = new org.springframework.security.core.userdetails.User(staff.getStaffEmail(), staff.getPassword(), mapRolesToAuthorities(staff.getStaffType()));
         System.out.println("***********************");

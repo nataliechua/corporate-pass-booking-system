@@ -59,10 +59,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
             "/loans/**",
             "/updateStaffToActive/**"
         };
+
+        String[] adminViews = {
+            "/",
+            "/viewPasses",
+            "/viewStaffs",
+            "/viewLoanHistory",
+            "/templateList",
+            "/bookingCriteria",
+            "/bookAPass",
+            "/loanedPasses"
+        };
+
+        String[] gopViews = {
+            "/gopReturnPass",
+        };
+
+        String[] staffAndAdminViews = {
+            "/bookAPass",
+            "/loanedPasses"
+        };
+
         http
             .authorizeRequests()
             .antMatchers(staticResources).permitAll()
-            // .antMatchers("/").hasRole("Admin")
+            .antMatchers(adminViews).access("hasAuthority('Admin')")
+            .antMatchers(gopViews).access("hasAuthority('GOP')")
+            .antMatchers(staffAndAdminViews).access("hasAuthority('Staff') || hasAuthority('Admin')")
             .anyRequest().authenticated()
             .and()
                 .formLogin()
@@ -77,7 +100,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             .and()
-                .exceptionHandling().accessDeniedPage("/404")    
+                .exceptionHandling()
+                .accessDeniedPage("/404")    
             ;
         
         // uncomment here to disable login screen

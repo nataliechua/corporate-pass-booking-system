@@ -1,6 +1,7 @@
 package project.entity;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.*;
 import com.fasterxml.jackson.annotation.*;
@@ -20,9 +21,17 @@ public class Staff {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long staffId;
+
+    @NotEmpty(message = "Name cannot be empty.")
     private String staffName;
+
+    @NotEmpty(message = "Email cannot be empty.")
     private String staffEmail;
+
+    @NotEmpty(message = "Contact number cannot be empty.")
     private String contactNum;
+    
+    @NotEmpty(message = "Password cannot be empty.")
     private String password;
     private String isAdminHold;
     private String isUserActive;
