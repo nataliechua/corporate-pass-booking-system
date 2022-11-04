@@ -10,9 +10,10 @@ import java.util.*;
 @AllArgsConstructor
 @ToString
 public class LoanRequestDTO {
-    private String date;
+    private String loanDate;
     private String passType;
-    private int noOfPasses;
+    private String attraction;
+    private int numOfPasses;
     private Long staffId;
 }
 

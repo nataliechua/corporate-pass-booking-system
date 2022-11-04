@@ -19,6 +19,12 @@ public class ConstraintServiceImplTest {
         System.out.println(constraintList);
     }
 
+    @Test
+    public void getConstraintByName() {
+        Constraint c = constraintServiceImpl.getConstraintByConstraintName("Loan_Per_Month");
+        System.out.println(c);
+    }
+
     // @Test
     // public void getConstraintById(Long constraintId) {
     //     Optional<Constraint> constraint = constraintRepository.findById(constraintId); 

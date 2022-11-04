@@ -7,6 +7,8 @@ import project.entity.*;
 import project.dto.*;
 import project.exception.*;
 import project.repository.*;
+import project.util.*;
+
 import java.util.*;
 
 @Service
@@ -19,6 +21,9 @@ public class LoanServiceImpl implements LoanService {
 
     @Autowired
     private PassRepository passRepository;
+
+    @Autowired
+    private BookerUtil booker;
 
     @Override
     public List<Loan> getAllLoans() {
@@ -42,54 +47,23 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    // p
     public Loan createNewLoan(LoanRequestDTO loanRequest) {
-        String date = loanRequest.getDate();
-        String attraction = loanRequest.getPassType();
-        int numOfPasses = loanRequest.getNoOfPasses();
+        String date = loanRequest.getLoanDate();
+        String passType = loanRequest.getPassType();
+        String attraction = loanRequest.getAttraction();
+        int numOfPasses = loanRequest.getNumOfPasses();
         Long staffId = loanRequest.getStaffId();
 
-        // Returns all passes for an attraction e.g. "Singapore Zoo"
-        List<Pass> allPassesForAnAttraction = passRepository.findByAttractionsContaining(attraction);
-
-        System.out.println(allPassesForAnAttraction);
-
-        // Get passes on loan for an attraction and date
-        List<Loan> loansList = loanRepository.findByLoanDate(date);
-        List<Pass> borrowedPassesForAnAttraction = new ArrayList<>();
-        
-
-        for (Loan l : loansList) {
-            Set<Pass> passes = l.getPassList();
-
-            for (Pass p : passes) {
-                if (p.getAttractions().contains(attraction)) {
-                    borrowedPassesForAnAttraction.add(p);
-                }
-            }
-
-        }
-
-        System.out.println(borrowedPassesForAnAttraction);
-        List<Pass> availablePasses = new ArrayList<>();
-
-        // Get list of passes not loaned 
-
-        for (Pass p : allPassesForAnAttraction) {
-            if (!borrowedPassesForAnAttraction.contains(p)) {
-                availablePasses.add(p);
-            }
-        }
-
-        System.out.println(availablePasses);
-
         // Perform validation checks
-        if (availablePasses.size() < numOfPasses) {
-            throw new LoanCreationException("Not enough passes");
+        boolean isValid = booker.validate(date, passType, attraction, numOfPasses, staffId);
+
+        if (!isValid) {
+            return null;
         }
 
         // Choose passes from available passes
         Set<Pass> chosenPasses = new HashSet<>();
+        List<Pass> availablePasses = passRepository.findAvailablePassesForPassTypeAndDate(passType, date);
 
         for (int i=0; i<numOfPasses;i++) {
             chosenPasses.add(availablePasses.get(i));
@@ -108,7 +82,7 @@ public class LoanServiceImpl implements LoanService {
         Loan newLoan = loanRepository.save(loan);
         
         // Check if a person borrowed the pass the previous day
-
+        
         System.out.println("Save loan: ");
         return newLoan;
     };

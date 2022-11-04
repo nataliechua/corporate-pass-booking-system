@@ -46,30 +46,30 @@ public class LoanController {
         return loanService.saveLoan(loan);
     }
 
-    @PostMapping("/createNewLoan")
-    public ResponseEntity<String> saveLoan(@RequestBody LoanRequestDTO loanRequest) {
-        Loan newLoan;
+    // @PostMapping("/createNewLoan")
+    // public ResponseEntity<String> saveLoan(@RequestBody LoanRequestDTO loanRequest) {
+    //     Loan newLoan;
         
-        try {
-            newLoan = loanService.createNewLoan(loanRequest);
-        } catch (LoanCreationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    //     try {
+    //         newLoan = loanService.createNewLoan(loanRequest);
+    //     } catch (LoanCreationException e) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     }
 
-        // Convert object to Json
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json;
+    //     // Convert object to Json
+    //     ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+    //     String json;
         
-        try {
-            json = ow.writeValueAsString(newLoan);
+    //     try {
+    //         json = ow.writeValueAsString(newLoan);
             
-        } catch (JsonProcessingException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    //     } catch (JsonProcessingException e) {
+    //         return ResponseEntity.badRequest().body(e.getMessage());
+    //     }
         
-        return ResponseEntity.status(HttpStatus.OK).body(json);
+    //     return ResponseEntity.status(HttpStatus.OK).body(json);
         
-    }
+    // }
 
     // @PutMapping("/loans/{loanId}/pass/{passId}")
     // public Loan updateLoanWithPass(@PathVariable("loanId") Long loanId, @PathVariable("passId") Long passId) {
