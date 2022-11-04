@@ -53,11 +53,18 @@ public class Loan {
     
     private String loanStatus;
 
+    @OneToOne
+    @JoinColumn(name= "saturday_borrower")
+    // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"})
+    // @JsonIgnore
+    private Staff saturdayBorrower;
+
     public Loan(String loanDate, String attraction) {
         this.loanDate = loanDate;
         this.attraction = attraction;
         this.loanStatus = "not collected";
         this.passList = new HashSet<Pass>();
+        this.saturdayBorrower = null;
     };
 
     // Helper methods to update both ends of the bidirectional many-to-many relationship
