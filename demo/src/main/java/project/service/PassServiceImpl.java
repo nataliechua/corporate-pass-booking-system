@@ -86,7 +86,7 @@ public class PassServiceImpl implements PassService {
         return map;
     }
 
-    public Map<String, Integer> getPassAvailabilityByDate(String date) {
+    public Map<String, Integer> getMapOfPassAvailabilityByDate(String date) {
         List<Pass> passes = passRepository.findAvailablePassesForADate(date);
         
         Map<String, Integer> map = new HashMap<>();
@@ -101,5 +101,13 @@ public class PassServiceImpl implements PassService {
         
         return map;
     } 
+
+    public List<Pass> getAvailablePassesForPassTypeAndDate(String passType, String date) {
+        List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate(passType, date);
+        
+        return passes;
+    } 
+
+    
 
 }

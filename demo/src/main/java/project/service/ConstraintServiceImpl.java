@@ -48,4 +48,8 @@ public class ConstraintServiceImpl implements ConstraintService {
 
         return constraintRepository.save(constraintDB);
     }
+
+    public Constraint getConstraintByConstraintName(String constraintName) {
+        return constraintRepository.findByConstraintName(constraintName);
+    };
 }

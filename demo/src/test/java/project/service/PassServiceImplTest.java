@@ -31,15 +31,15 @@ public class PassServiceImplTest {
     @Test
     public void printTotalPassNumByDate() {
         String date = "2022-10-07";
-        Map<String, Integer> map = passServiceImpl.getPassAvailabilityByDate(date);
+        Map<String, Integer> map = passServiceImpl.getMapOfPassAvailabilityByDate(date);
 
         System.out.println(map);
     }
 
     @Test
     public void printPassAvailabilityByDate() {
-        Map<String, Integer> map = passServiceImpl.getPassAvailabilityByDate("2022-10-03");
-        System.out.println(map);
+        List<Pass> result = passServiceImpl.getAvailablePassesForPassTypeAndDate("Mandai Wildlife Reserve", "2022-10-03");
+        System.out.println(result);
     }
 
 
