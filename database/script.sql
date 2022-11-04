@@ -10,7 +10,7 @@ Staff_ID bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
 Staff_Name varchar(50) NOT NULL,
 Staff_Email varchar(50) NOT NULL,
 Contact_Num varchar(20) NOT NULL,
-Password varchar(100) NOT NULL,
+Password varchar(50) NOT NULL,
 Is_Admin_Hold varchar(5) NOT NULL,
 Is_User_Active varchar(5) NOT NULL,
 Staff_Type varchar(10) NOT NULL
@@ -37,6 +37,7 @@ Staff_ID bigint NOT NULL,
 Loan_Date date NOT NULL,
 Attraction varchar(50) NOT NULL,
 Loan_Status varchar(20) NOT NULL,
+Saturday_Borrower bigint,
 CONSTRAINT loan_fk1 FOREIGN KEY (Staff_ID) REFERENCES STAFF(Staff_ID)
 );
 
@@ -69,7 +70,7 @@ LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/pass.c
 INTO TABLE PASS 
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
-LINES TERMINATED BY '\r\n'   
+LINES TERMINATED BY '\n'   
 IGNORE 1 ROWS;  
 
 /*Import Loan CSV File*/ 
@@ -88,6 +89,10 @@ OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'   
 IGNORE 1 ROWS;
 
+-- select p.pass_id, p.pass_type from pass p 
+-- inner join loan on loan.pass_id=p.pass_id
+-- where loan.loan_date = "2022-10-07";
+
 INSERT INTO loan_pass
 VALUES 
 (1, 1),
@@ -95,6 +100,21 @@ VALUES
 (3, 3),
 (4, 4),
 (5, 5),
-(6, 3),
+(6, 1),
 (7, 1),
-(8, 1);
+(8, 7),
+(8, 8);
+
+select * from loan_pass;
+
+select * from loan l;
+
+select * from pass ;
+
+select * from staff;
+
+select * from constraints;
+
+-- select * from loan l inner join pass p on l.pass_id = p.pass_id;
+
+-- ect pass.pass_id, pass.pass_type, pass.attractions, pass.people_per_pass, pass.is_digital, pass.digital_path, pass.pass_start_date, pass.pass_expiry_date, pass.replacement_fee, pass.is_Pass_Active from pass

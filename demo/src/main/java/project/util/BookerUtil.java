@@ -92,4 +92,27 @@ public class BookerUtil {
         return true;
     }
 
+    // public Loan checkIfSaturdaySundayBorrower(Loan loan) {
+    //     String date = loan.getLoanDate();
+    //     Set<Pass> passes = loan.getPassList();
+
+    //     Date loanDate = null;
+
+    //     try {
+    //         loanDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    //     } catch (java.text.ParseException e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     Calendar c = Calendar.getInstance();
+    //     c.setTime(yourDate);
+    //     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+    //     if (dayOfWeek == 7) {
+    //         for (Pass p : passes) {
+
+    //         }
+    //     }
+    // }
+
 }

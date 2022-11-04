@@ -27,6 +27,9 @@ public interface PassRepository extends JpaRepository<Pass, Long> {
     @Query("SELECT DISTINCT p from Pass p LEFT JOIN p.loans l where p.isPassActive <> 'FALSE' AND (l.loanDate <> :loanDate OR l.loanDate IS NULL)")
     List<Pass> findAvailablePassesForADate(@Param("loanDate") String loanDate);
 
+    @Query("SELECT DISTINCT l from Pass p LEFT JOIN p.loans l where p = :pass AND l.loanDate = :loanDate")
+    List<Pass> findLoanForAPassAndDate(@Param("pass") Pass pass, @Param("loanDate") String loanDate);
+
 
     // @Query("select p from pass p inner join p.loans loan where loan.loanDate = ?1 and p.passId = ?2")
     // List<Pass> findByLoanDateAndPass(String date, Long id); 

@@ -65,6 +65,11 @@ public class PassRepositoryTest {
     }
 
     // @Test
+    // public void getLoanForAPassAndDate() {
+    //     Loan loan = passRepository.findLoanForAPassAndDate();
+    // }
+
+    // @Test
     // public void checkPreviousDayBorrower() {
     //     // String str_date = "2022-10-04";
 
