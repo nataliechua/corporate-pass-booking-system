@@ -19,4 +19,8 @@ public interface PassService {
     public Map<String, Integer> getMapOfPassAvailabilityByDate(String date);
 
     public List<Pass> getAvailablePassesForPassTypeAndDate(String passType, String date);
+
+    public void reportLostPass(Long passId);
+
+    public void foundPass(Long passId);
 }

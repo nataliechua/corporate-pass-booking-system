@@ -24,5 +24,7 @@ public interface LoanService {
     public Map<String, Integer> getNumOfPassesByStaffAndMonthAndAttraction(Long staffId, String date);
 
     public List<Loan> getLoansByStaffAndMonth(Long staffId, String date);
+
+    public void cancelLoanById(Long loanId);
     
 }

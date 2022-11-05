@@ -150,4 +150,11 @@ public class LoanRepositoryTest {
         List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-11-24");
         System.out.println(loans);
     }
+
+    @Test
+    public void cancelLoanById() {
+        Loan loan = loanRepository.findById(9L).get();
+        loan.setLoanStatus("canceled");
+        loanRepository.save(loan);
+    }
 }

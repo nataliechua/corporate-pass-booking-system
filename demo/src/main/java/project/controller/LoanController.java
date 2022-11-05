@@ -46,6 +46,11 @@ public class LoanController {
         return loanService.saveLoan(loan);
     }
 
+    @PutMapping("/loans/{id}")
+    public void cancelLoanById(@PathVariable("id") Long loanId) {
+        loanService.cancelLoanById(loanId);
+    }
+
     // @PostMapping("/createNewLoan")
     // public ResponseEntity<String> saveLoan(@RequestBody LoanRequestDTO loanRequest) {
     //     Loan newLoan;

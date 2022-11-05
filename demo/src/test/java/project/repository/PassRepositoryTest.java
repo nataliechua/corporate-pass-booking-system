@@ -64,6 +64,20 @@ public class PassRepositoryTest {
         System.out.println("passList = " + passes);
     }
 
+    @Test
+    public void reportLostPass() {
+        Pass pass = passRepository.findById(10L).get();
+        pass.setIsPassActive("FALSE");
+        passRepository.save(pass);
+    }
+
+    @Test
+    public void foundPass() {
+        Pass pass = passRepository.findById(10L).get();
+        pass.setIsPassActive("TRUE");
+        passRepository.save(pass);
+    }
+
     // @Test
     // public void getLoanForAPassAndDate() {
     //     Loan loan = passRepository.findLoanForAPassAndDate();
