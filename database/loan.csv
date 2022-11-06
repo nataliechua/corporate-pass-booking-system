@@ -1,9 +1,9 @@
-﻿loanID,staffID,loanDate,attraction,loanStatus
-1,1,3/10/2022,Singapore Zoo,collected
-2,3,6/10/2022,Singapore Zoo,returned
-3,4,7/10/2022,Singapore Zoo,returned
-4,5,8/10/2022,Jurong Bird Park,collected
-5,6,10/10/2022,Jurong Bird Park,not collected
-6,1,11/10/2022,Singapore Flyer,returned
-7,1,2/11/2022,Art Science Museum,returned
-8,1,11/12/2022,Singapore Flyer,not collected
+﻿loanID,staffID,loanDate,attraction,loanStatus,saturdayBorrower
+1,1,2022-10-03,Singapore Zoo,collected,null
+2,3,2022-10-06,Singapore Zoo,returned,null
+3,4,2022-10-07,Singapore Zoo,returned,null
+4,5,2022-10-08,Jurong Bird Park,collected,null
+5,6,2022-10-10,Jurong Bird Park,not collected,null
+6,1,2022-10-11,Singapore Flyer,returned,null
+7,1,2022-11-02,Art Science Museum,returned,null
+8,1,2022-12-11,Singapore Flyer,not collected,null

@@ -150,4 +150,10 @@ public class LoanRepositoryTest {
         List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-11-24");
         System.out.println(loans);
     }
+
+    // @Test
+    // public void print() {
+    //     List<Loan> loans = loanRepository.findByLoanDateNotDate("2022-10-03");
+    //     System.out.println(loans);
+    // }
 }

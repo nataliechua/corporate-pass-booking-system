@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import project.service.*;
 import project.entity.*;
+import project.dto.*;
+
 import java.util.*;
 
 @SpringBootTest()
@@ -42,5 +44,10 @@ public class PassServiceImplTest {
         System.out.println(result);
     }
 
+    @Test
+    public void print() {
+        Map<String, PassDTO> m = passServiceImpl.getPassTypeInfoWithAvailableAndTotalCount("2022-12-11");
+        System.out.println(m);
+    }
 
 }

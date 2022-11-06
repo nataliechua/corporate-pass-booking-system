@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import project.entity.*;
 import project.repository.*;
 import project.exception.*;
+import project.dto.*;
 import java.util.*;
 
 @Service
@@ -108,6 +109,36 @@ public class PassServiceImpl implements PassService {
         return passes;
     } 
 
+    public Map<String, PassDTO> getPassTypeInfoWithAvailableAndTotalCount(String date) {
+        Map<String, PassDTO> map = new HashMap<>();
+
+        List<Pass> passList = passRepository.findActivePasses();
+
+        for (Pass onePass : passList) {
+            String type = onePass.getPassType();
+
+            PassDTO dto;
+            
+            if (!map.containsKey(type)) {
+                dto = new PassDTO(type, onePass.getAttractions(), onePass.getPeoplePerPass(), onePass.getIsDigital(), onePass.getReplacementFee());
+                map.put(type, dto);
+            }
+
+            dto = map.get(type);
+            dto.setNumTotal(dto.getNumTotal() + 1);
+            
+        }
+
+        List<Pass> availablePasses = passRepository.findAvailablePassesForADate(date);
+
+        for (Pass availPass : availablePasses) {
+            String type = availPass.getPassType();
+            PassDTO dto = map.get(type);
+            dto.setNumAvailable(dto.getNumAvailable() + 1);
+        }
+
+        return map;
+    }
     
 
 }
