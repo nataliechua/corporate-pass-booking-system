@@ -148,6 +148,13 @@ public class LoanServiceImpl implements LoanService {
         return loans;
     }
 
+
+    @Override
+    public void cancelLoanById(Long loanId) {
+        Loan loan = loanRepository.findById(loanId).get();
+        loan.setLoanStatus("canceled");
+        loanRepository.save(loan);
+    }
  
 
     // @Override

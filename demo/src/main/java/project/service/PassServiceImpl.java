@@ -140,5 +140,16 @@ public class PassServiceImpl implements PassService {
         return map;
     }
     
+    public void reportLostPass(Long passId) {
+        Pass pass = passRepository.findById(passId).get();
+        pass.setIsPassActive("FALSE");
+        passRepository.save(pass);
+    }
+
+    public void foundPass(Long passId) {
+        Pass pass = passRepository.findById(passId).get();
+        pass.setIsPassActive("TRUE");
+        passRepository.save(pass);
+    }
 
 }
