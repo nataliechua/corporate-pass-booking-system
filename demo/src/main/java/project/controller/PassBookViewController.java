@@ -38,6 +38,10 @@ public class PassBookViewController {
 
     @GetMapping
     public String showSelectLoanDate(Model model) {
+        Long staffId = staffService.getStaffIdFromLogin();
+        Staff staff = staffService.getStaffById(staffId);
+        String borrowingStatus = staff.getIsAdminHold();
+        model.addAttribute("borrowingStatus", borrowingStatus);
         return "bookAPass";
     }
     

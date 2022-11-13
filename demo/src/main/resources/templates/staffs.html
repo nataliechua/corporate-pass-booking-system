@@ -73,6 +73,7 @@
                                             <th>Contact Number</th>
                                             <th>Admin Rights</th>
                                             <th>Disable User?</th>
+                                            <th>Clear Fees</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,6 +108,15 @@
                                                         <span class="text">Reactivate</span>
                                                     </button>
                                                 </form>
+                                            </td>
+                                            <td th:if="${staff.isAdminHold}">
+                                                <form th:action="@{/viewStaffs/} + ${staff.staffId} + '/clearFees'" th:object="${staff}" th:method="PUT">
+                                                    <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                                        <span class="text">Clear</span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td th:unless="${staff.isAdminHold}">
                                             </td>
                                         </tr>
                                         

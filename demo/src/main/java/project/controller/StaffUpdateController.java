@@ -36,18 +36,23 @@ public class StaffUpdateController {
 
     @PutMapping("/{id}/{type}")
     public String updateAdminStuff(@PathVariable("id") Long staffId, @PathVariable("type") String updateType) {
-        // Staff staff = staffService.getStaffById(staffId);
-        Staff staff = new Staff();
-        if (updateType.equals("addAdmin")){
-            staff.setStaffType("Admin"); 
-        }else if(updateType.equals("removeAdmin")){
-            staff.setStaffType("Staff");
-        }else if(updateType.equals("activateUser")){
-            staff.setIsUserActive("TRUE");
+        Staff staff = staffService.getStaffById(staffId);
+        if (updateType.equals("clearFees")){
+            staffService.clearFees(staffId);
         }else{
-            staff.setIsUserActive("FALSE");
+            if (updateType.equals("addAdmin")){
+                staff.setStaffType("Admin"); 
+            }else if(updateType.equals("removeAdmin")){
+                staff.setStaffType("Staff");
+            }else if(updateType.equals("activateUser")){
+                staff.setIsUserActive("TRUE");
+            }
+            else{
+                staff.setIsUserActive("FALSE");
+            }
+            staffService.updateStaff(staffId, staff);
         }
-        staffService.updateStaff(staffId, staff);
+        //Staff staff = new Staff();
         
         return "redirect:/viewStaffs";  
     }
