@@ -43,11 +43,20 @@ public class LoanBorrowerController {
     }
 
     @PutMapping("/{id}/{status}")
-    public String updateLoanStatus(@PathVariable("id") Long loanId, @PathVariable("status") String updateType) {
+    public String updateLoanStatus(@PathVariable("id") Long id, @PathVariable("status") String updateType) {
         if (updateType.equals("cancel")){
-            loanService.cancelLoanById(loanId);
+            loanService.cancelLoanById(id);
         }else{
-            passService.reportLostPass(loanId);
+            System.out.println("============================");
+            System.out.println("============================");
+            System.out.println("============================");
+            System.out.println("============================");
+            System.out.println(id);
+            System.out.println("============================");
+            System.out.println("============================");
+            System.out.println("============================");
+            System.out.println("============================");
+            passService.reportLostPass(id);
         }
         return "redirect:/loanedPasses";
     }
