@@ -159,7 +159,7 @@ public class LoanRepositoryTest {
     
     @Test
     public void cancelLoanById() {
-        Loan loan = loanRepository.findById(9L).get();
+        Loan loan = loanRepository.findById(8L).get();
         loan.setLoanStatus("canceled");
         loanRepository.save(loan);
     }
