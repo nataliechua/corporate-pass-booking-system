@@ -75,16 +75,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="loan : ${loans}">
+                                        <tr th:each="loan : ${loans}" >
                                             <td><p th:text="${loan.loanId}"></p></td>
-                                            <td><li th:each="pass : ${loan.passList}" th:text="|ID${pass.passId}: ${pass.passType}|"></li></td>
+                                            <td>
+                                                <li th:each="pass : ${loan.passList}" th:text="|ID${pass.passId}: ${pass.passType}|"></li>
+                                            </td>
                                             <td><p th:text="${loan.loanDate}"></p></td>
                                             <td th:block th:switch="${loan.loanStatus}">
                                                 <div th:case="'not collected'">
-
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                                    <a href="#" data-toggle="modal" th:attr="data-target='#cancelLoanModal'+ ${loan.loanId}"  class="mt-3 d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
+                                                        Cancel
+                                                    </a>
+                                                    <!-- <button type="submit" class="btn btn-primary btn-sm btn-block">
                                                         <span class="text">Cancel</span>
-                                                    </button>
+                                                    </button> -->
                                                 </div>
                                                     <!-- <div th:if="${loan.loanStatus} == 'collected'">
                                                         
@@ -96,19 +100,45 @@
                                                     <div th:unless="(${loan.loanDate} - ${#temporals.format(localDate, 'yyyy-MM-dd')}) > 1">Not Collected</div> -->
                                                 <div th:case="'collected'" class="text-primary" th:text="Collected"></div>
                                                 <div th:case="'returned'" class="text-success" th:text="Returned"></div>
+                                                <div th:case="'canceled'" class="text-secondary" th:text="Cancelled"></div>
                                             </td>
                                             <td th:if="${loan.loanStatus} =='collected'">
                                                 <button type="submit" class="btn btn-danger btn-sm btn-block">
                                                     <span class="text">Report Lost</span>
                                                 </button>
+                                                
                                             </td>
                                             <td th:unless="${loan.loanStatus} =='collected'"></td>
+                                            <!-- Cancel Loan Modal - STARTS -->
+                                            <div class="modal fade" th:id="'cancelLoanModal'+ ${loan.loanId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Cancel Loan?</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">Select "Confirm" below if you are sure to cancel the loan.</div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                            <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/cancel'" th:object="${loan}" th:method="PUT">
+                                                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Cancel Loan Modal - ENDS -->
+                                            
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
+                                <p th:text="${loans}"></p>
                         </div>
                     </div>
-
+                    
                 </div>
                 <!-- /.container-fluid -->
 

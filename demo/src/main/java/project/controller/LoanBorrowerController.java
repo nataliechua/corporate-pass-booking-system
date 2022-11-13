@@ -18,18 +18,22 @@ public class LoanBorrowerController {
     @Autowired
     private LoanService loanService;
     @Autowired
+    private PassService passService;
+    @Autowired
     private StaffService staffService;
     
-    public LoanBorrowerController(LoanService loanService) {
+    public LoanBorrowerController(LoanService loanService, PassService passService, StaffService staffService) {
         super();
         this.loanService = loanService;
+        this.passService = passService;
+        this.staffService = staffService;
     }
 
     @ModelAttribute("loan")
     public Loan loan() {
         return new Loan();
     }
-    
+
     @GetMapping
     public String showBorrowerLoans(Model model) {
         List<Loan> loans = loanService.getLoansByStaffId(staffService.getStaffIdFromLogin());  
@@ -38,19 +42,13 @@ public class LoanBorrowerController {
         return "loanedPasses";
     }
 
-    // @PostMapping
-    // public String createNewPass(@ModelAttribute("pass") Pass pass) {
-    //     //pass.setPassId((long) 11);
-    //     pass.setIsPassActive("TRUE");
-    //     passService.savePass(pass);
-    //     return "redirect:/viewPasses";
-    //     //staffDto.setIsAdminHold("FALSE");
-    //     //staffDto.setIsUserActive("FALSE");
-    //     //staffDto.setStaffType("Staff");
-
-    //     //System.out.println(staffDto.toString()); // *** TODO: Add try-catch exception in this portion
-        
-    //     //staffService.saveStaff(staffDto); // *** TODO: Ensure there's no duplication of email and contact number?
-    //     //return "redirect:/registration?success";
-    // }
+    @PutMapping("/{id}/{status}")
+    public String updateLoanStatus(@PathVariable("id") Long loanId, @PathVariable("status") String updateType) {
+        if (updateType.equals("cancel")){
+            loanService.cancelLoanById(loanId);
+        }else{
+            passService.reportLostPass(loanId);
+        }
+        return "redirect:/loanedPasses";
+    }
 }

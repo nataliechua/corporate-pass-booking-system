@@ -78,10 +78,10 @@ public class HomeController {
     //     return "gopReturnPass";
     // }
 
-    @GetMapping("/bookAPass")
-    public String bookAPass() {
-        return "bookAPass";
-    }
+    // @GetMapping("/bookAPass")
+    // public String bookAPass() {
+    //     return "bookAPass";
+    // }
 
     // @GetMapping("/loanedPasses")
     // public String loanedPasses() {
