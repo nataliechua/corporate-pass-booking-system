@@ -23,5 +23,7 @@ public interface StaffService extends UserDetailsService {
 
     public List<Loan> getStaffPastLoans(Long staffId, String date);
 
+    public void clearFees(Long staffId);
+
     // public List<Loan> getStaffLoansForAMonthAndAttraction()
 }

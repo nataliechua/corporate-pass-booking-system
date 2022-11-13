@@ -12,8 +12,12 @@ import java.util.*;
 public class PassServiceImpl implements PassService {
     @Autowired
     private PassRepository passRepository;
+
     @Autowired
     private LoanRepository loanRepository;
+
+    @Autowired
+    private StaffRepository staffRepository;
 
     @Override
     public List<Pass> getAllPasses() {
@@ -110,14 +114,35 @@ public class PassServiceImpl implements PassService {
 
     public void reportLostPass(Long passId) {
         Pass pass = passRepository.findById(passId).get();
+        List<Long> loanIdList = loanRepository.findLoanByPass(passId);
+
         pass.setIsPassActive("FALSE");
         passRepository.save(pass);
+
+        for (Long loanId : loanIdList) {
+            Loan loan = loanRepository.findById(loanId).get();
+            loan.setLoanStatus("lost");
+            loanRepository.save(loan);
+
+            Staff staff = loan.getStaff();
+            staff.setIsAdminHold("TRUE");
+            staffRepository.save(staff);
+        }
     }
 
     public void foundPass(Long passId) {
         Pass pass = passRepository.findById(passId).get();
+        List<Long> loanIdList = loanRepository.findLoanByPass(passId);
+
         pass.setIsPassActive("TRUE");
         passRepository.save(pass);
+
+        for (Long loanId : loanIdList) {
+            Loan loan = loanRepository.findById(loanId).get();
+
+            loan.setLoanStatus("returned");
+            loanRepository.save(loan);
+        }
     }
 
 }
