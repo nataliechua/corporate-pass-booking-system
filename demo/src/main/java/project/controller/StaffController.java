@@ -41,4 +41,9 @@ public class StaffController {
     public Staff updateStaffById(@PathVariable("id") Long staffId, @RequestBody Staff staff) {
         return staffService.updateStaff(staffId, staff);
     }
+
+    @PutMapping("/clearFees/{id}")
+    public void clearFees(@PathVariable("id") Long staffId) {
+        staffService.clearFees(staffId);
+    }
 }

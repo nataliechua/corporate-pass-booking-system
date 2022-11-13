@@ -223,6 +223,13 @@ public class StaffServiceImpl implements StaffService {
         return result;
     }
 
+    @Override
+    public void clearFees(Long staffId) {
+        Staff staff = staffRepository.findById(staffId).get();
+        staff.setIsAdminHold("FALSE");
+        staffRepository.save(staff);
+    }
+
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
 
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);

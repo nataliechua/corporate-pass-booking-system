@@ -67,6 +67,13 @@ public class StaffRepositoryTest {
         System.out.println(loans);
     }
 
+    @Test
+    public void clearFees() {
+        Staff staff = staffRepository.findById(1L).get();
+        staff.setIsAdminHold("FALSE");
+        staffRepository.save(staff);
+    }
+
     // @Test
     // public void printStudentByFirstName() {
     //     List<Student> students = studentRepository.findByFirstName("Shabbir");
