@@ -3,6 +3,7 @@ package project.service;
 import java.util.*;
 
 import project.entity.*;
+import project.dto.*;
 
 public interface PassService {
 
@@ -20,6 +21,8 @@ public interface PassService {
 
     public List<Pass> getAvailablePassesForPassTypeAndDate(String passType, String date);
 
+    public Map<String, PassDTO> getPassTypeInfoWithAvailableAndTotalCount(String date);
+    
     public void reportLostPass(Long passId);
 
     public void foundPass(Long passId);

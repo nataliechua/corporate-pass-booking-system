@@ -151,6 +151,12 @@ public class LoanRepositoryTest {
         System.out.println(loans);
     }
 
+    // @Test
+    // public void print() {
+    //     List<Loan> loans = loanRepository.findByLoanDateNotDate("2022-10-03");
+    //     System.out.println(loans);
+    // }
+    
     @Test
     public void cancelLoanById() {
         Loan loan = loanRepository.findById(8L).get();

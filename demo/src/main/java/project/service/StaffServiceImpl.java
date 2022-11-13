@@ -9,12 +9,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import project.EmailerUtil.SendEmail;
+import project.EmailerUtil.Email;
 import project.entity.*;
 import project.repository.*;
 import project.exception.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;  
 import java.util.Date;  
 
@@ -22,6 +27,8 @@ import java.util.Date;
 public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffRepository staffRepository;
+    @Autowired
+    SendEmail emailUtil;
 
     @Override
     public Staff saveStaff(Staff staff) {
@@ -30,29 +37,43 @@ public class StaffServiceImpl implements StaffService {
             staff.getContactNum(), new BCryptPasswordEncoder().encode(staff.getPassword()),
             staff.getStaffType());
 
-        System.out.println("===========================");
-        System.out.println(staffRecord);
-        System.out.println("===========================");
-
-        // *** TODO: Ensure there's no duplication of email and contact number?
         List<Staff> staffDb = getAllStaff();
-        
-        for (Staff indvStaffDb: staffDb) {
-            if (indvStaffDb.getStaffEmail().equals(staff.getStaffEmail())) {
-                // cannot insert
-                System.out.println("Cannot");
-                // return null;
-                throw new RegistrationException("Staff already exist in the database");
-            }
-            if (indvStaffDb.getContactNum().equals(staff.getContactNum())) {
-                // cannot insert
-                System.out.println("Cannot");
-                // return null;
-                throw new RegistrationException("Staff already exist in the database");
+
+        Optional<Staff> indvStaffRecord = staffDb.stream()
+                                            .filter(
+                                                p -> p.getStaffEmail().equals(staff.getStaffEmail()) ||p.getContactNum().equals(staff.getContactNum())
+                                            )
+                                            .findFirst();
+        if (indvStaffRecord.isPresent()) { // there's exising account under this email or contact
+            // System.out.println(indvStaffRecord.get());
+            throw new RegistrationException("Staff already exist in the database");
+        }
+        Staff result = staffRepository.save(staffRecord);
+
+        if (result!=null) {
+            try {
+                sendVerificationEmail(result.getStaffId(), result.getStaffEmail());
+            } catch (IOException e) {
+                
+            } catch (MessagingException e) {
+
+            } finally {
+
             }
         }
+
+        return result;
+    }
+
+    private void sendVerificationEmail(Long staffId, String staffEmail) throws IOException, MessagingException {
+        Email mail = new Email();
+        //mail.setMailTo(staffEmail);
+        mail.setMailTo("linpeishann@gmail.com");//TODO: Replace it with the actual email next time but demo use existing email
+        mail.setFrom("linpeishann@gmail.com");
+        mail.setSubject("random");
         
-        return staffRepository.save(staffRecord);
+        String message = String.format("Thank you for registering your account. Click this link: http://localhost:8080/updateStaffToActive/%d to verify your account.", staffId);
+        emailUtil.sendSimpleEmail(mail, message);
     }
 
     @Override
@@ -199,8 +220,6 @@ public class StaffServiceImpl implements StaffService {
         System.out.println("***********************");
         System.out.println(result);
         System.out.println("***********************");
-        // AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true
-        // org.springframework.security.core.userdetails.User [Username=Sophia, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[Admin]]
         return result;
     }
 

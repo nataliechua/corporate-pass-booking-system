@@ -1,12 +1,13 @@
 package project.repository;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import project.entity.*;
-import java.util.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.*;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import project.entity.Loan;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
@@ -23,6 +24,9 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     @Query(value="SELECT Loan_ID from loan_pass where Pass_ID = :passId", nativeQuery=true)
     List<Long> findLoanByPass(@Param("passId") Long passId);
+    // @Query("SELECT l FROM Loan l WHERE l.loanDate <> :loanDate")
+    // List<Loan> findByLoanDateNotDate(@Param("loanDate") String date);
+
     // List<Pass> findPassesByAttractionAndDate(String date, String attraction);
 
     // List<Loan> findByAttraction(String attraction);

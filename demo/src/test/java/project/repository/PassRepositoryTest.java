@@ -71,6 +71,20 @@ public class PassRepositoryTest {
     }
 
     @Test
+    public void getAllActivePasses() {
+        List<Pass> passes = passRepository.findActivePasses();
+        System.out.println(passes);
+    }
+
+    @Test
+    public void getLoanForAPassAndDate() {
+        List<Pass> p = passRepository.findPassesLoanedOnADate("2022-10-03");
+        System.out.println(p);
+
+        // Pass p1 = passRepository.findById(1L).get();
+        // System.out.println(p1.getLoans());
+    }
+    
     public void reportLostPass() {
         Pass pass = passRepository.findById(1L).get();
         List<Long> loanIdList = loanRepository.findLoanByPass(1L);
