@@ -60,14 +60,22 @@ public class PassRepositoryTest {
 
     @Test
     public void getAvailablePassesForPassTypeAndDate() {
-        List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate("Mandai Wildlife Reserve", "2022-10-03");
+        List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate("Garden By The Bay", "2022-12-11");
         System.out.println("passList = " + passes);
+
+        for (Pass p : passes) {
+            System.out.println(p.getPassId());
+        }
     }
 
     @Test
     public void getAvailablePassesForADate() {
-        List<Pass> passes = passRepository.findAvailablePassesForADate("2022-10-03");
+        List<Pass> passes = passRepository.findAvailablePassesForADate("2022-12-11");
         System.out.println("passList = " + passes);
+
+        for (Pass p : passes) {
+            System.out.println(p.getPassId());
+        }
     }
 
     @Test
@@ -77,14 +85,19 @@ public class PassRepositoryTest {
     }
 
     @Test
-    public void getLoanForAPassAndDate() {
-        List<Pass> p = passRepository.findPassesLoanedOnADate("2022-10-03");
-        System.out.println(p);
+    public void getPassesLoanedOnADate() {
+        List<Pass> passes = passRepository.findPassesLoanedOnADate("2022-12-11");
+        System.out.println(passes);
+
+        for (Pass p : passes) {
+            System.out.println(p.getPassId());
+        }
 
         // Pass p1 = passRepository.findById(1L).get();
         // System.out.println(p1.getLoans());
     }
     
+    @Test
     public void reportLostPass() {
         Pass pass = passRepository.findById(1L).get();
         List<Long> loanIdList = loanRepository.findLoanByPass(1L);
@@ -94,17 +107,17 @@ public class PassRepositoryTest {
 
         for (Long loanId : loanIdList) {
             Loan loan = loanRepository.findById(loanId).get();
-            loan.setLoanStatus("lost");
-            loanRepository.save(loan);
-            // if (loan.getLoanStatus().equals("collected")) {
+            
+            if ((loan.getLoanStatus()).equals("collected")) {
 
-            Staff staff = loan.getStaff();
-            staff.setIsAdminHold("TRUE");
-            staffRepository.save(staff);
-                // loan.setLoanStatus("lost");
-                // loanRepository.save(loan);
-            // }
-            // loanRepository.save(loan);
+                loan.setLoanStatus("lost");
+                loanRepository.save(loan);
+
+                // need to make this a separate method
+                // Staff staff = loan.getStaff();
+                // staff.setIsAdminHold("TRUE");
+                // staffRepository.save(staff);
+            }
         }
     }
 
@@ -124,10 +137,12 @@ public class PassRepositoryTest {
         }
     }
 
-    // @Test
-    // public void getLoanForAPassAndDate() {
-    //     Loan loan = passRepository.findLoanForAPassAndDate();
-    // }
+    @Test
+    public void getLoanForAPassAndDate() {
+        Pass p = passRepository.findById(1L).get();
+        Loan loan = passRepository.findLoanForAPassAndDate(p, "2022-10-11");
+        System.out.println(loan);
+    }
 
     // @Test
     // public void checkPreviousDayBorrower() {

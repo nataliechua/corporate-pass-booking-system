@@ -153,12 +153,15 @@ public class PassServiceImpl implements PassService {
 
         for (Long loanId : loanIdList) {
             Loan loan = loanRepository.findById(loanId).get();
-            loan.setLoanStatus("lost");
-            loanRepository.save(loan);
+            if ((loan.getLoanStatus()).equals("collected")) {
+                loan.setLoanStatus("lost");
+                loanRepository.save(loan);
 
-            Staff staff = loan.getStaff();
-            staff.setIsAdminHold("TRUE");
-            staffRepository.save(staff);
+                // need to make this a separate method
+                // Staff staff = loan.getStaff();
+                // staff.setIsAdminHold("TRUE");
+                // staffRepository.save(staff);
+            }
         }
     }
 
@@ -175,6 +178,10 @@ public class PassServiceImpl implements PassService {
             loan.setLoanStatus("returned");
             loanRepository.save(loan);
         }
+    }
+
+    public Loan getLoanByPassAndDate(Pass p, String date) {
+        return passRepository.findLoanForAPassAndDate(p, date);
     }
 
 }

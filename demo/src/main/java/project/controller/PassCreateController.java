@@ -1,7 +1,10 @@
 package project.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import project.entity.*;
@@ -30,11 +33,19 @@ public class PassCreateController {
     }
 
     @PostMapping
-    public String createNewPass(@ModelAttribute("pass") Pass pass) {
+    public String createNewPass(@Valid @ModelAttribute("pass") Pass pass, BindingResult result) {
+        
+        if (result.hasErrors()) { // ensure staff is not empty
+            return "adminAddPass";
+        }
+        // check if digitalPath is true/false
+        // check pass start date and pass expiry date
         //pass.setPassId((long) 11);
+        //=========================================
         pass.setIsPassActive("TRUE");
         passService.savePass(pass);
         return "redirect:/viewPasses";
+        //=========================================
         //staffDto.setIsAdminHold("FALSE");
         //staffDto.setIsUserActive("FALSE");
         //staffDto.setStaffType("Staff");

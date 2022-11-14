@@ -102,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
                 .permitAll()
             .and()
                 .exceptionHandling()
-                .accessDeniedPage("/404")    
+                .accessDeniedPage("/403")    
             ;
         
         // uncomment here to disable login screen

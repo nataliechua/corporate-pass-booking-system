@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import project.entity.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 // @SpringBootTest(classes={Loan.class, Pass.class, Staff.class})
@@ -52,7 +55,7 @@ public class LoanRepositoryTest {
         Loan newLoan = loanRepository.save(loan);
 
         List<Loan> loanList = loanRepository.findAll();
-        System.out.println("loanList with new = " + newLoan);
+        System.out.println("loanList with new = " + loanList);
     }
 
     @Test
@@ -147,7 +150,7 @@ public class LoanRepositoryTest {
 
     @Test
     public void printLoanByStaffAndMonth() {
-        List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-11-24");
+        List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-12-11");
         System.out.println(loans);
     }
 
@@ -158,9 +161,24 @@ public class LoanRepositoryTest {
     // }
     
     @Test
-    public void cancelLoanById() {
+    public void cancelLoanById() throws ParseException {
         Loan loan = loanRepository.findById(8L).get();
-        loan.setLoanStatus("canceled");
-        loanRepository.save(loan);
+
+        if ((loan.getLoanStatus()).equals("not collected")) {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+            Date loanDate = parser.parse(loan.getLoanDate());
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(loanDate);
+            c.add(Calendar.DATE, -1);
+
+            Date oneDayBefore = c.getTime();
+            Date currentDate = new Date();
+
+            if (currentDate.before(oneDayBefore)) {
+                loan.setLoanStatus("canceled");
+                loanRepository.save(loan);
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ public class StaffController {
     private StaffService staffService;
 
     @PostMapping("/staff")
-    public Staff saveStaff(@RequestBody Staff staff) {
+    public List<String> saveStaff(@RequestBody Staff staff) {
         return staffService.saveStaff(staff);
     }
 

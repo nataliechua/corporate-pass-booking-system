@@ -1,5 +1,6 @@
 package project.service;
 
+import java.text.ParseException;
 import java.util.*;
 
 import project.entity.*;
@@ -25,6 +26,6 @@ public interface LoanService {
 
     public List<Loan> getLoansByStaffAndMonth(Long staffId, String date);
 
-    public void cancelLoanById(Long loanId);
+    public void cancelLoanById(Long loanId) throws ParseException;
     
 }

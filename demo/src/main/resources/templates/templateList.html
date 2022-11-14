@@ -27,6 +27,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const checkExist = setInterval(function () {
+            document.getElementById("emailTemplate").className += " active";
+            clearInterval(checkExist);
+        }, 100);
+    </script>
 </head>
 
 <body id="page-top">

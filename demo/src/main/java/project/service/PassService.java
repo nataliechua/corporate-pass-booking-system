@@ -26,4 +26,6 @@ public interface PassService {
     public void reportLostPass(Long passId);
 
     public void foundPass(Long passId);
+
+    public Loan getLoanByPassAndDate(Pass p, String date);
 }

@@ -1,7 +1,7 @@
 package project.entity;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 import lombok.*;
 import com.fasterxml.jackson.annotation.*;
@@ -26,6 +26,7 @@ public class Staff {
     private String staffName;
 
     @NotEmpty(message = "Email cannot be empty.")
+    @Email(message = "Invalid email format")
     private String staffEmail;
 
     @NotEmpty(message = "Contact number cannot be empty.")

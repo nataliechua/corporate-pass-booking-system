@@ -14,8 +14,9 @@ import project.exception.*;
 
 import org.springframework.http.*;
 import com.fasterxml.jackson.databind.ObjectMapper; 
-import com.fasterxml.jackson.databind.ObjectWriter; 
+import com.fasterxml.jackson.databind.ObjectWriter;
 
+import java.text.ParseException;
 // import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -47,7 +48,7 @@ public class LoanController {
     }
 
     @PutMapping("/loans/{id}")
-    public void cancelLoanById(@PathVariable("id") Long loanId) {
+    public void cancelLoanById(@PathVariable("id") Long loanId) throws ParseException {
         loanService.cancelLoanById(loanId);
     }
 
