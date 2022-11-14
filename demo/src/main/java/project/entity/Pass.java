@@ -1,6 +1,9 @@
 package project.entity;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.*;
 
@@ -21,13 +24,27 @@ public class Pass {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     // @JsonView({JsonViewProfiles.Loan.class, JsonViewProfiles.Pass.class, JsonViewProfiles.Staff.class })
     private Long passId;
+    
+    @NotEmpty(message = "Pass type cannot be empty.")
     private String passType;
+
+    @NotEmpty(message = "Attractions cannot be empty.")
     private String attractions;
+
+    @Min(value = 1, message = "People per pass should not be less than 1")
     private int peoplePerPass;
+
+    @NotEmpty(message = "Is digital cannot be empty.")
     private String isDigital;
-    private String digitalPath;
+
+    private String digitalPath; // optional
+    
+    @NotEmpty(message = "Pass start date cannot be empty.")
     private String passStartDate;
+
+    @NotEmpty(message = "Pass expiry date cannot be empty.")
     private String passExpiryDate;
+    
     private float replacementFee;
     private String isPassActive;
 
