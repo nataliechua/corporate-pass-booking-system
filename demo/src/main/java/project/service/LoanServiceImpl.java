@@ -9,6 +9,9 @@ import project.exception.*;
 import project.repository.*;
 import project.util.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -150,10 +153,25 @@ public class LoanServiceImpl implements LoanService {
 
 
     @Override
-    public void cancelLoanById(Long loanId) {
+    public void cancelLoanById(Long loanId) throws ParseException {
         Loan loan = loanRepository.findById(loanId).get();
-        loan.setLoanStatus("canceled");
-        loanRepository.save(loan);
+
+        if ((loan.getLoanStatus()).equals("not collected")) {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+            Date loanDate = parser.parse(loan.getLoanDate());
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(loanDate);
+            c.add(Calendar.DATE, -1);
+
+            Date oneDayBefore = c.getTime();
+            Date currentDate = new Date();
+
+            if (currentDate.before(oneDayBefore)) {
+                loan.setLoanStatus("canceled");
+                loanRepository.save(loan);
+            }
+        }
     }
  
 

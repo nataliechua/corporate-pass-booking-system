@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import project.entity.*;
 import project.service.*;
 
+import java.text.ParseException;
 import java.time.*;
 import java.util.*; 
 
@@ -43,7 +44,7 @@ public class LoanBorrowerController {
     }
 
     @PutMapping("/{id}/{status}")
-    public String updateLoanStatus(@PathVariable("id") Long id, @PathVariable("status") String updateType) {
+    public String updateLoanStatus(@PathVariable("id") Long id, @PathVariable("status") String updateType) throws ParseException {
         if (updateType.equals("cancel")){
             loanService.cancelLoanById(id);
         }else{

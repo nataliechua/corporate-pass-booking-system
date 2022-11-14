@@ -85,6 +85,7 @@ public class PassRepositoryTest {
         // System.out.println(p1.getLoans());
     }
     
+    @Test
     public void reportLostPass() {
         Pass pass = passRepository.findById(1L).get();
         List<Long> loanIdList = loanRepository.findLoanByPass(1L);
@@ -94,16 +95,18 @@ public class PassRepositoryTest {
 
         for (Long loanId : loanIdList) {
             Loan loan = loanRepository.findById(loanId).get();
-            loan.setLoanStatus("lost");
-            loanRepository.save(loan);
-            // if (loan.getLoanStatus().equals("collected")) {
+            
+            if ((loan.getLoanStatus()).equals("collected")) {
 
-            Staff staff = loan.getStaff();
-            staff.setIsAdminHold("TRUE");
-            staffRepository.save(staff);
+                loan.setLoanStatus("lost");
+                loanRepository.save(loan);
+
+                Staff staff = loan.getStaff();
+                staff.setIsAdminHold("TRUE");
+                staffRepository.save(staff);
                 // loan.setLoanStatus("lost");
                 // loanRepository.save(loan);
-            // }
+            }
             // loanRepository.save(loan);
         }
     }
