@@ -119,11 +119,19 @@ public class BookerUtilTest {
 
         l1.addStaff(s1);
 
-        // Returns the updated new loan object being created
-        booker.checkIfSaturdaySundayBorrower(l1);
+        // Returns the sunday loan
+        Loan sundayLoan = booker.checkIfSaturdaySundayBorrower(l1);
 
         // Save in db
         loanRepository.save(l1);
+
+        if (sundayLoan != null) {
+            System.out.println("STAGE 1: " + sundayLoan);
+            sundayLoan.addSaturdayBorrower(":" + l1.getLoanId() + ";");
+            System.out.println("stage 2: " + sundayLoan);
+            loanRepository.save(sundayLoan);
+            System.out.println("stage 3: " + sundayLoan);
+        }
     }
 
     @Test

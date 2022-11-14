@@ -64,13 +64,19 @@ public class LoanServiceImpl implements LoanService {
             return null;
         }
 
+        System.out.println("PASSES VALIDATION CHECKS");
+
         // Choose passes from available passes
         Set<Pass> chosenPasses = new HashSet<>();
         List<Pass> availablePasses = passRepository.findAvailablePassesForPassTypeAndDate(passType, date);
 
+        System.out.println("AVAILABLE PASSES: " + availablePasses);
+
         for (int i=0; i<numOfPasses;i++) {
             chosenPasses.add(availablePasses.get(i));
         }
+
+        System.out.println("CHOSEN PASSES: " + chosenPasses);
 
         // Create new loan
         Staff staff = staffRepository.findById(staffId).get();
@@ -82,11 +88,22 @@ public class LoanServiceImpl implements LoanService {
         // staff.getLoans().add(loan);
         loan.addPasses(chosenPasses);
 
-        // Check if a person borrowed the pass the previous day
-        booker.checkIfSaturdaySundayBorrower(loan);
+        System.out.println("LOAN OBJ: " + loan);
 
-        System.out.println("Save loan: ");
+        // Check if a person borrowed the pass the previous day
+        // will return null if there is no sunday loan to update
+        Loan sundayLoan = booker.checkIfSaturdaySundayBorrower(loan);
+
+        // Save in db and generate loan id
         loanRepository.save(loan);
+
+        if (sundayLoan != null) {
+            // add the generated loan id to the saturday borrower property of sunday loan
+            sundayLoan.addSaturdayBorrower(":" + loan.getLoanId() + ";");
+            loanRepository.save(sundayLoan);
+        }
+
+        System.out.println("FINAL LOAN OBJ: " + loan);
 
         return loan;
     };
