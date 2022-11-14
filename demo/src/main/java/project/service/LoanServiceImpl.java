@@ -79,15 +79,16 @@ public class LoanServiceImpl implements LoanService {
         Loan loan = new Loan(date, attraction);
 
         loan.setStaff(staff);
-        staff.getLoans().add(loan);
+        // staff.getLoans().add(loan);
         loan.addPasses(chosenPasses);
 
-        Loan newLoan = loanRepository.save(loan);
-        
         // Check if a person borrowed the pass the previous day
-        
+        booker.checkIfSaturdaySundayBorrower(loan);
+
         System.out.println("Save loan: ");
-        return newLoan;
+        loanRepository.save(loan);
+
+        return loan;
     };
 
     @Override

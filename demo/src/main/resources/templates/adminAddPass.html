@@ -43,6 +43,12 @@
             })
         })
     </script>
+    <script>
+        const checkExist = setInterval(function () {
+            document.getElementById("pass").className += " active";
+            clearInterval(checkExist);
+        }, 100);
+    </script>
     <!-- Add sidebar active state - ENDS -->
 </head>
 
@@ -84,31 +90,38 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <tbody>
-
                                         <form th:action="@{/createPass}" method="POST" th:object="${pass}">
+                                            <!--Validation-->
+                                            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                                                <ul>
+                                                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                                                    <!--Add company domain and previous passwrd-->
+                                                </ul>
+                                            </div>
+                                            <!--//Validation-->
                                             <tr>
                                                 <th scope="row">
                                                     <label for="passType">Pass Type</label>
                                                 </th>
-                                                <td><input required th:field="*{passType}" id="passType" type="text"/></td>
+                                                <td><input th:field="*{passType}" id="passType" type="text"/></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">
                                                     <label for="attractions" >Attractions</label>
                                                 </th>
-                                                <td><input required th:field="*{attractions}" id="attractions" type="text" placeholder="e.g. Gardens, Zoo" /></td>
+                                                <td><input th:field="*{attractions}" id="attractions" type="text" placeholder="e.g. Gardens, Zoo" /></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">
                                                     <label for="peoplePerPass">People Per Pass</label>
                                                 </th>
-                                                <td><input required th:field="*{peoplePerPass}" id="peoplePerPass" min="1" type="number"/></td>
+                                                <td><input th:field="*{peoplePerPass}" id="peoplePerPass" type="number"/></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">
                                                     <label for="isDigital">Is Digital</label>
                                                 </th>
-                                                <td><input required th:field="*{isDigital}" id="isDigital" placeholder="TRUE or FALSE only" type="text"/></td>
+                                                <td><input th:field="*{isDigital}" id="isDigital" placeholder="TRUE or FALSE only" type="text"/></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">
@@ -120,19 +133,19 @@
                                                 <th scope="row">
                                                     <label for="passStartDate">Pass Start Date</label>
                                                 </th>
-                                                <td><input required th:field="*{passStartDate}" id="passStartDate" type="date"/></td>
+                                                <td><input th:field="*{passStartDate}" id="passStartDate" type="date"/></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">
                                                     <label for="passExpiryDate">Pass Expiry Date</label>
                                                 </th>
-                                                <td><input required th:field="*{passExpiryDate}" id="passExpiryDate" type="date"/></td>
+                                                <td><input th:field="*{passExpiryDate}" id="passExpiryDate" type="date"/></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">
                                                     <label for="replacementFee">Replacement Fee</label>
                                                 </th>
-                                                <td><input required th:field="*{replacementFee}" id="replacementFee" min="0.00" type="number" step="0.01"/></td>
+                                                <td><input th:field="*{replacementFee}" id="replacementFee" min="0.00" type="number" step="0.01"/></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row"></th>

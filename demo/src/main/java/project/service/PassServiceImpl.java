@@ -177,4 +177,8 @@ public class PassServiceImpl implements PassService {
         }
     }
 
+    public Loan getLoanByPassAndDate(Pass p, String date) {
+        return passRepository.findLoanForAPassAndDate(p, date);
+    }
+
 }

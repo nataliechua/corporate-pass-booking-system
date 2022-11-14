@@ -77,7 +77,7 @@ public class PassRepositoryTest {
     }
 
     @Test
-    public void getLoanForAPassAndDate() {
+    public void getPassesLoanedOnADate() {
         List<Pass> p = passRepository.findPassesLoanedOnADate("2022-10-03");
         System.out.println(p);
 
@@ -127,10 +127,12 @@ public class PassRepositoryTest {
         }
     }
 
-    // @Test
-    // public void getLoanForAPassAndDate() {
-    //     Loan loan = passRepository.findLoanForAPassAndDate();
-    // }
+    @Test
+    public void getLoanForAPassAndDate() {
+        Pass p = passRepository.findById(1L).get();
+        Loan loan = passRepository.findLoanForAPassAndDate(p, "2022-10-03");
+        System.out.println(loan);
+    }
 
     // @Test
     // public void checkPreviousDayBorrower() {

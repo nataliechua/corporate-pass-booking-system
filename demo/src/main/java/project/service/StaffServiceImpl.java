@@ -13,6 +13,7 @@ import project.EmailerUtil.SendEmail;
 import project.EmailerUtil.Email;
 import project.entity.*;
 import project.repository.*;
+import project.util.RegisterUtil;
 import project.exception.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,25 +30,18 @@ public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
     @Autowired
     SendEmail emailUtil;
+    @Autowired
+    private RegisterUtil registerUtil;
 
     @Override
-    public Staff saveStaff(Staff staff) {
+    public List<String> saveStaff(Staff staff) {
         
         Staff staffRecord = new Staff(staff.getStaffName(), staff.getStaffEmail(),
             staff.getContactNum(), new BCryptPasswordEncoder().encode(staff.getPassword()),
             staff.getStaffType());
 
-        List<Staff> staffDb = getAllStaff();
-
-        Optional<Staff> indvStaffRecord = staffDb.stream()
-                                            .filter(
-                                                p -> p.getStaffEmail().equals(staff.getStaffEmail()) ||p.getContactNum().equals(staff.getContactNum())
-                                            )
-                                            .findFirst();
-        if (indvStaffRecord.isPresent()) { // there's exising account under this email or contact
-            // System.out.println(indvStaffRecord.get());
-            throw new RegistrationException("Staff already exist in the database");
-        }
+        // validation
+        List<String> errorMsg = registerUtil.validate(staff); // ensure email domain is correct & account does not exist
         Staff result = staffRepository.save(staffRecord);
 
         if (result!=null) {
@@ -62,7 +56,8 @@ public class StaffServiceImpl implements StaffService {
             }
         }
 
-        return result;
+        // display message in a list here
+        return errorMsg;
     }
 
     private void sendVerificationEmail(Long staffId, String staffEmail) throws IOException, MessagingException {
@@ -70,7 +65,7 @@ public class StaffServiceImpl implements StaffService {
         //mail.setMailTo(staffEmail);
         mail.setMailTo("linpeishann@gmail.com");//TODO: Replace it with the actual email next time but demo use existing email
         mail.setFrom("linpeishann@gmail.com");
-        mail.setSubject("random");
+        mail.setSubject("Welcome to your new account");
         
         String message = String.format("Thank you for registering your account. Click this link: http://localhost:8080/updateStaffToActive/%d to verify your account.", staffId);
         emailUtil.sendSimpleEmail(mail, message);
@@ -94,7 +89,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff getStaffByEmail(String email) { // not sure if we need this
+    public Staff getStaffByEmail(String email) { 
         // .get() to get value of department
         Staff staff = staffRepository.findByStaffEmail(email);
 
