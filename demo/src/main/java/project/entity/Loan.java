@@ -53,11 +53,11 @@ public class Loan {
     
     private String loanStatus;
 
-    @OneToOne
-    @JoinColumn(name= "saturday_borrower")
+    // @OneToOne
+    // @JoinColumn(name= "saturday_borrower")
     // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "loans"})
     // @JsonIgnore
-    private Staff saturdayBorrower;
+    private String saturdayBorrower;
 
     public Loan(String loanDate, String attraction) {
         this.loanDate = loanDate;
@@ -80,6 +80,19 @@ public class Loan {
         for (Pass p : passes) {
             this.passList.remove(p);
             p.getLoans().remove(this);
+        }
+    }
+
+    public void addStaff(Staff s) {
+        this.staff = s;
+        s.getLoans().add(this);
+    }
+
+    public void addSaturdayBorrower(String saturdayBorrowerAndPassToCollect) {
+        if (this.saturdayBorrower==null) {
+            this.saturdayBorrower = saturdayBorrowerAndPassToCollect;
+        } else {
+            this.saturdayBorrower += saturdayBorrowerAndPassToCollect;
         }
     }
     

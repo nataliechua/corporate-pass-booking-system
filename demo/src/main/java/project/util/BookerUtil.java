@@ -6,6 +6,7 @@ import project.entity.*;
 import project.dto.*;
 import project.exception.*;
 import project.service.*;
+import project.repository.*;
 import java.util.*;
 
 import java.text.SimpleDateFormat;  
@@ -26,6 +27,8 @@ public class BookerUtil {
     private LoanService loanService;
     @Autowired
     private ConstraintService constraintService;
+    @Autowired
+    private LoanRepository loanRepository;
 
     public boolean validate(String date, String passType, String attraction, int numOfPasses, Long staffId) {
         // String date = loanRequest.getLoanDate();
@@ -92,27 +95,84 @@ public class BookerUtil {
         return true;
     }
 
-    // public Loan checkIfSaturdaySundayBorrower(Loan loan) {
-    //     String date = loan.getLoanDate();
-    //     Set<Pass> passes = loan.getPassList();
+    public Loan checkIfSaturdaySundayBorrower(Loan loan) {
+        String date = loan.getLoanDate();
+        Set<Pass> passes = loan.getPassList();
 
-    //     Date loanDate = null;
+        Date loanDate = null;
 
-    //     try {
-    //         loanDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-    //     } catch (java.text.ParseException e) {
-    //         e.printStackTrace();
-    //     }
+        try {
+            loanDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
 
-    //     Calendar c = Calendar.getInstance();
-    //     c.setTime(yourDate);
-    //     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        Calendar c = Calendar.getInstance();
+        c.setTime(loanDate);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        System.out.println(dayOfWeek);
 
-    //     if (dayOfWeek == 7) {
-    //         for (Pass p : passes) {
+        for (Pass p : passes) {
 
-    //         }
-    //     }
-    // }
+            // If booking is made on Sunday, then check if there is a borrower for that pass on Saturday
+            if (dayOfWeek == 1) {
+                System.out.println("IT IS A SUNDAY");
+                
+                c = Calendar.getInstance();
+                c.setTime(loanDate);
+                c.add(Calendar.DATE, -1);
+                Date prevDay = c.getTime();
+
+                String strDate = new SimpleDateFormat("yyyy-MM-dd").format(prevDay); 
+
+                Loan l = passService.getLoanByPassAndDate(p, strDate); // Saturday borrower
+
+                if (l != null) {
+
+                    System.out.println("THERE IS A LOAN ON SATUDAY FOR PASS: " + p.getPassId());
+                    Staff saturdayBorrower = l.getStaff();
+                    Long saturdayBorrowerId = saturdayBorrower.getStaffId();
+
+                    String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId() + ";";
+
+                    loan.addSaturdayBorrower(saturdayBorrowerAndPassToCollect);
+
+                    // loan.setSaturdayBorrower(saturdayBorrower);
+                }
+            }
+
+            // If booking is made on a Saturday, then check if there is a borrower for that pass on Sunday
+            if (dayOfWeek == 7) {
+                System.out.println("IT IS A SATURDAY");
+                
+                c = Calendar.getInstance();
+                c.setTime(loanDate);
+                c.add(Calendar.DATE, 1);
+                Date nextDay = c.getTime();
+
+                String strDate = new SimpleDateFormat("yyyy-MM-dd").format(nextDay); 
+
+                Loan l = passService.getLoanByPassAndDate(p, strDate); // Sunday borrower
+
+                if (l != null) {
+
+                    System.out.println("THERE IS A LOAN ON SUNDAY FOR PASS: " + p.getPassId());
+
+                    Staff saturdayBorrower = loan.getStaff();
+
+                    Long saturdayBorrowerId = saturdayBorrower.getStaffId();
+
+                    String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId() + ";";
+
+                    l.addSaturdayBorrower(saturdayBorrowerAndPassToCollect);
+
+                    System.out.println(loanRepository.save(l));
+                }
+            };
+        }
+
+        return loan; // Could return a Map<Pass:Staff> of information of who is sat borrower & what pass to collect
+
+    }
 
 }
