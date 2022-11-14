@@ -13,7 +13,7 @@ public interface StaffService extends UserDetailsService {
 
     public Long getStaffIdFromLogin(); // added this
 
-    public Staff saveStaff(Staff staff);
+    public List<String> saveStaff(Staff staff);
 
     public List<Staff> getAllStaff();
 
