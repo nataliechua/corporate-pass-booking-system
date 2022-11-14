@@ -101,13 +101,11 @@ public class PassRepositoryTest {
                 loan.setLoanStatus("lost");
                 loanRepository.save(loan);
 
-                Staff staff = loan.getStaff();
-                staff.setIsAdminHold("TRUE");
-                staffRepository.save(staff);
-                // loan.setLoanStatus("lost");
-                // loanRepository.save(loan);
+                // need to make this a separate method
+                // Staff staff = loan.getStaff();
+                // staff.setIsAdminHold("TRUE");
+                // staffRepository.save(staff);
             }
-            // loanRepository.save(loan);
         }
     }
 

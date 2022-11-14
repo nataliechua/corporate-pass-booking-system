@@ -157,9 +157,10 @@ public class PassServiceImpl implements PassService {
                 loan.setLoanStatus("lost");
                 loanRepository.save(loan);
 
-                Staff staff = loan.getStaff();
-                staff.setIsAdminHold("TRUE");
-                staffRepository.save(staff);
+                // need to make this a separate method
+                // Staff staff = loan.getStaff();
+                // staff.setIsAdminHold("TRUE");
+                // staffRepository.save(staff);
             }
         }
     }
