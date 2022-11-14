@@ -117,9 +117,4 @@ public class HomeController {
     public String templateList() {
         return "templateList";
     }
-    
-    @GetMapping("/403") 
-    public String noPermissionError() {
-        return "ErrorPage/403";
-    }
 }
