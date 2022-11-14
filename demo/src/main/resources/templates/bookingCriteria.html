@@ -28,7 +28,7 @@
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
     <script>
-        var checkExist = setInterval(function () {
+        const checkExist = setInterval(function () {
             document.getElementById("bookingCriteria").className += " active";
             clearInterval(checkExist);
         }, 100);
