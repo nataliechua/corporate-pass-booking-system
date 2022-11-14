@@ -45,7 +45,7 @@ public class HomeController {
         if (result!=null)
             return "verified";
 
-        return "verifiedError";
+        return "ErrorPage/verifiedError";
     }
 
     // @GetMapping("/viewStaffs") 
@@ -118,8 +118,8 @@ public class HomeController {
         return "templateList";
     }
     
-    @GetMapping("/404") 
-    public String errorPage() {
-        return "404";
+    @GetMapping("/403") 
+    public String noPermissionError() {
+        return "ErrorPage/403";
     }
 }
