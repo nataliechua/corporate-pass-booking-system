@@ -19,7 +19,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     List<Loan> findByStaffStaffId(Long id);
 
-    @Query(value="select * from loan l where l.staff_id=:staffId and month(l.loan_date) = month(:date)", nativeQuery=true)
+    @Query(value="select * from loan l where l.loan_status <> 'canceled' and l.staff_id=:staffId and month(l.loan_date) = month(:date)", nativeQuery=true)
     List<Loan> findByStaffAndMonth(@Param("staffId") Long staffId, @Param("date") String date);
 
     @Query(value="SELECT Loan_ID from loan_pass where Pass_ID = :passId", nativeQuery=true)

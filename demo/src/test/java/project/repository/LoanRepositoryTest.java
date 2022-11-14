@@ -55,7 +55,7 @@ public class LoanRepositoryTest {
         Loan newLoan = loanRepository.save(loan);
 
         List<Loan> loanList = loanRepository.findAll();
-        System.out.println("loanList with new = " + newLoan);
+        System.out.println("loanList with new = " + loanList);
     }
 
     @Test
@@ -150,7 +150,7 @@ public class LoanRepositoryTest {
 
     @Test
     public void printLoanByStaffAndMonth() {
-        List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-11-24");
+        List<Loan> loans = loanRepository.findByStaffAndMonth(1L, "2022-12-11");
         System.out.println(loans);
     }
 

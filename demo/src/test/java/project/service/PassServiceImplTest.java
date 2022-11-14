@@ -14,15 +14,7 @@ import java.util.*;
 public class PassServiceImplTest {
     @Autowired
     private PassServiceImpl passServiceImpl;
-
-    // @Test
-    // public void saveStudent() {
-    //     Guardian guardian = new Guardian("Nikhil", "Nikhil@gmail.com", "9999999");
-    //     Student student = new Student("wep", "Test", guardian, "wepg@gmail.com");
-
-    //     studentRepository.save(student);
-    // }
-
+    
     @Test
     public void printTotalPassNum() {
         Map<String, Integer> map = passServiceImpl.getTotalPassNum();
