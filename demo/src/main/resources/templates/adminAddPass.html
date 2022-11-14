@@ -43,6 +43,12 @@
             })
         })
     </script>
+    <script>
+        var checkExist = setInterval(function () {
+            document.getElementById("pass").className += " active";
+            clearInterval(checkExist);
+        }, 100);
+    </script>
     <!-- Add sidebar active state - ENDS -->
 </head>
 

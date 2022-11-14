@@ -45,8 +45,7 @@ public class StaffRegistrationController {
         if (result.hasErrors()) { // ensure staff is not empty
             return "register";
         }
-
-        // second check
+        
         staff.setIsAdminHold("FALSE");
         staff.setIsUserActive("FALSE");
         staff.setStaffType("Staff");
