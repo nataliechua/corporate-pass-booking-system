@@ -63,12 +63,17 @@ public class HomeController {
         return "passes";
     }
 
-    @PutMapping("/viewPasses/{id}")
-    public String updatePassInactive(@PathVariable("id")Long passId) {
-        //Pass pass = passService.getPassById(passId);
-        Pass pass = new Pass();
-        pass.setIsPassActive("FALSE");
-        passService.updatePass(passId, pass);
+    @PutMapping("/viewPasses/{id}/{status}")
+    public String updatePassInactive(@PathVariable("id")Long passId, @PathVariable("status") String status) {
+        Pass pass = passService.getPassById(passId);
+        //Pass pass = new Pass();
+        if (status.equals("deactive")){
+            pass.setIsPassActive("FALSE");
+            passService.updatePass(passId, pass); 
+        }else{
+            passService.foundPass(passId);
+        }
+        
         return "redirect:/viewPasses";
         //return "redirect:/registration?success";
     }
@@ -78,10 +83,10 @@ public class HomeController {
     //     return "gopReturnPass";
     // }
 
-    @GetMapping("/bookAPass")
-    public String bookAPass() {
-        return "bookAPass";
-    }
+    // @GetMapping("/bookAPass")
+    // public String bookAPass() {
+    //     return "bookAPass";
+    // }
 
     // @GetMapping("/loanedPasses")
     // public String loanedPasses() {

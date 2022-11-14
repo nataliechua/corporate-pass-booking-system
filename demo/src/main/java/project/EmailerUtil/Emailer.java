@@ -1,4 +1,4 @@
-package project.controller;
+package project.EmailerUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import project.EmailerUtil.SendEmail;
-import project.EmailerUtil.EmailDTO;
-import project.EmailerUtil.Email;
+// import project.EmailerUtil.SendEmail;
+// import project.EmailerUtil.EmailDTO;
+// import project.EmailerUtil.Email;
 
 
 @RestController

@@ -1,11 +1,11 @@
 ﻿passID,passType,placeOfInterest,peoplePerPass,isDigital,digitalPath,passStartDate,passExpiryDate,replacementFee,isPassActive
-1,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-01,2024-12-31,$53.50,TRUE
-2,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-02,2024-12-31,$53.50,TRUE
-3,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-03,2024-12-31,$53.50,FALSE
-4,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-04,2024-12-31,$53.50,TRUE
-5,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-05,2024-12-31,$53.50,TRUE
-6,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-06,2025-01-05,$53.50,TRUE
-7,Singapore Flyer,Singapore Flyer,4,TRUE,https://www.singaporeflyer.com/en,2021-01-07,2025-01-06,$60.00,TRUE
-8,Singapore Flyer,Singapore Flyer,4,TRUE,https://www.singaporeflyer.com/en,2021-01-08,2025-01-07,$60.00,TRUE
-9,Garden by the Bay,Garden by the Bay,4,TRUE,https://www.gardensbythebay.com.sg/,2021-01-09,2025-01-08,$55.00,TRUE
-10,Garden by the Bay,Garden by the Bay,4,TRUE,https://www.gardensbythebay.com.sg/,2021-01-10,2025-01-09,$55.00,TRUE
+1,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-01,2024-12-31,53.5,TRUE
+2,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-02,2024-12-31,53.5,TRUE
+3,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-03,2024-12-31,53.5,FALSE
+4,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-04,2024-12-31,53.5,TRUE
+5,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-05,2024-12-31,53.5,TRUE
+6,Mandai Wildlife Reserve,"Singapore Zoo, River Wonders, Jurong Bird Park",4,FALSE,,2021-01-06,2025-01-05,53.5,TRUE
+7,Singapore Flyer,Singapore Flyer,4,TRUE,https://www.singaporeflyer.com/en,2021-01-07,2025-01-06,60,TRUE
+8,Singapore Flyer,Singapore Flyer,4,TRUE,https://www.singaporeflyer.com/en,2021-01-08,2025-01-07,60,TRUE
+9,Garden by the Bay,Garden by the Bay,4,TRUE,https://www.gardensbythebay.com.sg/,2021-01-09,2025-01-08,55,TRUE
+10,Garden by the Bay,Garden by the Bay,4,TRUE,https://www.gardensbythebay.com.sg/,2021-01-10,2025-01-09,55,TRUE

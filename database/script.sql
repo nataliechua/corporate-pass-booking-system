@@ -70,7 +70,7 @@ LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/pass.c
 INTO TABLE PASS 
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
-LINES TERMINATED BY '\n'   
+LINES TERMINATED BY '\r\n'   
 IGNORE 1 ROWS;  
 
 /*Import Loan CSV File*/ 
@@ -78,7 +78,7 @@ LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/loan.c
 INTO TABLE LOAN
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
-LINES TERMINATED BY '\n'   
+LINES TERMINATED BY '\r\n'   
 IGNORE 1 ROWS;  
 
 /*Import Constraints CSV File*/ 

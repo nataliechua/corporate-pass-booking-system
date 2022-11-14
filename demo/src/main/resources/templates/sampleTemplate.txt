@@ -1,3 +1,7 @@
 [(${name})] 
+
+
 are pleased to inform that
+
+
 your booking to [(${message})] is confirmed as follows:
