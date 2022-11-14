@@ -33,6 +33,13 @@ public class ThymeLeafConfig{
         return templateEngine;
     }
 
+    @Bean(name = "htmlTemplateEngine")
+    public TemplateEngine htmlTemplateEngine() {
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.addTemplateResolver(htmlTemplateResolver());
+        return templateEngine;
+    }
+
     public ITemplateResolver textTemplateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("/templates/");
@@ -43,6 +50,18 @@ public class ThymeLeafConfig{
         templateResolver.setCacheable(false);
         return templateResolver;
     }
+
+    private ITemplateResolver htmlTemplateResolver() {
+        final ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        // templateResolver.setResolvablePatterns(Collections.singleton("html/*"));
+        templateResolver.setPrefix("/templates/EmailAttachment/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF8");
+        templateResolver.setCacheable(false);
+        return templateResolver;
+    }
+
 }
 
 
