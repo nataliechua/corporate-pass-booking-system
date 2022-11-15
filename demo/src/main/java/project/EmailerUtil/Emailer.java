@@ -25,9 +25,9 @@ public class Emailer {
     SendEmail emailUtil;
 
     @GetMapping(path = "/sendSimpleEmail")
-    public String simpleEmailTest() throws IOException, MessagingException {
+    public String simpleEmailTest(String receiverEmail) throws IOException, MessagingException {
         Email mail = new Email();
-        mail.setMailTo("testemailjava91@gmail.com");//replace with your desired email
+        mail.setMailTo(receiverEmail);//replace with your desired email
         mail.setFrom("nineliejasongu@gmail.com");
         mail.setSubject("random");
         emailUtil.sendSimpleEmail(mail,"hellohello");
@@ -37,7 +37,7 @@ public class Emailer {
     @GetMapping(path = "/TemplateEmail")
     public String emailWithTemplateTest() throws IOException, MessagingException {
         Email mail = new Email();
-        mail.setMailTo("testemailjava91@gmail.com");//replace with your desired email
+        mail.setMailTo("nataliechua159gmail.com");//replace with your desired email
         mail.setFrom("testemailjava91@gmail.com");
         mail.setSubject("test test");
         Map<String, Object> model = new HashMap<String, Object>();
@@ -51,12 +51,12 @@ public class Emailer {
     @GetMapping(path = "/TemplateAttachmentEmail")
     public String emailWithAttachmentTemplateTest() throws IOException, MessagingException {
             Email mail = new Email();
-            mail.setMailTo("testemailjava91@gmail.com");//replace with your desired email
+            mail.setMailTo("nataliechua15@gmail.com");//replace with your desired email
             mail.setFrom("testemailjava91@gmail.com");
             mail.setSubject("test template attachment email");
             Map<String, Object> model = new HashMap<String, Object>();
-            // model.put("name", "valerie");
-            // model.put("message", "hi");
+            model.put("name", "valerie");
+            model.put("message", "hi");
             mail.setProps(model);
             emailUtil.sendEmailWithAttachmentTemplate(mail, "SAMPLENEWCorporateLetterTemplateCFOZP_002_");
             return "SUCCESSED";

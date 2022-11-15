@@ -31,4 +31,20 @@ public class LoanServiceImplTest {
 
         System.out.println("Created loan: " + createdLoan);
     }
+
+    @Test
+    public void testGetLoansByStatusAndPassedLoanDate() {
+        // Takes in 'collected' and currentDate 
+        List<Loan> loanList = loanServiceImpl.getLoansByStatusAndPassedLoanDate("collected", "2022-11-03");
+        
+        System.out.println("Loan list=" + loanList);
+    }
+
+    @Test
+    public void testGetLoansByStatusAndDate() {
+        // Takes in 'not collected' as currentDate + 1
+        List<Loan> loanList = loanServiceImpl.getLoansByStatusAndDate("not collected", "2022-10-10");
+        
+        System.out.println("Loan list=" + loanList);
+    }
 }
