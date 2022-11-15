@@ -78,7 +78,7 @@
                                             <th>Pass</th>
                                             <th>Date</th>
                                             <th>Status</th>
-                                            <th></th>
+                                            <!-- <th></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -100,15 +100,16 @@
                                                     <div th:case="'canceled'" class="text-secondary" th:text="Cancelled"></div>
                                                 </td>
 
-                                                <td th:if="${passCount>0} and ${loan.loanStatus} =='collected'">
+                                                <!-- <td th:if="${passCount>0} and ${loan.loanStatus} =='collected'">
                                                     <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[0].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
                                                         Report Lost
                                                     </a>
                                                 </td>
-                                                <td th:unless="${passCount>0} and ${loan.loanStatus} =='collected'"></td>
+                                                <td th:unless="${passCount>0} and ${loan.loanStatus} =='collected'"></td> -->
 
                                                 <!-- Report Lost Modal - STARTS -->
-                                                <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[0].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                
+                                                <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[0].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -126,24 +127,24 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!-- Report Lost Modal - ENDS -->
                                             </tr>
 
                                             <tr th:each="pass, stats:${loan.passList}" th:if="${!stats.first}">
                                                 <td th:text="|ID${pass.passId}: ${pass.passType}|"></td>
-                                                <td th:if="${loan.loanStatus} =='collected'">
+                                                <!-- <td th:if="${loan.loanStatus} =='collected'">
                                                     <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[stats.index].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
                                                         Report Lost
                                                     </a>
                                                 </td>
-                                                <td th:unless="${loan.loanStatus} =='collected'"></td>
+                                                <td th:unless="${loan.loanStatus} =='collected'"></td> -->
                                                 <!-- <td hidden></td>
                                                 <td hidden></td>
                                                 <td hidden></td> -->
 
                                                 <!-- Report Lost Modal - STARTS -->
-                                                <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[stats.index].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[stats.index].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -161,7 +162,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <!-- Report Lost Modal - ENDS -->
                                             </tr>
 
