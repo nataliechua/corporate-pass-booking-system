@@ -24,11 +24,14 @@ public class PassBookViewController {
     private StaffService staffService;
     @Autowired
     private BookerUtil booker;
+    @Autowired
+    private LoanService loanService;
 
-    public PassBookViewController(PassService passService, StaffService staffService) {
+    public PassBookViewController(PassService passService, StaffService staffService, LoanService loanService) {
         super();
         this.passService = passService;
         this.staffService = staffService;
+        this.loanService = loanService;
     }
 
     @ModelAttribute("loan")
@@ -50,11 +53,13 @@ public class PassBookViewController {
     public String updateAdminStuff(@PathVariable("chosenDate") String dateChosen, Model model, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) {
         Map<String, PassDTO> passes = new HashMap<String, PassDTO>();
 
-        if (dateChosen != ""){
+        if (!dateChosen.equals("")){
             model.addAttribute("selectedDate", dateChosen);
         }
+        List<Loan> loans = loanService.getLoansByLoanDate(dateChosen);  
         passes = passService.getPassTypeInfoWithAvailableAndTotalCount(dateChosen);
         model.addAttribute("passDTO", passes);
+        model.addAttribute("loans", loans);
         
         return "bookAPass";  
     }
@@ -62,22 +67,24 @@ public class PassBookViewController {
     @PostMapping("/{chosenDate}")
     public String createNewLoan(@PathVariable("chosenDate") String dateChosen, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) {
         loanRequestDTO.setLoanDate(dateChosen);
-        loanRequestDTO.setStaffId(staffService.getStaffIdFromLogin());System.out.println(loanRequestDTO);
-        boolean loanCreationResult = booker.validate(loanRequestDTO.getLoanDate(), loanRequestDTO.getPassType()
-            , loanRequestDTO.getAttraction(), loanRequestDTO.getNumOfPasses(), loanRequestDTO.getStaffId()); 
+        loanRequestDTO.setStaffId(staffService.getStaffIdFromLogin());
+        Loan loan = loanService.createNewLoan(loanRequestDTO);
+        // boolean loanCreationResult = booker.validate(loanRequestDTO.getLoanDate(), loanRequestDTO.getPassType()
+        //     , loanRequestDTO.getAttraction(), loanRequestDTO.getNumOfPasses(), loanRequestDTO.getStaffId()); 
+
         System.out.println("========================================");
         System.out.println("========================================");
         System.out.println("========================================");
         System.out.println("========================================");
-        System.out.println(loanCreationResult);
+
         System.out.println(loanRequestDTO);
         System.out.println("========================================");
         System.out.println("========================================");
         System.out.println("========================================");
-        if (loanCreationResult){
+        if (loan != null){
           return "redirect:/loanedPasses";  
         }
-        return "redirect:/bookAPass?failed";  
+        return "redirect:/bookAPass/" + dateChosen + "#book?failed";  
     }
 
 }
