@@ -42,6 +42,11 @@ public class StaffServiceImpl implements StaffService {
 
         // validation
         List<String> errorMsg = registerUtil.validate(staff); // ensure email domain is correct & account does not exist
+
+        if (errorMsg.size() > 0 ) {
+            return errorMsg;
+        }
+
         Staff result = staffRepository.save(staffRecord);
 
         if (result!=null) {
@@ -55,9 +60,7 @@ public class StaffServiceImpl implements StaffService {
 
             }
         }
-
-        // display message in a list here
-        return errorMsg;
+        return errorMsg; // empty errorMsg
     }
 
     private void sendVerificationEmail(Long staffId, String staffEmail) throws IOException, MessagingException {
