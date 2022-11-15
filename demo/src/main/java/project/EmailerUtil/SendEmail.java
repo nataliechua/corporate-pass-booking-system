@@ -1,18 +1,24 @@
 package project.EmailerUtil;
 
-import project.ThymeLeafConfig;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.TemplateEngine;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+import org.springframework.core.io.ClassPathResource;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import com.itextpdf.text.DocumentException;
 
 @Service
 public class SendEmail {
@@ -23,6 +29,9 @@ public class SendEmail {
     
     @Autowired
     private TemplateEngine textTemplateEngine;
+
+    @Autowired
+    private TemplateEngine htmlTemplateEngine;
 
     public void sendSimpleEmail(Email mail, String text) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
@@ -50,4 +59,58 @@ public class SendEmail {
         // message.setContent(html, "text/html");
         emailSender.send(message);
     }
+
+    public void sendEmailWithAttachmentTemplate(Email mail, String template) throws MessagingException, IOException {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message,
+                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                StandardCharsets.UTF_8.name());
+        Context context = new Context();
+        context.setVariables(mail.getProps());
+
+        String html = htmlTemplateEngine.process(template, context);
+        generatePdfReportAsPDF(html);
+        helper.setTo(mail.getMailTo());
+        helper.setText(html);
+        helper.setSubject(mail.getSubject());
+        helper.setFrom(mail.getFrom());
+        // message.setContent(html, "text/html");
+        
+
+        // emailSender.send(message);
+    }
+
+    
+  public void generatePdfReportAsPDF(String reportAsHtml) {
+    ITextRenderer renderer = new ITextRenderer();
+    
+
+    // if you have html source in hand, use it to generate document object
+    try{
+        renderer.setDocumentFromString(reportAsHtml);
+
+        renderer.layout();
+    }catch(Exception e){
+        
+        
+    }
+    
+    String fileNameWithPath = "PDF-FromHtmlString.pdf";
+    try{
+
+        FileOutputStream fos = new FileOutputStream( fileNameWithPath );
+        renderer.createPDF( fos );
+        fos.close();
+    }catch(FileNotFoundException e){
+        System.out.println("file not found");
+    }catch(DocumentException e){
+        System.out.println("DOCument exception");
+
+    }catch(IOException e){
+        System.out.println("IOException exception");
+
+    }
+    
+    System.out.println( "File 2: '" + fileNameWithPath + "' created." );
+}
 }

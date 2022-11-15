@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import project.entity.*;
 import project.service.*;
+import project.exception.*;
+import java.io.IOException;
+import java.util.stream.Collectors;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.*;
 
@@ -23,6 +27,8 @@ public class HomeController {
     private ConstraintService constraintService;
     @Autowired
     private PassService passService;
+    @Autowired
+    private StorageService storageService;
 
     @GetMapping("/")
     public String index() {
@@ -117,4 +123,15 @@ public class HomeController {
     public String templateList() {
         return "templateList";
     }
+
+    @GetMapping("/listUploadedFiles")
+	public String listUploadedFiles(Model model) throws IOException {
+
+		model.addAttribute("files", storageService.loadAll().map(
+				path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+						"serveFile", path.getFileName().toString()).build().toUri().toString())
+				.collect(Collectors.toList()));
+
+		return "uploadForm";
+	}
 }

@@ -11,9 +11,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-// import project.EmailerUtil.SendEmail;
-// import project.EmailerUtil.EmailDTO;
-// import project.EmailerUtil.Email;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+
+import org.w3c.dom.Document;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 
 @RestController
@@ -45,4 +47,20 @@ public class Emailer {
         emailUtil.sendEmailWithTemplate(mail, "sampleTemplate");
         return "SUCCESSED";
     }
+
+    @GetMapping(path = "/TemplateAttachmentEmail")
+    public String emailWithAttachmentTemplateTest() throws IOException, MessagingException {
+            Email mail = new Email();
+            mail.setMailTo("testemailjava91@gmail.com");//replace with your desired email
+            mail.setFrom("testemailjava91@gmail.com");
+            mail.setSubject("test template attachment email");
+            Map<String, Object> model = new HashMap<String, Object>();
+            // model.put("name", "valerie");
+            // model.put("message", "hi");
+            mail.setProps(model);
+            emailUtil.sendEmailWithAttachmentTemplate(mail, "SAMPLENEWCorporateLetterTemplateCFOZP_002_");
+            return "SUCCESSED";
+    }
 }
+    
+

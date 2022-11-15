@@ -60,14 +60,22 @@ public class PassRepositoryTest {
 
     @Test
     public void getAvailablePassesForPassTypeAndDate() {
-        List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate("Mandai Wildlife Reserve", "2022-10-03");
+        List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate("Garden By The Bay", "2022-12-11");
         System.out.println("passList = " + passes);
+
+        for (Pass p : passes) {
+            System.out.println(p.getPassId());
+        }
     }
 
     @Test
     public void getAvailablePassesForADate() {
-        List<Pass> passes = passRepository.findAvailablePassesForADate("2022-10-03");
+        List<Pass> passes = passRepository.findAvailablePassesForADate("2022-12-11");
         System.out.println("passList = " + passes);
+
+        for (Pass p : passes) {
+            System.out.println(p.getPassId());
+        }
     }
 
     @Test
@@ -78,8 +86,12 @@ public class PassRepositoryTest {
 
     @Test
     public void getPassesLoanedOnADate() {
-        List<Pass> p = passRepository.findPassesLoanedOnADate("2022-10-03");
-        System.out.println(p);
+        List<Pass> passes = passRepository.findPassesLoanedOnADate("2022-12-11");
+        System.out.println(passes);
+
+        for (Pass p : passes) {
+            System.out.println(p.getPassId());
+        }
 
         // Pass p1 = passRepository.findById(1L).get();
         // System.out.println(p1.getLoans());
@@ -138,7 +150,7 @@ public class PassRepositoryTest {
     @Test
     public void getLoanForAPassAndDate() {
         Pass p = passRepository.findById(1L).get();
-        Loan loan = passRepository.findLoanForAPassAndDate(p, "2022-10-03");
+        Loan loan = passRepository.findLoanForAPassAndDate(p, "2022-10-11");
         System.out.println(loan);
     }
 

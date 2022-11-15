@@ -58,6 +58,7 @@ public class BookerUtil {
         Date upperRange = calendar.getTime();
 
         if (currentDate.before(lowerRange) || currentDate.after(upperRange)) {
+            System.out.println("Not in range");
             return false;
         }
 
@@ -65,6 +66,7 @@ public class BookerUtil {
         List<Pass> availablePasses = passService.getAvailablePassesForPassTypeAndDate(passType, date);
 
         if (availablePasses.size() == 0) {
+            System.out.println("No available passes");
             return false;
         }
 
@@ -75,6 +77,7 @@ public class BookerUtil {
         
         // Check 2 pass per loan
         if (passPerLoanPerDay != null && numOfPasses > passPerLoanPerDay) {
+            System.out.println("Does not fulfil 2 pass per loan");
             return false;
         }
 
@@ -82,6 +85,7 @@ public class BookerUtil {
         List<Loan> prevLoans = loanService.getLoansByStaffAndMonth(staffId, date);
 
         if (loanPerMonth != null && prevLoans.size() == loanPerMonth) {
+            System.out.println("Does not fulfil 2 loan per month");
             return false;
         }
 
@@ -89,6 +93,7 @@ public class BookerUtil {
         Map<String, Integer> map = loanService.getNumOfPassesByStaffAndMonthAndAttraction(staffId, date);
         
         if (passPerMonthPerStaffPerAttraction != null && map.get(attraction) == passPerMonthPerStaffPerAttraction) {
+            System.out.println("Does not fulfil 2 loan per staff per month per attraction");
             return false;
         }
 
@@ -133,11 +138,9 @@ public class BookerUtil {
                     Staff saturdayBorrower = l.getStaff();
                     Long saturdayBorrowerId = saturdayBorrower.getStaffId();
 
-                    String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId() + ";";
+                    String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId() + ":" + l.getLoanId() + ";";
 
                     loan.addSaturdayBorrower(saturdayBorrowerAndPassToCollect);
-
-                    // loan.setSaturdayBorrower(saturdayBorrower);
                 }
             }
 
@@ -162,16 +165,19 @@ public class BookerUtil {
 
                     Long saturdayBorrowerId = saturdayBorrower.getStaffId();
 
-                    String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId() + ";";
+                    String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId();
 
                     l.addSaturdayBorrower(saturdayBorrowerAndPassToCollect);
 
                     System.out.println(loanRepository.save(l));
+
+                    // Return sunday loan
+                    return l;
                 }
             };
         }
 
-        return loan; // Could return a Map<Pass:Staff> of information of who is sat borrower & what pass to collect
+        return null; // Could return a Map<Pass:Staff> of information of who is sat borrower & what pass to collect
 
     }
 

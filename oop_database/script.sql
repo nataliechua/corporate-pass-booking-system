@@ -58,7 +58,7 @@ Constraint_Data int not null
 );
 
 /*Import Staff CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/staff.csv'
+LOAD DATA INFILE 'C:/wamp64/tmp/oop_database/staff.csv'
 INTO TABLE STAFF   
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
@@ -66,7 +66,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;  
 
 /*Import Pass CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/pass.csv'
+LOAD DATA INFILE 'C:/wamp64/tmp/oop_database/pass.csv'
 INTO TABLE PASS 
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
@@ -74,7 +74,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;  
 
 /*Import Loan CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/loan.csv'
+LOAD DATA INFILE 'C:/wamp64/tmp/oop_database/loan.csv'
 INTO TABLE LOAN
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
@@ -82,7 +82,7 @@ LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;  
 
 /*Import Constraints CSV File*/ 
-LOAD DATA LOCAL INFILE 'C:/wamp64/www/oopProj/group-project-g1t5/database/constraint.csv'
+LOAD DATA INFILE 'C:/wamp64/tmp/oop_database/constraint.csv'
 INTO TABLE CONSTRAINTS   
 FIELDS TERMINATED BY ','  
 OPTIONALLY ENCLOSED BY '"'  
