@@ -1,8 +1,12 @@
 package project.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,11 +54,23 @@ public class PassBookViewController {
     
 
     @GetMapping("/{chosenDate}")
-    public String updateAdminStuff(@PathVariable("chosenDate") String dateChosen, Model model, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) {
+    public String updateAdminStuff(@PathVariable("chosenDate") String dateChosen, Model model, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) throws ParseException {
         Map<String, PassDTO> passes = new HashMap<String, PassDTO>();
 
         if (!dateChosen.equals("")){
             model.addAttribute("selectedDate", dateChosen);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date today = sdf.parse(java.time.LocalDate.now().toString());
+            Date chosenDate = sdf.parse(dateChosen);
+            int daysDiff = chosenDate.compareTo(today);
+
+            boolean isValidForBooking = true;
+            if (daysDiff < 1){
+                isValidForBooking = false;
+            }
+            model.addAttribute("isValidForBooking", isValidForBooking);
+            
         }
         List<Loan> loans = loanService.getLoansByLoanDate(dateChosen);  
         passes = passService.getPassTypeInfoWithAvailableAndTotalCount(dateChosen);
