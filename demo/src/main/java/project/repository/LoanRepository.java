@@ -15,7 +15,8 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     // @Query("SELECT * from loan where loan.loan_date = ?1")
     // List<Pass> findAvailablePassesByDate(String date);
 
-    List<Loan> findByLoanDate(String date);
+    @Query("SELECT DISTINCT l from Loan l where l.loanDate = :loanDate AND l.loanStatus <> 'canceled'")
+    List<Loan> findByLoanDate(@Param("loanDate") String loanDate);
 
     List<Loan> findByStaffStaffId(Long id);
 
