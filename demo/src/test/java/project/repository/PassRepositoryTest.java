@@ -87,42 +87,52 @@ public class PassRepositoryTest {
     
     @Test
     public void reportLostPass() {
-        Pass pass = passRepository.findById(1L).get();
-        List<Long> loanIdList = loanRepository.findLoanByPass(1L);
 
-        pass.setIsPassActive("FALSE");
-        passRepository.save(pass);
+        Loan loan = loanRepository.findById(1L).get();
+        Set<Pass> passList = loan.getPassList();
+        Staff staff = loan.getStaff();
 
-        for (Long loanId : loanIdList) {
+        for(Pass pass:passList){
+            if((pass.getPassId()).equals(1L)) {
+                pass.setIsPassActive("Lost");
+                passRepository.save(pass);
+            }
+        }
+
+        // loan.setLoanStatus("lost");
+        // loanRepository.save(loan);
+        cancelLoanForLostPass(1L);
+        
+        staff.setIsAdminHold("TRUE");
+        staffRepository.save(staff);
+    }
+
+    public void cancelLoanForLostPass(Long passId) {
+        List<Long> loanIdList = loanRepository.findLoanByPass(passId);
+
+        for(Long loanId:loanIdList) {
             Loan loan = loanRepository.findById(loanId).get();
-            
-            if ((loan.getLoanStatus()).equals("collected")) {
-
-                loan.setLoanStatus("lost");
+            if ((loan.getLoanStatus()).equals("not collected")) {
+                loan.setLoanStatus("canceled");
                 loanRepository.save(loan);
-
-                // need to make this a separate method
-                // Staff staff = loan.getStaff();
-                // staff.setIsAdminHold("TRUE");
-                // staffRepository.save(staff);
             }
         }
     }
 
     @Test
     public void foundPass() {
-        Pass pass = passRepository.findById(4L).get();
-        List<Long> loanIdList = loanRepository.findLoanByPass(4L);
+        Pass pass = passRepository.findById(1L).get();
+        // List<Long> loanIdList = loanRepository.findLoanByPass(4L);
 
-        pass.setIsPassActive("TRUE");
+        pass.setIsPassActive("Active");
         passRepository.save(pass);
 
-        for (Long loanId : loanIdList) {
-            Loan loan = loanRepository.findById(loanId).get();
+        // for (Long loanId : loanIdList) {
+        //     Loan loan = loanRepository.findById(loanId).get();
 
-            loan.setLoanStatus("returned");
-            loanRepository.save(loan);
-        }
+        //     loan.setLoanStatus("returned");
+        //     loanRepository.save(loan);
+        // }
     }
 
     @Test

@@ -42,7 +42,7 @@ public class PassCreateController {
         // check pass start date and pass expiry date
         //pass.setPassId((long) 11);
         //=========================================
-        pass.setIsPassActive("TRUE");
+        pass.setIsPassActive("Active");
         passService.savePass(pass);
         return "redirect:/viewPasses";
         //=========================================

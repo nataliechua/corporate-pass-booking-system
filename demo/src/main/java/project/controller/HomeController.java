@@ -68,7 +68,7 @@ public class HomeController {
         Pass pass = passService.getPassById(passId);
         //Pass pass = new Pass();
         if (status.equals("deactive")){
-            pass.setIsPassActive("FALSE");
+            pass.setIsPassActive("Inactive");
             passService.updatePass(passId, pass); 
         }else{
             passService.foundPass(passId);
