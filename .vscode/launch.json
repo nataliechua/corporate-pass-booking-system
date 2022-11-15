@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Is424G1T5Application<demo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "project.Is424G1T5Application",
+            "projectName": "demo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -88,6 +88,9 @@ public class LoanServiceImpl implements LoanService {
         // staff.getLoans().add(loan);
         loan.addPasses(chosenPasses);
 
+        if(isDigitalPass(chosenPasses)) {
+            loan.setLoanStatus("returned");
+        };
         System.out.println("LOAN OBJ: " + loan);
 
         // Check if a person borrowed the pass the previous day
@@ -107,6 +110,17 @@ public class LoanServiceImpl implements LoanService {
 
         return loan;
     };
+
+    @Override
+    public boolean isDigitalPass(Set<Pass> chosenPasses) {
+        boolean isDigitalPass = false;
+        for(Pass pass:chosenPasses) {
+            if((pass.getIsDigital()).equals("TRUE")) {
+                isDigitalPass = true;
+            }
+        }
+        return isDigitalPass;
+    }
 
     @Override
     public List<Loan> getLoansByStaffId(Long id) {
@@ -191,6 +205,8 @@ public class LoanServiceImpl implements LoanService {
             }
         }
     }
+
+
  
 
     // @Override

@@ -43,22 +43,22 @@ public class LoanBorrowerController {
         return "loanedPasses";
     }
 
-    @PutMapping("/{id}/{status}")
-    public String updateLoanStatus(@PathVariable("id") Long id, @PathVariable("status") String updateType) throws ParseException {
-        if (updateType.equals("cancel")){
-            loanService.cancelLoanById(id);
-        }else{
-            System.out.println("============================");
-            System.out.println("============================");
-            System.out.println("============================");
-            System.out.println("============================");
-            System.out.println(id);
-            System.out.println("============================");
-            System.out.println("============================");
-            System.out.println("============================");
-            System.out.println("============================");
-            passService.reportLostPass(id);
-        }
-        return "redirect:/loanedPasses";
-    }
+    // @PutMapping("/{id}/{status}")
+    // public String updateLoanStatus(@PathVariable("id") Long id, @PathVariable("status") String updateType) throws ParseException {
+    //     if (updateType.equals("cancel")){
+    //         loanService.cancelLoanById(id);
+    //     }else{
+    //         System.out.println("============================");
+    //         System.out.println("============================");
+    //         System.out.println("============================");
+    //         System.out.println("============================");
+    //         System.out.println(id);
+    //         System.out.println("============================");
+    //         System.out.println("============================");
+    //         System.out.println("============================");
+    //         System.out.println("============================");
+    //         passService.reportLostPass(id);
+    //     }
+    //     return "redirect:/loanedPasses";
+    // }
 }

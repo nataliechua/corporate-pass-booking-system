@@ -1,27 +1,34 @@
-# API Endpoints
-## Staff 
+# OOPG1T5
+## Installation guide
+1. Download this OOP folder to 'C:\wamp64\www'
+2. Copy and paste the oop_database folder into 'C:\wamp64\tmp'
+3. Set up and run a WAMP or MAMP server
+4. Execute the contents of 'script.sql' (/oop_database) in phpMyAdmin, i.e. at:
+    http://localhost/phpmyadmin OR http://localhost/phpMyAdmin
+5. use Visual Studio Code (or any other IDE) open this OOP folder
+6. go to 'OOP\demo\src\main\java\project', right click on file 'Is424G1T5Application' and click 'Run Java'
+7. Go to http://localhost:8080 where the application should be working!
+
+## API Endpoints
+### Staff 
 - Get all staff: GET http://localhost:8080/staff
 - Get staff by ID: http://localhost:8080/staff/id
 - Create new staff: POST http://localhost:8080/staff
 - Update staff by ID: http://localhost:8080/staff/id
-## Pass
+### Pass
 - Get all passes: GET http://localhost:8080/passes
 - Get pass by ID: GET http://localhost:8080/passes/id
 - Create new pass: POST http://localhost:8080/passes
 - Update pass by ID: PUT http://localhost:8080/passes/id
-
-## Loan
+### Loan
 - Get all loans: GET http://localhost:8080/loans
 - Get loans by ID: GET http://localhost:8080/loans/id
-
-## Constraint
+### Constraint
 - Get all constraints: GET http://localhost:8080/constraint
 - Get constraint by ID: GET http://localhost:8080/constraint/id
 - Update constraint: PUT http://localhost:8080/constraint
 - Update constraint data by ID: PUT http://localhost:8080/constraint/id
-
-## Booker
-- 
+### Booker
 - Update constraint data by ID: PUT http://localhost:8080/constraint/id
 
 ## User Account

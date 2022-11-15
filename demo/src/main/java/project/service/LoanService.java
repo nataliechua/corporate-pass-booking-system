@@ -26,6 +26,8 @@ public interface LoanService {
 
     public List<Loan> getLoansByStaffAndMonth(Long staffId, String date);
 
-    public void cancelLoanById(Long loanId) throws ParseException;
+    public void cancelLoanById(Long loanId) throws ParseException; 
+
+    public boolean isDigitalPass(Set<Pass> chosenPasses);
     
 }

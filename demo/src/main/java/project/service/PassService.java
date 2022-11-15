@@ -23,9 +23,11 @@ public interface PassService {
 
     public Map<String, PassDTO> getPassTypeInfoWithAvailableAndTotalCount(String date);
     
-    public void reportLostPass(Long passId);
+    public void reportLostPass(Long passId, Long loanId);
 
     public void foundPass(Long passId);
 
     public Loan getLoanByPassAndDate(Pass p, String date);
+
+    public void cancelLoanForLostPass(Long passId);
 }

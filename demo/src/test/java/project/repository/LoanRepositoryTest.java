@@ -37,25 +37,39 @@ public class LoanRepositoryTest {
         Set<Pass> passes = new HashSet<>();
 
         System.out.println("Find Passes:");
-        Pass pass1 = passRepository.findById(1L).get();
-        Pass pass2 = passRepository.findById(2L).get();
+        Pass pass1 = passRepository.findById(7L).get();
+        Pass pass2 = passRepository.findById(8L).get();
 
         passes.add(pass1);
         passes.add(pass2);
 
         System.out.println(passes);
         System.out.println("Create new loan:");
-        Loan loan = new Loan("2022-10-10","Art Science Museum");
+        Loan loan = new Loan("2022-12-12","Art Science Museum");
 
         loan.setStaff(staff);
         staff.getLoans().add(loan);
         loan.addPasses(passes);
+
+        if(isDigitalPass(passes)) {
+            loan.setLoanStatus("returned");
+        };
         
         System.out.println("Save loan: ");
         Loan newLoan = loanRepository.save(loan);
 
         List<Loan> loanList = loanRepository.findAll();
         System.out.println("loanList with new = " + loanList);
+    }
+
+    public boolean isDigitalPass(Set<Pass> chosenPasses) {
+        boolean isDigitalPass = false;
+        for(Pass pass:chosenPasses) {
+            if((pass.getIsDigital()).equals("TRUE")) {
+                isDigitalPass = true;
+            }
+        }
+        return isDigitalPass;
     }
 
     @Test

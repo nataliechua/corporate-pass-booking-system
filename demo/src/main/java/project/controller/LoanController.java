@@ -20,6 +20,13 @@ import java.text.ParseException;
 // import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import project.util.*;
+
 // Contains CRUD mapping for the API endpoints
 
 @RestController
@@ -29,7 +36,6 @@ public class LoanController {
 
     @Autowired
     private PassService passService;
-
 
     @GetMapping("/loans")
     public List<Loan> fetchLoanList() {
@@ -51,6 +57,23 @@ public class LoanController {
     public void cancelLoanById(@PathVariable("id") Long loanId) throws ParseException {
         loanService.cancelLoanById(loanId);
     }
+
+    @GetMapping("/loans/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=loans_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+         
+        List<Loan> listLoans = loanService.getAllLoans();
+         
+        LoanExcelExporter excelExporter = new LoanExcelExporter(listLoans);
+        
+        excelExporter.export(response);    
+    } 
 
     // @PostMapping("/createNewLoan")
     // public ResponseEntity<String> saveLoan(@RequestBody LoanRequestDTO loanRequest) {

@@ -47,9 +47,9 @@ public class PassController {
         return passService.getTotalPassNum();
     }
 
-    @PutMapping("/reportLostPass/{id}")
-    public void reportLostPass(@PathVariable("id") Long passId) {
-        passService.reportLostPass(passId);
+    @PutMapping("/reportLostPass/{loanId}/{passId}")
+    public void reportLostPass(@PathVariable("passId") Long passId, @PathVariable("loanId") Long loanId) {
+        passService.reportLostPass(passId, loanId);
     }
 
     @PutMapping("/foundPass/{id}")
