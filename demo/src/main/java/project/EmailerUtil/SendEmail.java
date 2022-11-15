@@ -71,7 +71,7 @@ public class SendEmail {
                 StandardCharsets.UTF_8.name());
 
         Path path = Paths.get("src/main/resources/templates/EmailAttachment/image1.png");
-        String base64Image = convertToBase64(path);
+        // String base64Image = convertToBase64(path);
         Context context = new Context();
         context.setVariables(mail.getProps());
 
@@ -87,19 +87,19 @@ public class SendEmail {
         // emailSender.send(message);
     }
 
-    private String convertToBase64(Path path) {
-        byte[] imageAsBytes = new byte[0];
-        try {
-          Resource resource = new UrlResource(path.toUri());
-          InputStream inputStream = resource.getInputStream();
-          imageAsBytes = IOUtils.toByteArray(inputStream);
+    // private String convertToBase64(Path path) {
+        // byte[] imageAsBytes = new byte[0];
+        // try {
+        //   Resource resource = new UrlResource(path.toUri());
+        //   InputStream inputStream = resource.getInputStream();
+        //   imageAsBytes = IOUtils.toByteArray(inputStream);
     
-        } catch (IOException e) {
-          System.out.println("\n File read Exception");
-        }
+        // } catch (IOException e) {
+        //   System.out.println("\n File read Exception");
+        // }
     
-        return Base64.getEncoder().encodeToString(imageAsBytes);
-      }
+        // return Base64.getEncoder().encodeToString(imageAsBytes);
+    //   }
 
     
   public void generatePdfReportAsPDF(String reportAsHtml) {
