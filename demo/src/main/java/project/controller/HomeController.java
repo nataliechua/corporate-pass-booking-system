@@ -119,10 +119,10 @@ public class HomeController {
     //     return "bookingCriteria";
     // }
 
-    @GetMapping("/templateList") 
-    public String templateList() {
-        return "templateList";
-    }
+    // @GetMapping("/templateList") 
+    // public String templateList() {
+    //     return "templateList";
+    // }
 
     @GetMapping("/listUploadedFiles")
 	public String listUploadedFiles(Model model) throws IOException {

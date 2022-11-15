@@ -17,7 +17,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
@@ -28,6 +28,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- VueJS -->
     <script src="https://unpkg.com/vue@next"></script>
+    
     <script>
         const checkExist = setInterval(function () {
             document.getElementById("loanedPasses").className += " active";
@@ -57,7 +58,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Loans</h1>
                     <p class="mb-4">You can only cancel loans that are <span class="text-danger">at least 1 day before</span> the intended visit date (any time before midnight).</p>
@@ -68,6 +69,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Booked Passes</h6>
                         </div>
                         <div class="card-body">
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -87,6 +89,7 @@
                                                 <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanDate}"></td>
                                                 <td class="align-middle" th:rowspan="${loan.passList.size()}" th:block th:switch="${loan.loanStatus}">
                                                     <div th:case="'not collected'">
+                                                        <!-- <input type="text" class="form-control" th:value="${#dates.format(#dates.createNow() , 'yyyy-MM-dd_HH-mm-ss')}"> -->
                                                         <a href="#" data-toggle="modal" th:attr="data-target='#cancelLoanModal'+ ${loan.loanId}"  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
                                                             Cancel
                                                         </a>
@@ -135,9 +138,9 @@
                                                     </a>
                                                 </td>
                                                 <td th:unless="${loan.loanStatus} =='collected'"></td>
+                                                <!-- <td hidden></td>
                                                 <td hidden></td>
-                                                <td hidden></td>
-                                                <td hidden></td>
+                                                <td hidden></td> -->
 
                                                 <!-- Report Lost Modal - STARTS -->
                                                 <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[stats.index].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
@@ -247,7 +250,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
 </body>
 
 </html>
