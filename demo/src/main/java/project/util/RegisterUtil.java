@@ -34,7 +34,7 @@ public class RegisterUtil {
                                             .findFirst();
                                         
         if (indvStaffRecord.isPresent())
-            errorMsg.add("Staff already exist in the database");
+            errorMsg.add("Staff email and contact number already exist in the database.");
 
         return errorMsg;
     }
