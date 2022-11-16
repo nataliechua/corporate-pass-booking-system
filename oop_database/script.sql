@@ -27,7 +27,7 @@ Digital_Path varchar(50) NOT NULL,
 Pass_Start_Date date NOT NULL,
 Pass_Expiry_Date date NOT NULL,
 Replacement_Fee float NOT NULL,
-Is_Pass_Active varchar(5) NOT NULL
+Is_Pass_Active varchar(20) NOT NULL
 );
 
 CREATE TABLE LOAN
