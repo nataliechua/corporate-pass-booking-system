@@ -1,10 +1,7 @@
 package project.EmailerUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -13,17 +10,7 @@ import java.util.Map;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
-
-import org.w3c.dom.Document;
-import org.xhtmlrenderer.pdf.ITextRenderer;
-import project.service.*;
 import project.entity.*;
-import project.dto.*;
-import project.exception.*;
-import project.repository.*;
-import project.util.*;
 
 @RestController
 public class Emailer {
@@ -77,7 +64,7 @@ public class Emailer {
         model.put("strPassList", strPassList);
         model.put("loanDate", loanDate);
         mail.setProps(model);
-        emailUtil.sendEmailWithTemplate(mail, "/emailTemplates/"+ template);
+        emailUtil.sendEmailWithTemplate(mail, template);
         return "SUCCESSED";
     }
 
@@ -121,7 +108,7 @@ public class Emailer {
         model.put("lostPassId",passId + "");
         model.put("replacementFee",replacemenetFee +"");
         mail.setProps(model);
-        emailUtil.sendEmailWithTemplate(mail, "/emailTemplates/"+ template);
+        emailUtil.sendEmailWithTemplate(mail, template);
         return "SUCCESSED";
     }
 
