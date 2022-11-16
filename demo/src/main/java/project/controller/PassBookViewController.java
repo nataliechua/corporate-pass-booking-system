@@ -129,8 +129,8 @@ public class PassBookViewController {
             return "redirect:/loanedPasses";  
         }
 
-        return "bookAPass";
-        //return "redirect:/bookAPass/" + dateChosen + "?failed";  
+        //return "bookAPass";
+        return "redirect:/bookAPass/" + dateChosen + "?failed";  
     }
 
 }
