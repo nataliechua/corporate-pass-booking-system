@@ -56,7 +56,10 @@ public class StaffServiceImpl implements StaffService {
                 
             } catch (MessagingException e) {
 
-            } finally {
+            } catch (Exception e) {
+                
+            }
+            finally {
 
             }
         }
