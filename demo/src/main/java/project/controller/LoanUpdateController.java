@@ -16,10 +16,13 @@ public class LoanUpdateController {
     
     @Autowired
     private LoanService loanService;
+    @Autowired
+    private PassService passService;
     
-    public LoanUpdateController(LoanService loanService) {
+    public LoanUpdateController(LoanService loanService, PassService passService) {
         super();
         this.loanService = loanService;
+        this.passService = passService;
     }
 
     @ModelAttribute("loan")
@@ -36,7 +39,8 @@ public class LoanUpdateController {
 
     @PutMapping("/{id}/{status}")
     public String gopUpdateLoanStatus(@PathVariable("id") Long loanId, @PathVariable("status") String loanStatus) {
-        Loan loan = new Loan();
+        //Loan loan = new Loan();
+        Loan loan = loanService.getLoanById(loanId);
         if (loanStatus.equals("not collected")){
             loan.setLoanStatus("collected");
             loanService.updateLoan(loanId, loan);
@@ -44,6 +48,12 @@ public class LoanUpdateController {
             loan.setLoanStatus("returned");
             loanService.updateLoan(loanId, loan);
         }
+        return "redirect:/gopReturnPass";  
+    }
+    @PutMapping("/{passId}/{loanId}/{type}")
+    public String gopUpdateLostPass(@PathVariable("loanId") Long loanId, @PathVariable("passId") Long passId, @PathVariable("type") String updateType) {
+        //Loan loan = new Loan();
+        passService.reportLostPass(passId, loanId);
         return "redirect:/gopReturnPass";  
     }
 }

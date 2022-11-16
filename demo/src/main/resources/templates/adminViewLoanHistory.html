@@ -61,9 +61,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Staff Loan History</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <p class="mb-4"></p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -93,9 +91,10 @@
                                             <td><li th:each="pass : ${loan.passList}" th:text="|ID${pass.passId}: ${pass.passType}|"></li></td>
                                             <td><p th:text="${loan.loanDate}"></p></td>
                                             <td th:block th:switch="${loan.loanStatus}">
-                                                <p th:case="'collected'" style="color: blue;">Collected</p>
-                                                <p th:case="'returned'" style="color: green;">Returned</p>
+                                                <p th:case="'collected'" class="text-primary">Collected</p>
+                                                <p th:case="'returned'" class="text-success">Returned</p>
                                                 <p th:case="'not collected'" style="color: black;">Not collected</p>
+                                                <p th:case="'canceled'" class="text-secondary">Cancelled</p>
                                             </td>
                                         </tr>
                                     </tbody>
