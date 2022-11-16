@@ -28,6 +28,7 @@ import java.io.InputStream;
 public class SendEmail {
     @Autowired
     private JavaMailSender emailSender;
+    
     @Autowired
     private SpringTemplateEngine templateEngine;
     

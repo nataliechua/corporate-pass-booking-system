@@ -61,7 +61,7 @@ public class EmailConfig {
 			System.out.println("Sending email to: " + staffEmail);
 		
 			try {
-				System.out.println(emailer.simpleEmailTest(staffEmail));
+				System.out.println(emailer.simpleEmail(staffEmail));
 			} catch (IOException | MessagingException e) {
 				System.out.println("There was an exception: " + e.getMessage());
 			}
@@ -91,7 +91,7 @@ public class EmailConfig {
 			System.out.println("Sending email to: " + staffEmail);
 		
 			try {
-				System.out.println(emailer.simpleEmailTest(staffEmail));
+				System.out.println(emailer.simpleEmail(staffEmail));
 			} catch (IOException | MessagingException e) {
 				System.out.println("There was an exception: " + e.getMessage());
 			}
