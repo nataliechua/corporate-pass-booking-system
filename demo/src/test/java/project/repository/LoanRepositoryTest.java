@@ -62,6 +62,11 @@ public class LoanRepositoryTest {
         System.out.println("loanList with new = " + loanList);
     }
 
+    
+    /** 
+     * @param chosenPasses
+     * @return boolean
+     */
     public boolean isDigitalPass(Set<Pass> chosenPasses) {
         boolean isDigitalPass = false;
         for(Pass pass:chosenPasses) {

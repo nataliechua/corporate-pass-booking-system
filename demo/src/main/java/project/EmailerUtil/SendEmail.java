@@ -41,6 +41,13 @@ public class SendEmail {
     @Autowired
     private TemplateEngine htmlTemplateEngine;
 
+    
+    /** 
+     * @param mail
+     * @param text
+     * @throws MessagingException
+     * @throws IOException
+     */
     public void sendSimpleEmail(Email mail, String text) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -51,6 +58,13 @@ public class SendEmail {
         emailSender.send(message);
     }
 
+    
+    /** 
+     * @param mail
+     * @param template
+     * @throws MessagingException
+     * @throws IOException
+     */
     public void sendEmailWithTemplate(Email mail, String template) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
@@ -69,6 +83,14 @@ public class SendEmail {
         emailSender.send(message);
     }
 
+    
+    /** 
+     * @param mail
+     * @param template
+     * @param attachment
+     * @throws MessagingException
+     * @throws IOException
+     */
     public void sendEmailWithTemplateAttachment(Email mail, String template,String attachment) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
@@ -90,6 +112,13 @@ public class SendEmail {
         emailSender.send(message);
     }
 
+    
+    /** 
+     * @param template
+     * @param attachmentType
+     * @return String
+     * @throws IOException
+     */
     public String generateCorporateEmailAttachment(String template,String attachmentType) throws IOException {
         Context context = new Context();
         if(attachmentType.equals("corporateAttachment")){
@@ -114,6 +143,11 @@ public class SendEmail {
         return FileName;
     }
 
+    
+    /** 
+     * @param path
+     * @return String
+     */
     private String convertToBase64(Path path) {
         byte[] imageAsBytes = new byte[0];
         try {
@@ -133,6 +167,12 @@ public class SendEmail {
       }
 
     
+  
+  /** 
+   * @param reportAsHtml
+   * @param attachmentType
+   * @return String
+   */
   public String generatePdfReportAsPDF(String reportAsHtml,String attachmentType) {
     ITextRenderer renderer = new ITextRenderer();
     

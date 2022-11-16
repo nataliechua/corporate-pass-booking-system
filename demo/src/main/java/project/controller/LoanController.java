@@ -37,27 +37,51 @@ public class LoanController {
     @Autowired
     private PassService passService;
 
+    
+    /** 
+     * @return List<Loan>
+     */
     @GetMapping("/loans")
     public List<Loan> fetchLoanList() {
         return loanService.getAllLoans();
     }
 
+    
+    /** 
+     * @param loanId
+     * @return Loan
+     */
     @GetMapping("/loans/{id}")
     // Path variable is input parameter to our method
     public Loan getLoanById(@PathVariable("id") Long loanId) {
         return loanService.getLoanById(loanId);
     }
 
+    
+    /** 
+     * @param loan
+     * @return Loan
+     */
     @PostMapping("/loans")
     public Loan saveLoan(@RequestBody Loan loan) {
         return loanService.saveLoan(loan);
     }
 
+    
+    /** 
+     * @param loanId
+     * @throws ParseException
+     */
     @PutMapping("/loans/{id}")
     public void cancelLoanById(@PathVariable("id") Long loanId) throws ParseException {
         loanService.cancelLoanById(loanId);
     }
 
+    
+    /** 
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/loans/export/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");

@@ -30,16 +30,30 @@ public class PassCreateController {
         this.passService = passService;
     }
 
+    
+    /** 
+     * @return Pass
+     */
     @ModelAttribute("pass")
     public Pass pass() {
         return new Pass();
     }
     
+    
+    /** 
+     * @return String
+     */
     @GetMapping
     public String showPassForm() {
         return "adminAddPass";
     }
 
+    
+    /** 
+     * @param pass
+     * @param result
+     * @return String
+     */
     @PostMapping
     public String createNewPass(@Valid @ModelAttribute("pass") Pass pass, BindingResult result) {
         

@@ -29,6 +29,11 @@ public class FileUploadController {
 	@Autowired
 	private StorageService storageService;
 
+	
+	/** 
+	 * @param filename
+	 * @return ResponseEntity<Resource>
+	 */
 	@GetMapping("/files/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -38,6 +43,12 @@ public class FileUploadController {
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
 
+	
+	/** 
+	 * @param file
+	 * @param redirectAttributes
+	 * @return String
+	 */
 	@PostMapping("/handleFileUpload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
@@ -49,6 +60,11 @@ public class FileUploadController {
 		return "redirect:/listUploadedFiles";
 	}
 
+	
+	/** 
+	 * @param exc
+	 * @return ResponseEntity<?>
+	 */
 	@ExceptionHandler(StorageFileNotFoundException.class)
 	public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
 		return ResponseEntity.notFound().build();

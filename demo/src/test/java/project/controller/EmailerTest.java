@@ -27,6 +27,11 @@ public class EmailerTest {
     @Autowired
     private PassRepository passRepository;
 
+    
+    /** 
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testConfirmCollect() throws IOException, MessagingException {
         Loan loan = loanRepository.findById(1L).get();
@@ -34,6 +39,11 @@ public class EmailerTest {
         System.out.println(ans);
     }
 
+    
+    /** 
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testConfirmReturn() throws IOException, MessagingException {
         Loan loan = loanRepository.findById(1L).get();
@@ -41,6 +51,11 @@ public class EmailerTest {
         System.out.println(ans);
     }
 
+    
+    /** 
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testRemindCollect() throws IOException, MessagingException {
         Loan loan = loanRepository.findById(1L).get();
@@ -48,6 +63,11 @@ public class EmailerTest {
         System.out.println(ans);
     }
 
+    
+    /** 
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testRemindReturn() throws IOException, MessagingException {
         Loan loan = loanRepository.findById(1L).get();
@@ -55,6 +75,11 @@ public class EmailerTest {
         System.out.println(ans);
     }
 
+    
+    /** 
+     * @throws IOException
+     * @throws MessagingException
+     */
     @Test
     public void testHRLostCard() throws IOException, MessagingException {
         Pass pass= passRepository.findById(1L).get();

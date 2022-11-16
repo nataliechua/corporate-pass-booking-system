@@ -30,11 +30,20 @@ public class LoanBorrowerController {
         this.staffService = staffService;
     }
 
+    
+    /** 
+     * @return Loan
+     */
     @ModelAttribute("loan")
     public Loan loan() {
         return new Loan();
     }
 
+    
+    /** 
+     * @param model
+     * @return String
+     */
     @GetMapping
     public String showBorrowerLoans(Model model) {
         List<Loan> loans = loanService.getLoansByStaffId(staffService.getStaffIdFromLogin());  
@@ -43,6 +52,13 @@ public class LoanBorrowerController {
         return "loanedPasses";
     }
 
+    
+    /** 
+     * @param id
+     * @param updateType
+     * @return String
+     * @throws ParseException
+     */
     @PutMapping("/{id}/{status}")
     public String updateLoanStatus(@PathVariable("id") Long id, @PathVariable("status") String updateType) throws ParseException {
         if (updateType.equals("cancel")){

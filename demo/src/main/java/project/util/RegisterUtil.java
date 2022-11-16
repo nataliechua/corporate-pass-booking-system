@@ -16,6 +16,11 @@ public class RegisterUtil {
     @Autowired
     private StaffService staffService;
 
+    
+    /** 
+     * @param staff
+     * @return List<String>
+     */
     // Check email domain & if there's an existing account
     public List<String> validate(Staff staff) {
         
@@ -39,6 +44,11 @@ public class RegisterUtil {
         return errorMsg;
     }
 
+    
+    /** 
+     * @param email
+     * @return boolean
+     */
     public boolean isEmailDomainValid(String email) {
 
         String regExpn = "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"

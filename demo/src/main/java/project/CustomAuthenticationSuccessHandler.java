@@ -16,6 +16,14 @@ import java.util.Set;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
+    
+    /** 
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @param authentication
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 

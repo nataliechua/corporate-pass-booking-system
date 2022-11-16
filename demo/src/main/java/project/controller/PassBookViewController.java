@@ -40,11 +40,20 @@ public class PassBookViewController {
         this.loanService = loanService;
     }
 
+    
+    /** 
+     * @return LoanRequestDTO
+     */
     @ModelAttribute("loan")
     public LoanRequestDTO loanRequestDTO() {
         return new LoanRequestDTO();
     }
 
+    
+    /** 
+     * @param model
+     * @return String
+     */
     @GetMapping
     public String showSelectLoanDate(Model model) {
         Long staffId = staffService.getStaffIdFromLogin();
@@ -55,6 +64,14 @@ public class PassBookViewController {
     }
     
 
+    
+    /** 
+     * @param dateChosen
+     * @param model
+     * @param loanRequestDTO
+     * @return String
+     * @throws ParseException
+     */
     @GetMapping("/{chosenDate}")
     public String updateAdminStuff(@PathVariable("chosenDate") String dateChosen, Model model, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) throws ParseException {
         Map<String, PassDTO> passes = new HashMap<String, PassDTO>();
@@ -97,6 +114,13 @@ public class PassBookViewController {
         return "bookAPass";  
     }
 
+    
+    /** 
+     * @param dateChosen
+     * @param loanRequestDTO
+     * @param result
+     * @return String
+     */
     @PostMapping("/{chosenDate}")
     public String createNewLoan(@PathVariable("chosenDate") String dateChosen, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO, BindingResult result) {
         loanRequestDTO.setLoanDate(dateChosen);

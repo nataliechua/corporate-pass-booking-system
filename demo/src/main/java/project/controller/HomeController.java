@@ -30,6 +30,10 @@ public class HomeController {
     @Autowired
     private StorageService storageService;
 
+    
+    /** 
+     * @return String
+     */
     // @GetMapping("/")
     // public String index() {
     //     return "index";
@@ -40,6 +44,11 @@ public class HomeController {
         return "login";
     }
     
+    
+    /** 
+     * @param staffId
+     * @return String
+     */
     @GetMapping("/updateStaffToActive/{id}") 
     public String updateStaffToActive(@PathVariable("id") Long staffId) {
         
@@ -54,6 +63,10 @@ public class HomeController {
         return "ErrorPage/verifiedError";
     }
 
+    
+    /** 
+     * @return String
+     */
     // @GetMapping("/viewStaffs") 
     // public String viewStaffs(Model model) {
 
@@ -69,6 +82,12 @@ public class HomeController {
         return "passes";
     }
 
+    
+    /** 
+     * @param passId
+     * @param status
+     * @return String
+     */
     @PutMapping("/viewPasses/{id}/{status}")
     public String updatePassInactive(@PathVariable("id")Long passId, @PathVariable("status") String status) {
         Pass pass = passService.getPassById(passId);
@@ -84,6 +103,10 @@ public class HomeController {
         //return "redirect:/registration?success";
     }
 
+    
+    /** 
+     * @return String
+     */
     // @GetMapping("/gopReturnPass")
     // public String gopReturnPass() {
     //     return "gopReturnPass";
@@ -106,6 +129,10 @@ public class HomeController {
         return "adminViewLoanHistory";
     }
 
+    
+    /** 
+     * @return String
+     */
     // @GetMapping("/bookingCriteria") 
     // public String bookingCriteria(Model model) {
     //     List<Constraint> constraints = constraintService.getAllConstraint(); 

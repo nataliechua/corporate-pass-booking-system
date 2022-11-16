@@ -28,16 +28,30 @@ public class StaffRegistrationController {
         this.staffService = staffService;
     }
 
+    
+    /** 
+     * @return Staff
+     */
     @ModelAttribute("staff")
     public Staff staff() {
         return new Staff();
     }
     
+    
+    /** 
+     * @return String
+     */
     @GetMapping
     public String showRegistrationForm() {
         return "register";
     }
 
+    
+    /** 
+     * @param staff
+     * @param result
+     * @return String
+     */
     @PostMapping
     public String registerUserAccount(@Valid @ModelAttribute("staff") Staff staff, BindingResult result) {
 

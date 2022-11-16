@@ -30,6 +30,15 @@ public class BookerUtil {
     @Autowired
     private LoanRepository loanRepository;
 
+    
+    /** 
+     * @param date
+     * @param passType
+     * @param attraction
+     * @param numOfPasses
+     * @param staffId
+     * @return boolean
+     */
     public boolean validate(String date, String passType, String attraction, int numOfPasses, Long staffId) {
         // String date = loanRequest.getLoanDate();
         // String passType = loanRequest.getPassType();
@@ -100,6 +109,11 @@ public class BookerUtil {
         return true;
     }
 
+    
+    /** 
+     * @param loan
+     * @return Loan
+     */
     public Loan checkIfSaturdaySundayBorrower(Loan loan) {
         String date = loan.getLoanDate();
         Set<Pass> passes = loan.getPassList();

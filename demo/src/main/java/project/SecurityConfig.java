@@ -19,6 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
 
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
+    
+    /** 
+     * @param authenticationSuccessHandler
+     */
     @Autowired
     public void WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
@@ -27,6 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
     @Autowired
     private StaffService staffService;
 
+    
+    /** 
+     * @return DaoAuthenticationProvider
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -35,11 +43,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
         return auth;
     }
 
+    
+    /** 
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    
+    /** 
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // // uncomment here to enable login screen

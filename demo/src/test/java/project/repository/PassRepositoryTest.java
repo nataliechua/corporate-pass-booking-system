@@ -119,6 +119,10 @@ public class PassRepositoryTest {
         staffRepository.save(staff);
     }
 
+    
+    /** 
+     * @param passId
+     */
     public void cancelLoanForLostPass(Long passId) {
         List<Long> loanIdList = loanRepository.findLoanByPass(passId);
 
