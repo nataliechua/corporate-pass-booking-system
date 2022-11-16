@@ -145,7 +145,7 @@ public class LoanServiceImpl implements LoanService {
         }
 
         try {
-            emailer.emailWithTemplate(templateName, loan);
+            emailer.emailWithAttachmentTemplate(templateName, loan);
         } catch (IOException | MessagingException e) {
             System.out.println("There was an exception. Email failed to send.");
         }
