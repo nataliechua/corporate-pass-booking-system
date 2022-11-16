@@ -60,6 +60,6 @@ public class LoanBorrowerController {
         //     System.out.println("============================");
         //     passService.reportLostPass(id);
         // }
-        return "redirect:/loanedPasses";
+        return "redirect:/loanedPasses?success";
     }
 }
