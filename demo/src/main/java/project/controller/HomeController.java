@@ -30,10 +30,10 @@ public class HomeController {
     @Autowired
     private StorageService storageService;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+    // @GetMapping("/")
+    // public String index() {
+    //     return "index";
+    // }
 
     @GetMapping("/login")
     public String welcome() {
@@ -80,7 +80,7 @@ public class HomeController {
             passService.foundPass(passId);
         }
         
-        return "redirect:/viewPasses";
+        return "redirect:/viewPasses?success";
         //return "redirect:/registration?success";
     }
 
@@ -119,10 +119,10 @@ public class HomeController {
     //     return "bookingCriteria";
     // }
 
-    @GetMapping("/templateList") 
-    public String templateList() {
-        return "templateList";
-    }
+    // @GetMapping("/templateList") 
+    // public String templateList() {
+    //     return "templateList";
+    // }
 
     @GetMapping("/listUploadedFiles")
 	public String listUploadedFiles(Model model) throws IOException {

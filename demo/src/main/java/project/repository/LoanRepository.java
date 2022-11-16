@@ -15,7 +15,8 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     // @Query("SELECT * from loan where loan.loan_date = ?1")
     // List<Pass> findAvailablePassesByDate(String date);
 
-    List<Loan> findByLoanDate(String date);
+    @Query("SELECT DISTINCT l from Loan l where l.loanDate = :loanDate AND l.loanStatus <> 'canceled'")
+    List<Loan> findByLoanDate(@Param("loanDate") String loanDate);
 
     List<Loan> findByStaffStaffId(Long id);
 
@@ -24,6 +25,18 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     @Query(value="SELECT Loan_ID from loan_pass where Pass_ID = :passId", nativeQuery=true)
     List<Long> findLoanByPass(@Param("passId") Long passId);
+
+    @Query(value="select * from loan l where l.loan_status = :loanStatus and l.loan_date < :date", nativeQuery=true)
+    List<Loan> findLoansByStatusAndPassedLoanDate(@Param("loanStatus") String loanStatus, @Param("date") String date);
+
+    @Query(value="select * from loan l where l.loan_status = :loanStatus and l.loan_date = :date", nativeQuery=true)
+    List<Loan> findLoansByStatusAndDate(@Param("loanStatus") String loanStatus, @Param("date") String date);
+
+    List<Loan> findByLoanStatusNot(String loanStatus);
+
+
+
+
     // @Query("SELECT l FROM Loan l WHERE l.loanDate <> :loanDate")
     // List<Loan> findByLoanDateNotDate(@Param("loanDate") String date);
 

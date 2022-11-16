@@ -1,0 +1,10 @@
+Dear [(${name})],
+
+This email is to confirm your following pass booking:
+
+- loan id: 
+- loan date:
+- attraction: 
+- loanStatus: 
+- pass(es) id(s): 
+- 

@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import project.exception.*;
+import java.io.IOException;
 
 import project.entity.*;
 import project.service.*;
@@ -16,6 +20,10 @@ public class PassCreateController {
     
     @Autowired
     private PassService passService;
+    @Autowired
+    private StorageService storageService;
+    @Autowired
+    private FileUploadController fileUploadController;
     
     public PassCreateController(PassService passService) {
         super();
@@ -42,9 +50,10 @@ public class PassCreateController {
         // check pass start date and pass expiry date
         //pass.setPassId((long) 11);
         //=========================================
-        pass.setIsPassActive("Active");
+        // fileUploadController.handleFileUpload(null, null);
+        pass.setIsPassActive("TRUE");
         passService.savePass(pass);
-        return "redirect:/viewPasses";
+        return "redirect:/viewPasses?success";
         //=========================================
         //staffDto.setIsAdminHold("FALSE");
         //staffDto.setIsUserActive("FALSE");

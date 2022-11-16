@@ -1,6 +1,6 @@
 # OOPG1T5
 ## Installation guide
-1. Download this OOP folder to 'C:\wamp64\www'
+1. Download this group-project-g1t5 folder to 'C:\wamp64\www'
 2. Copy and paste the oop_database folder into 'C:\wamp64\tmp'
 3. Set up and run a WAMP or MAMP server
 4. Execute the contents of 'script.sql' (/oop_database) in phpMyAdmin, i.e. at:

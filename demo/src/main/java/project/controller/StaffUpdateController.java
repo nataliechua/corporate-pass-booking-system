@@ -54,6 +54,6 @@ public class StaffUpdateController {
         }
         //Staff staff = new Staff();
         
-        return "redirect:/viewStaffs";  
+        return "redirect:/viewStaffs?success";  
     }
 }

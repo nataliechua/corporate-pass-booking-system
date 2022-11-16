@@ -49,124 +49,182 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" >
 
-                <!-- Topbar -->
-                <div th:replace="fragments/topbar :: topbar"></div>
-                <!-- End of Topbar -->
+                <div class="main">
+                    <!-- Topbar -->
+                    <div th:replace="fragments/topbar :: topbar"></div>
+                    <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid" id="app">
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid" id="app">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Book A Pass</h1>
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Book A Pass</h1>
 
-                    <!-- Card Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Passes</h6>
-                        </div>
-                        <div class="card-body">
-                            <div th:if="${borrowingStatus} == 'TRUE'">
-                                <p>You cannot book for passes until you clear your loan fees.</p>
+                        <!-- Card Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Passes</h6>
                             </div>
-                            <div th:unless="${borrowingStatus} == 'TRUE'">
-                                <h6 class=""><b>Pick A Date</b></h6>
-                                <input type="date" id="start" name="date-picker" th:onchange="'window.location.href = \'' + @{/bookAPass/} + '\' + this.value ' " th:value=${selectedDate} :min="todayDate" :max="eightWeekAfter" >
-                            
-                                <div th:if="${selectedDate} == null"></div> 
-                                <div th:unless="${selectedDate} == null">
-                                    <div class="table-responsive pt-5">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Pass Type</th>
-                                                    <th>Attractions</th>
-                                                    <th>People Per Pass</th>
-                                                    <th>Replacement Fee</th>
-                                                    <th>Passes Available</th>
-                                                    <th>Total Passes</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="pass : ${passDTO}">
-                                                    <td th:text="${pass.value.passType}"></td>
-                                                    <td th:text="${pass.value.attractions}"></td>
-                                                    <td th:text="${pass.value.peoplePerPass}"></td>
-                                                    <td th:text="|$${pass.value.replacementFee}|"></td>
-                                                    <td th:if="${pass.value.numAvailable} < ${pass.value.numTotal}/3" class="text-danger" th:text="${pass.value.numAvailable}"></td>
-                                                    <td th:unless="${pass.value.numAvailable} < ${pass.value.numTotal}/3" th:text="${pass.value.numAvailable}"></td>
-                                                    <!-- <td th:text="${pass.value.numAvailable}"></td> -->
-                                                    <td th:text="${pass.value.numTotal}"></td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
+                            <div class="card-body">
+                                <div th:if="${borrowingStatus} == 'TRUE'">
+                                    <p>You cannot book for passes until you clear your loan fees.</p>
+                                </div>
+                                <div th:unless="${borrowingStatus} == 'TRUE'">
+                                    <h6 class=""><b>Pick A Date</b></h6>
+                                    <input type="date" id="start" name="date-picker" th:onchange="'window.location.href = \'' + @{/bookAPass/} + '\' + this.value ' " th:value=${selectedDate} :max="eightWeekAfter">
                                 
-                                    </div>
-
-                                    <div class="table-responsive pt-5">
-                                        <h6 class=""><b>Make a Booking</b></h6>
-                                        <form th:action="@{/bookAPass/} + ${selectedDate}" method="post" th:object="${loan}">  
-                                            <table class="table table-bordered" id="" width="100%" cellspacing="0">
+                                    <div th:if="${selectedDate} == null"></div> 
+                                    <div th:unless="${selectedDate} == null">
+                                        
+                                        <div class="table-responsive pt-5">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Pass Type</th>
+                                                        <th>Attractions</th>
+                                                        <th>People Per Pass</th>
+                                                        <th>Replacement Fee</th>
+                                                        <th>Passes Available</th>
+                                                        <th>Total Passes</th>
+                                                    </tr>
+                                                </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <label for="bookDate">Book Date</label>
-                                                        </th>
-                                                        <td><input th:value="${selectedDate}" disabled /></td>
+                                                    <input type="hidden" id="passData" th:value="${passDTO}"/>
+                                                    <tr th:each="pass : ${passDTO}">
+                                                        <td th:text="${pass.value.passType}"></td>
+                                                        <td th:text="${pass.value.attractions}"></td>
+                                                        <td th:text="${pass.value.peoplePerPass}"></td>
+                                                        <td th:text="|$${pass.value.replacementFee}|"></td>
+                                                        <td th:if="${pass.value.numAvailable} < ${pass.value.numTotal}/3" class="text-danger" th:text="${pass.value.numAvailable}"></td>
+                                                        <td th:unless="${pass.value.numAvailable} < ${pass.value.numTotal}/3" th:text="${pass.value.numAvailable}"></td>
+                                                        <!-- <td th:text="${pass.value.numAvailable}"></td> -->
+                                                        <td th:text="${pass.value.numTotal}"></td>
                                                     </tr>
-
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <label for="passType">Pass Type</label>
-                                                        </th>
-                                                        <td>
-                                                            <select class="form-control" id="passType" name="passType">
-                                                                <option value="0">Select option</option>
-                                                                <option th:each="pass : ${passDTO}" th:value="${pass.value.passType}" th:text="${pass.value.passType}"></option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <label for="attraction">Attraction</label>
-                                                        </th>
-                                                        <td><input required id="attraction" name="attraction"/></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <label for="passType">Num of Passes</label>
-                                                        </th>
-                                                        <td><input type="number" id="numOfPasses" name="numOfPasses" min="0"/></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"></th>
-                                                        <td>
-                                                            <button class="btn btn-primary btn-sm" type="submit">
-                                                                <span class="text">Save</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                    
                                                 </tbody>
-                                            </table>  
-                                        </form>
+                                            </table>
+                                    
+                                        </div>
+
+                                        <div class="table-responsive pt-5">
+                                            <h6 class=""><b>Make a Booking</b></h6>
+                                            <form th:action="@{/bookAPass/} + ${selectedDate}" method="post" th:object="${loan}">  
+                                                <!--Error Msg-->
+                                                <div th:if="${param.failed}">
+                                                    <div class="alert alert-danger">
+                                                        You are not able to book the pass. Please try again.
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                                                    <ul>
+                                                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+                                                    </ul>
+                                                </div> -->
+                                                <!--//Error Msg-->
+                                                <table class="table table-bordered" id="" width="100%" cellspacing="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <label for="bookDate">Book Date</label>
+                                                            </th>
+                                                            <td><input th:value="${selectedDate}" disabled /></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <label for="passType">Pass Type</label>
+                                                            </th>
+                                                            <td>
+                                                                <select class="form-control" id="passType" name="passType" @change="onSelectChange($event)">
+                                                                    <option value="0">Select option</option>
+                                                                    <option th:each="pass : ${passDTO}" th:value="${pass.value.passType}" th:text="${pass.value.passType}"></option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <span id="passDTO" th:text="${jsonPassList}" style="display: none;"></span>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <label for="attraction">Attraction</label>
+                                                            </th>
+                                                            <td><input required id="attraction" name="attraction"  v-model="attraction"  th:disabled="${!isValidForBooking}"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <label for="passType">Num of Passes</label>
+                                                            </th>
+                                                            <td><input type="number" id="numOfPasses" name="numOfPasses" min="0" th:disabled="${!isValidForBooking}"/></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row"></th>
+                                                            <td>
+                                                                <button class="btn btn-primary btn-sm" type="submit" th:disabled="${!isValidForBooking}">
+                                                                    <span class="text">Save</span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>  
+                                            </form>
+                                        </div>
+                                        <div class="table-responsive pt-5">
+                                            <h6 class=""><b>Booked Passes</b></h6>
+                                            <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Loan ID</th>
+                                                        <th>Pass</th>
+                                                        <th>Name</th>
+                                                        <th>Contact</th>
+                                                        <th>Email</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <div th:if="${#lists.isEmpty(loans)}">
+                                                        <tr>
+                                                            <td colspan="5" class="text-center">There are no pass loaned by other staffs.</td>
+                                                        </tr>
+                                                    </div>
+                                                    <div th:unless="${#lists.isEmpty(loans)}">
+                                                        <div th:remove="tag" th:each="loan : ${loans}" th:with="passCount=${loan.passList.size()}">
+                                                            <tr>
+                                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanId}"></td>
+                                                                <td class="align-middle" th:text="${passCount>0}? 'ID' + ${loan.passList[0].passId} + ': ' + ${loan.passList[0].passType}:''"></td>
+                                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.staff.staffName}"></td>
+                                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.staff.contactNum}"></td>
+                                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.staff.staffEmail}"></td>
+                                                            </tr>
+                
+                                                            <tr th:each="pass, stats:${loan.passList}" th:if="${!stats.first}">
+                                                                <td th:text="|ID${pass.passId}: ${pass.passType}|"></td>
+                                                            </tr>
+            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </tbody>
+                                            </table>
+                                    
+                                        </div>
+                                        
                                     </div>
                                 </div>
-                            </div>
-                            
+                                
+
+                        </div>
+
+                        </div>
+                    <!-- /.container-fluid -->
 
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
             <!-- End of Main Content -->
 
-            <div th:replace="fragments/footer :: footer"></div>
+                <div th:replace="fragments/footer :: footer"></div>
 
-        </div>
+            </div>
         <!-- End of Content Wrapper -->
 
     </div>
@@ -253,7 +311,6 @@
     
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
-
     <script>
         const app = Vue.createApp({
             data() {
@@ -262,6 +319,7 @@
                     eightWeekAfter: "",
                     todayDate: "",
                     chosenDate: "",
+                    attraction: ""
                 }
             },
             methods: {
@@ -283,6 +341,18 @@
                         this.chosenDate = this.oneDayAfterToday;
                     }else if(addDays == 0){
                         this.todayDate = yyyy + '-' + mm + '-' + dd;
+                    }
+                },
+                onSelectChange(event) {
+                    let passDTO =  $('#passDTO').text();
+                    passDTOJSON = JSON.parse(passDTO);
+                    
+                    for(let i = 0; i < passDTOJSON.length; i++) {
+
+                        let obj = passDTOJSON[i];
+                        if (obj.passType == event.target.value) {
+                            this.attraction = obj.attractions;
+                        }
                     }
                 }
             },

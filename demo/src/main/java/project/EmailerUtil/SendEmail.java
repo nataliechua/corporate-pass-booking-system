@@ -31,6 +31,7 @@ import org.springframework.core.io.UrlResource;
 public class SendEmail {
     @Autowired
     private JavaMailSender emailSender;
+    
     @Autowired
     private SpringTemplateEngine templateEngine;
     

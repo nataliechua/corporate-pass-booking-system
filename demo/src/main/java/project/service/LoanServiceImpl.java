@@ -13,6 +13,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import project.EmailerUtil.*;
+import java.io.*;
+import javax.mail.MessagingException;
 
 @Service
 public class LoanServiceImpl implements LoanService {
@@ -27,6 +30,9 @@ public class LoanServiceImpl implements LoanService {
 
     @Autowired
     private BookerUtil booker;
+
+    @Autowired
+    private Emailer emailer;
 
     @Override
     public List<Loan> getAllLoans() {
@@ -107,6 +113,24 @@ public class LoanServiceImpl implements LoanService {
         }
 
         System.out.println("FINAL LOAN OBJ: " + loan);
+
+        // Send booking confirmation
+        Pass[] chosenPassesArray = chosenPasses.toArray(new Pass [chosenPasses.size()]);
+        String isDigital = chosenPassesArray[0].getIsDigital();
+
+        String templateName = "";
+        if (isDigital.equals("TRUE")){
+            templateName = "confirmLoanDigital";
+        } else {
+            templateName = "confirmLoanPhysical";
+        }
+
+        try {
+            emailer.emailWithTemplate(templateName, loan);
+        } catch (IOException | MessagingException e) {
+            System.out.println("There was an exception. Email failed to send.");
+        }
+        
 
         return loan;
     };
@@ -204,6 +228,21 @@ public class LoanServiceImpl implements LoanService {
                 loanRepository.save(loan);
             }
         }
+    }
+
+    @Override
+    public List<Loan> getLoansByStatusAndPassedLoanDate(String loanStatus, String date) {
+        return loanRepository.findLoansByStatusAndPassedLoanDate(loanStatus, date);
+    }
+
+    @Override
+    public List<Loan> getLoansByStatusAndDate(String loanStatus, String date) {
+        return loanRepository.findLoansByStatusAndDate(loanStatus, date);
+    }
+
+    @Override
+    public List<Loan> getAllNonCancelledLoans() {
+        return loanRepository.findByLoanStatusNot("canceled");
     }
 
 
