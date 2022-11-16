@@ -53,7 +53,7 @@ public class PassCreateController {
         // fileUploadController.handleFileUpload(null, null);
         pass.setIsPassActive("TRUE");
         passService.savePass(pass);
-        return "redirect:/viewPasses";
+        return "redirect:/viewPasses?success";
         //=========================================
         //staffDto.setIsAdminHold("FALSE");
         //staffDto.setIsUserActive("FALSE");
