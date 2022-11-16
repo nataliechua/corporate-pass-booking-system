@@ -91,7 +91,6 @@ public class HomeController {
     @PutMapping("/viewPasses/{id}/{status}")
     public String updatePassInactive(@PathVariable("id")Long passId, @PathVariable("status") String status) {
         Pass pass = passService.getPassById(passId);
-        //Pass pass = new Pass();
         if (status.equals("deactive")){
             pass.setIsPassActive("Inactive");
             passService.updatePass(passId, pass); 
@@ -100,13 +99,10 @@ public class HomeController {
         }
         
         return "redirect:/viewPasses?success";
-        //return "redirect:/registration?success";
     }
 
     
-    /** 
-     * @return String
-     */
+     
     // @GetMapping("/gopReturnPass")
     // public String gopReturnPass() {
     //     return "gopReturnPass";

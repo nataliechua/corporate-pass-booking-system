@@ -74,7 +74,6 @@ public class StaffUpdateController {
             // staffRepository.save(staff);
             staffService.saveStaffToDB(staff);
         }
-        //Staff staff = new Staff();
         
         return "redirect:/viewStaffs?success";  
     }

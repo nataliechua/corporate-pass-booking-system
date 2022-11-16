@@ -64,18 +64,6 @@ public class LoanBorrowerController {
         if (updateType.equals("cancel")){
             loanService.cancelLoanById(id);
         }
-       // else{
-        //     System.out.println("============================");
-        //     System.out.println("============================");
-        //     System.out.println("============================");
-        //     System.out.println("============================");
-        //     System.out.println(id);
-        //     System.out.println("============================");
-        //     System.out.println("============================");
-        //     System.out.println("============================");
-        //     System.out.println("============================");
-        //     passService.reportLostPass(id);
-        // }
         return "redirect:/loanedPasses?success";
     }
 }

@@ -60,7 +60,5 @@ public class ConstraintUpdateController {
         constraint.setConstraintName(constraintName);
         constraintService.updateConstraint(constraint);
         return "redirect:/bookingCriteria?success";
-        
-        //return "redirect:/registration?success";
     }
 }

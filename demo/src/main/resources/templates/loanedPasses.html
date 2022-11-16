@@ -61,9 +61,7 @@
                         <!-- Toast STARTS -->
                     <div style="position: fixed; bottom: 3rem; right: 1rem; z-index:99999" th:if="${param.success}">
                         <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-                            <div class="toast-header bg-success text-white">
-                                <!-- <img src="..." class="rounded mr-2" alt="..."> -->
-                                
+                            <div class="toast-header bg-success text-white">                                
                                 <strong class="mr-auto ">Success</strong>
                                 <small class="text-white">Just now</small>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -107,25 +105,34 @@
                                                     <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanDate}"></td>
                                                     <td class="align-middle" th:rowspan="${loan.passList.size()}" th:block th:switch="${loan.loanStatus}">
                                                         <div th:case="'not collected'">
-                                                            <!-- ${#dates.create(1989,10,18)} -->
-                                                            <!-- <p th:text="${loan.loanDate}"></p> -->
-                                                            <!-- <p th:text="${loan.loanDate}"></p>
-
-
-                                                            <div th:switch="${#dates.format(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]) , 'yyyy-MM-dd_HH-mm-ss').before(#dates.createNow())}">
-                                                                <span th:case="true">Case 1</span>
-                                                                <span th:case="false">Case 2</span>
-                                                            </div> -->
-                                                          
-                                                            <!-- <p th:text="${#dates.format(#dates.createNow() , 'yyyy-MM-dd').before(#dates.format(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]) , 'yyyy-MM-dd'))}"></p> -->
-                                                            <!-- <p th:text="${#dates.format(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]) , 'yyyy-MM-dd_HH-mm-ss')}"></p>
-                                                            <p th:text="${#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])}"></p> -->
-
-                                                            <!-- <p th:text="${#dates.formatISO(loan.loanDate)}"></p> -->
-                                                            <!-- <input type="text" class="form-control" th:value="${#dates.format(#dates.createNow() , 'yyyy-MM-dd_HH-mm-ss')}">-->
-                                                            <a href="#" data-toggle="modal" th:attr="data-target='#cancelLoanModal'+ ${loan.loanId}"  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
-                                                                Cancel
-                                                            </a>
+                                                            
+                                                            <div th:if="${#dates.createNow().before(
+                                                                #dates.create(
+                                                                    #dates.year(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.month(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.day(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]))-1,
+                                                                    #dates.hour(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.minute(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.second(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]))
+                                                                    )
+                                                                )}">
+                                                                <a href="#" data-toggle="modal" th:attr="data-target='#cancelLoanModal'+ ${loan.loanId}"  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
+                                                                    Cancel
+                                                                </a>
+                                                            </div>
+                                                            <div th:unless="${#dates.createNow().before(
+                                                                #dates.create(
+                                                                    #dates.year(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.month(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.day(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]))-1,
+                                                                    #dates.hour(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.minute(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2])),
+                                                                    #dates.second(#dates.create(#strings.arraySplit(loan.loanDate, '-')[0],#strings.arraySplit(loan.loanDate, '-')[1],#strings.arraySplit(loan.loanDate, '-')[2]))
+                                                                    )
+                                                                )}">
+                                                                <p style="color: black;">Not collected</p>
+                                                            </div>
+                                            
                                                         </div>
                                                         <div th:case="'collected'" class="text-primary" th:text="Collected"></div>
                                                         <div th:case="'returned'" class="text-success" th:text="Returned"></div>
@@ -133,70 +140,12 @@
                                                         <div th:case="'canceled'" class="text-secondary" th:text="Cancelled"></div>
                                                     </td>
 
-                                                    <!-- <td th:if="${passCount>0} and ${loan.loanStatus} =='collected'">
-                                                        <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[0].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
-                                                            Report Lost
-                                                        </a>
-                                                    </td>
-                                                    <td th:unless="${passCount>0} and ${loan.loanStatus} =='collected'"></td> -->
-
-                                                    <!-- Report Lost Modal - STARTS -->
-                                                    
-                                                    <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[0].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Report Lost Pass?</h5>
-                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">Select "Confirm" below if you are sure to report lost.</div>
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                    <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/lost'" th:object="${loan}" th:method="PUT">
-                                                                        <button type="submit" class="btn btn-primary">Confirm</button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-                                                    <!-- Report Lost Modal - ENDS -->
+                                                  
                                                 </tr>
 
                                                 <tr th:each="pass, stats:${loan.passList}" th:if="${!stats.first}">
                                                     <td th:text="|ID${pass.passId}: ${pass.passType}|"></td>
-                                                    <!-- <td th:if="${loan.loanStatus} =='collected'">
-                                                        <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[stats.index].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
-                                                            Report Lost
-                                                        </a>
-                                                    </td>
-                                                    <td th:unless="${loan.loanStatus} =='collected'"></td> -->
-                                                    <!-- <td hidden></td>
-                                                    <td hidden></td>
-                                                    <td hidden></td> -->
-
-                                                    <!-- Report Lost Modal - STARTS -->
-                                                    <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[stats.index].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Report Lost Pass?</h5>
-                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">Select "Confirm" below if you are sure to report lost.</div>
-                                                                <div class="modal-footer">
-                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                    <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/lost'" th:object="${loan}" th:method="PUT">
-                                                                        <button type="submit" class="btn btn-primary">Confirm</button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-                                                    <!-- Report Lost Modal - ENDS -->
+                                                   
                                                 </tr>
 
                                                 <!-- Cancel Loan Modal - STARTS -->
@@ -220,8 +169,6 @@
                                                     </div>
                                                 </div>
                                                 
-                                                
-
                                             </div>
                                         </tbody>
                                     </table>

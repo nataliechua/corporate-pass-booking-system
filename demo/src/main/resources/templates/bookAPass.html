@@ -99,7 +99,6 @@
                                                         <td th:text="|$${pass.value.replacementFee}|"></td>
                                                         <td th:if="${pass.value.numAvailable} < ${pass.value.numTotal}/3" class="text-danger" th:text="${pass.value.numAvailable}"></td>
                                                         <td th:unless="${pass.value.numAvailable} < ${pass.value.numTotal}/3" th:text="${pass.value.numAvailable}"></td>
-                                                        <!-- <td th:text="${pass.value.numAvailable}"></td> -->
                                                         <td th:text="${pass.value.numTotal}"></td>
                                                     </tr>
                                                     
@@ -118,12 +117,6 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
-                                                    <ul>
-                                                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}" />
-                                                    </ul>
-                                                </div> -->
-                                                <!--//Error Msg-->
                                                 <table class="table table-bordered" id="" width="100%" cellspacing="0">
                                                     <tbody>
                                                         <tr>
