@@ -43,73 +43,73 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // replace de
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // // uncomment here to enable login screen
-        String[] staticResources  =  {
-            "/registration**",
-            "/css/**",
-            "/img/**",
-            "/vendor/fontawesome-free/css/**",
-            "/vendor/jquery/**",
-            "/vendor/bootstrap/js/**",
-            "/vendor/jquery-easing/**",
-            "/js/**",
-            "/staff/**",
-            "staff**",
-            "/passes/**",
-            "passes**",
-            "loans**",
-            "/loans/**",
-            "/updateStaffToActive/**"
-        };
+        // String[] staticResources  =  {
+        //     "/registration**",
+        //     "/css/**",
+        //     "/img/**",
+        //     "/vendor/fontawesome-free/css/**",
+        //     "/vendor/jquery/**",
+        //     "/vendor/bootstrap/js/**",
+        //     "/vendor/jquery-easing/**",
+        //     "/js/**",
+        //     "/staff/**",
+        //     "staff**",
+        //     "/passes/**",
+        //     "passes**",
+        //     "loans**",
+        //     "/loans/**",
+        //     "/updateStaffToActive/**"
+        // };
 
-        String[] adminViews = {
-            "/",
-            "/viewPasses",
-            "/viewStaffs",
-            "/viewLoanHistory",
-            "/templateList",
-            "/bookingCriteria",
-            "/bookAPass",
-            "/loanedPasses"
-        };
+        // String[] adminViews = {
+        //     "/",
+        //     "/viewPasses",
+        //     "/viewStaffs",
+        //     "/viewLoanHistory",
+        //     "/templateList",
+        //     "/bookingCriteria",
+        //     "/bookAPass",
+        //     "/loanedPasses"
+        // };
 
-        String[] gopViews = {
-            "/gopReturnPass",
-        };
+        // String[] gopViews = {
+        //     "/gopReturnPass",
+        // };
 
-        String[] staffAndAdminViews = {
-            "/bookAPass",
-            "/loanedPasses"
-        };
+        // String[] staffAndAdminViews = {
+        //     "/bookAPass",
+        //     "/loanedPasses"
+        // };
 
-        http
-            .authorizeRequests()
-            .antMatchers(staticResources).permitAll()
-            .antMatchers(adminViews).access("hasAuthority('Admin')")
-            .antMatchers(gopViews).access("hasAuthority('GOP')")
-            .antMatchers(staffAndAdminViews).access("hasAuthority('Staff') || hasAuthority('Admin')")
-            .anyRequest().authenticated()
-            .and()
-                .formLogin()
-                .loginPage("/login") // use a customised login page
-                .successHandler(authenticationSuccessHandler)
-                .permitAll()
-            .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-            .and()
-                .exceptionHandling()
-                .accessDeniedPage("/403")    
-            ;
+        // http
+        //     .authorizeRequests()
+        //     .antMatchers(staticResources).permitAll()
+        //     .antMatchers(adminViews).access("hasAuthority('Admin')")
+        //     .antMatchers(gopViews).access("hasAuthority('GOP')")
+        //     .antMatchers(staffAndAdminViews).access("hasAuthority('Staff') || hasAuthority('Admin')")
+        //     .anyRequest().authenticated()
+        //     .and()
+        //         .formLogin()
+        //         .loginPage("/login") // use a customised login page
+        //         .successHandler(authenticationSuccessHandler)
+        //         .permitAll()
+        //     .and()
+        //         .logout()
+        //         .invalidateHttpSession(true)
+        //         .clearAuthentication(true)
+        //         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        //         .logoutSuccessUrl("/login?logout")
+        //         .permitAll()
+        //     .and()
+        //         .exceptionHandling()
+        //         .accessDeniedPage("/403")    
+        //     ;
         
         // uncomment here to disable login screen
-        // http
-        //     .csrf().disable()
-        //     .authorizeRequests()
-        //     .antMatchers("/**").permitAll();
+        http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/**").permitAll();
     }
     
     

@@ -37,7 +37,7 @@ Staff_ID bigint NOT NULL,
 Loan_Date date NOT NULL,
 Attraction varchar(50) NOT NULL,
 Loan_Status varchar(20) NOT NULL,
-Saturday_Borrower bigint,
+Saturday_Borrower TEXT,
 CONSTRAINT loan_fk1 FOREIGN KEY (Staff_ID) REFERENCES STAFF(Staff_ID)
 );
 

@@ -41,12 +41,15 @@ public class LoanUpdateController {
     public String gopUpdateLoanStatus(@PathVariable("id") Long loanId, @PathVariable("status") String loanStatus) {
         //Loan loan = new Loan();
         Loan loan = loanService.getLoanById(loanId);
+
+        // If pass has not been collected
         if (loanStatus.equals("not collected")){
             loan.setLoanStatus("collected");
-            loanService.updateLoan(loanId, loan);
-        }else{
-            loan.setLoanStatus("returned");
-            loanService.updateLoan(loanId, loan);
+            loanService.saveLoan(loan);
+        } 
+        // If pass has been collected
+        else {
+            loanService.updateSaturdayBorrowersAsReturned(loan);
         }
         return "redirect:/gopReturnPass";  
     }

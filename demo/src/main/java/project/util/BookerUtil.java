@@ -140,6 +140,8 @@ public class BookerUtil {
 
                     String saturdayBorrowerAndPassToCollect = "" + saturdayBorrowerId + ":" + p.getPassId() + ":" + l.getLoanId() + ";";
 
+                    // System.out.println(saturdayBorrowerAndPassToCollect);
+
                     loan.addSaturdayBorrower(saturdayBorrowerAndPassToCollect);
                 }
             }

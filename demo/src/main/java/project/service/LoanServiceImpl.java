@@ -235,6 +235,42 @@ public class LoanServiceImpl implements LoanService {
         return loanRepository.findByLoanStatusNot("canceled");
     }
 
+    @Override
+    public void updateSaturdayBorrowersAsReturned(Loan loan) {
+        String saturdayBorrower = loan.getSaturdayBorrower();
+        List<Loan> loansToUpdate = new ArrayList<>();
+
+        if (saturdayBorrower!=null) {
+            System.out.println(saturdayBorrower);
+            String[] borrowers = saturdayBorrower.split(";");
+
+            for (String borrower : borrowers) {
+                String saturdayBorrowerLoanIdStr = borrower.split(":")[2];
+                Long saturdayBorrowerId = Long.parseLong(saturdayBorrowerLoanIdStr);
+                Loan saturdayBorrowerLoan = loanRepository.findById(saturdayBorrowerId).get();
+
+                System.out.println("SATURDAY LOAN: " + saturdayBorrowerLoan);
+
+                loansToUpdate.add(saturdayBorrowerLoan);
+                
+                // System.out.println("SAVING SAT LOAN: ");
+                // loanRepository.saveAndFlush(saturdayBorrowerLoan);
+                // System.out.println("PRINT AGAIN AFTER SAVING: " + saturdayBorrowerLoan);
+            }
+        }
+
+        loansToUpdate.add(loan);
+
+        for (Loan loanToUpdate : loansToUpdate) {
+            // loanToUpdate.setLoanStatus("returned");
+            loanRepository.updateLoanStatus("returned", loanToUpdate.getLoanId());
+            System.out.println(loanToUpdate);
+        }
+
+        // loanRepository.saveAll(loansToUpdate);
+    }
+
+
 
  
 

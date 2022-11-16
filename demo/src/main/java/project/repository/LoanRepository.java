@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.transaction.annotation.*;
 
 import project.entity.Loan;
 
@@ -34,8 +36,10 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
     List<Loan> findByLoanStatusNot(String loanStatus);
 
-
-
+    @Modifying
+    @Transactional
+    @Query("update Loan l set l.loanStatus=:loanStatus WHERE l.loanId=:loanId")
+    int updateLoanStatus(@Param("loanStatus") String loanStatus, @Param("loanId") Long loanId);
 
     // @Query("SELECT l FROM Loan l WHERE l.loanDate <> :loanDate")
     // List<Loan> findByLoanDateNotDate(@Param("loanDate") String date);

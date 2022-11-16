@@ -195,4 +195,9 @@ public class LoanRepositoryTest {
             }
         }
     }
+
+    @Test
+    public void updateLoanStatus() {
+        loanRepository.updateLoanStatus("collected", 11L);
+    }
 }
