@@ -128,6 +128,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public Staff updateStaff(Long staffId, Staff staff) {
+        // staffDb is the staff obj in database
+        // staff is the staff obj w attributes u want to update populated
+
         Staff staffDB = staffRepository.findById(staffId).get();
         System.out.println(Objects.nonNull(staff.getStaffName()));
         System.out.println(Objects.nonNull("".equalsIgnoreCase(staff.getStaffName())));
@@ -166,10 +169,16 @@ public class StaffServiceImpl implements StaffService {
 
         // Check if parameters are null
         if (Objects.nonNull(staff.getStaffType()) && !("".equalsIgnoreCase(staff.getStaffType()))) {
+            System.out.println("UPDATING STAFF TYPE");
             staffDB.setStaffType(staff.getStaffType());
         }
 
         return staffRepository.save(staffDB);
+    }
+
+    @Override
+    public Staff saveStaffToDB(Staff staff) {
+        return staffRepository.save(staff);
     }
 
     @Override

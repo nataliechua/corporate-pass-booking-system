@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import project.entity.*;
 import project.service.*;
+import project.repository.*;
 
 import java.util.*;
 
@@ -16,6 +17,9 @@ public class StaffUpdateController {
     
     @Autowired
     private StaffService staffService;
+
+    @Autowired
+    private StaffRepository staffRepository;
     
     public StaffUpdateController(StaffService staffService) {
         super();
@@ -37,6 +41,7 @@ public class StaffUpdateController {
     @PutMapping("/{id}/{type}")
     public String updateAdminStuff(@PathVariable("id") Long staffId, @PathVariable("type") String updateType) {
         Staff staff = staffService.getStaffById(staffId);
+        
         if (updateType.equals("clearFees")){
             staffService.clearFees(staffId);
         }else{
@@ -50,7 +55,9 @@ public class StaffUpdateController {
             else{
                 staff.setIsUserActive("FALSE");
             }
-            staffService.updateStaff(staffId, staff);
+            
+            // staffRepository.save(staff);
+            staffService.saveStaffToDB(staff);
         }
         //Staff staff = new Staff();
         

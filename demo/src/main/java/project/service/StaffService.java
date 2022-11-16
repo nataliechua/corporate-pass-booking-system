@@ -25,5 +25,7 @@ public interface StaffService extends UserDetailsService {
 
     public void clearFees(Long staffId);
 
+    public Staff saveStaffToDB(Staff staff);
+
     // public List<Loan> getStaffLoansForAMonthAndAttraction()
 }
