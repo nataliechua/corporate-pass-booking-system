@@ -50,80 +50,80 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <div th:replace="fragments/topbar :: topbar"></div>
-                <!-- End of Topbar -->
+                <div class="main">
+                    <!-- Topbar -->
+                    <div th:replace="fragments/topbar :: topbar"></div>
+                    <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Pass Booking Criteria</h1>
-                    <p class="mb-4"></p>
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Pass Booking Criteria</h1>
+                        <p class="mb-4"></p>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Edit Criteria</h6>
-                        </div>
-                        <div class="card-body">
-                            
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Criteria</h6>
+                            </div>
+                            <div class="card-body">
+                                
 
-                            <!-- ALERT - START-->
-                            <div id="alertBoxDiv" th:if="${param.success}">
-                                <div class="alert alert-success" v-show="showAlert" id="alertDiv" role="alert">
-                                    <button onclick="document.getElementById('alertDiv').style.opacity = '0'" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <strong>Success!</strong> Booking Constraints Updated!
+                                <!-- ALERT - START-->
+                                <div id="alertBoxDiv" th:if="${param.success}">
+                                    <div class="alert alert-success" v-show="showAlert" id="alertDiv" role="alert">
+                                        <button onclick="document.getElementById('alertDiv').style.opacity = '0'" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <strong>Success!</strong> Booking Constraints Updated!
+                                    </div>
+                                </div>
+                                <!-- ALERT - ENDS-->
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>   
+                                                <th>No.</th>
+                                                <th>Criteria</th>
+                                                <th>Old</th>
+                                                <th>New</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="constraint : ${constraints}" >
+                                                <td>
+                                                    <p th:text="${constraint.constraintId}"></p>
+                                                <td>
+                                                    <p th:text="${constraint.constraintName}"></p>
+                                                </td>
+                                                <td>
+                                                    <p th:text="${constraint.constraintData}"></p>
+                                                </td>
+                                                <form th:action="@{/bookingCriteria/} + ${constraint.constraintId} + '/' + ${constraint.constraintName}" th:object="${constraint}" th:method="PUT">
+                                                    <td>
+                                                        <input id="constraintData" type="number" name="constraintData" th:field="*{constraintData}" min="0"/>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-primary btn-sm btn-block">
+                                                            <span class="text">Update</span>
+                                                        </button>
+                                                    </td>
+                                                </form>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <!-- ALERT - ENDS-->
-                            
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>   
-                                            <th>No.</th>
-                                            <th>Criteria</th>
-                                            <th>Old</th>
-                                            <th>New</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="constraint : ${constraints}" >
-                                            <td>
-                                                <p th:text="${constraint.constraintId}"></p>
-                                            <td>
-                                                <p th:text="${constraint.constraintName}"></p>
-                                            </td>
-                                            <td>
-                                                <p th:text="${constraint.constraintData}"></p>
-                                            </td>
-                                            <form th:action="@{/bookingCriteria/} + ${constraint.constraintId} + '/' + ${constraint.constraintName}" th:object="${constraint}" th:method="PUT">
-                                                <td>
-                                                    <input id="constraintData" type="number" name="constraintData" th:field="*{constraintData}" min="0"/>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary btn-sm btn-block">
-                                                        <span class="text">Update</span>
-                                                    </button>
-                                                </td>
-                                            </form>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
+
                     </div>
-
+                    <!-- /.container-fluid -->
                 </div>
-                <!-- /.container-fluid -->
-
+                
+                <div th:replace="fragments/footer :: footer"></div>
             </div>
             <!-- End of Main Content -->
-
-            <div th:replace="fragments/footer :: footer"></div>
-
         </div>
         <!-- End of Content Wrapper -->
 

@@ -51,159 +51,158 @@
 
             <!-- Main Content -->
             <div id="content">
+                <div class="main">
+                    <!-- Topbar -->
+                    <div th:replace="fragments/topbar :: topbar"></div>
+                    <!-- End of Topbar -->
 
-                <!-- Topbar -->
-                <div th:replace="fragments/topbar :: topbar"></div>
-                <!-- End of Topbar -->
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Loans</h1>
+                        <p class="mb-4">You can only cancel loans that are <span class="text-danger">at least 1 day before</span> the intended visit date (any time before midnight).</p>
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Loans</h1>
-                    <p class="mb-4">You can only cancel loans that are <span class="text-danger">at least 1 day before</span> the intended visit date (any time before midnight).</p>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Booked Passes</h6>
-                        </div>
-                        <div class="card-body">
-                            
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Loan ID</th>
-                                            <th>Pass</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <!-- <th></th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <div th:remove="tag" th:each="loan : ${loans}" th:with="passCount=${loan.passList.size()}">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Booked Passes</h6>
+                            </div>
+                            <div class="card-body">
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
                                             <tr>
-                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanId}"></td>
-                                                <td class="align-middle" th:text="${passCount>0}? 'ID' + ${loan.passList[0].passId} + ': ' + ${loan.passList[0].passType}:''"></td>
-                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanDate}"></td>
-                                                <td class="align-middle" th:rowspan="${loan.passList.size()}" th:block th:switch="${loan.loanStatus}">
-                                                    <div th:case="'not collected'">
-                                                        <!-- <input type="text" class="form-control" th:value="${#dates.format(#dates.createNow() , 'yyyy-MM-dd_HH-mm-ss')}"> -->
-                                                        <a href="#" data-toggle="modal" th:attr="data-target='#cancelLoanModal'+ ${loan.loanId}"  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
-                                                            Cancel
+                                                <th>Loan ID</th>
+                                                <th>Pass</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <!-- <th></th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <div th:remove="tag" th:each="loan : ${loans}" th:with="passCount=${loan.passList.size()}">
+                                                <tr>
+                                                    <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanId}"></td>
+                                                    <td class="align-middle" th:text="${passCount>0}? 'ID' + ${loan.passList[0].passId} + ': ' + ${loan.passList[0].passType}:''"></td>
+                                                    <td class="align-middle" th:rowspan="${loan.passList.size()}" th:text="${loan.loanDate}"></td>
+                                                    <td class="align-middle" th:rowspan="${loan.passList.size()}" th:block th:switch="${loan.loanStatus}">
+                                                        <div th:case="'not collected'">
+                                                            <!-- <input type="text" class="form-control" th:value="${#dates.format(#dates.createNow() , 'yyyy-MM-dd_HH-mm-ss')}"> -->
+                                                            <a href="#" data-toggle="modal" th:attr="data-target='#cancelLoanModal'+ ${loan.loanId}"  class="d-sm-inline-block btn btn-sm btn-primary shadow-sm col-12 ">
+                                                                Cancel
+                                                            </a>
+                                                        </div>
+                                                        <div th:case="'collected'" class="text-primary" th:text="Collected"></div>
+                                                        <div th:case="'returned'" class="text-success" th:text="Returned"></div>
+                                                        <div th:case="'lost'" class="text-info" th:text="Lost"></div>
+                                                        <div th:case="'canceled'" class="text-secondary" th:text="Cancelled"></div>
+                                                    </td>
+
+                                                    <!-- <td th:if="${passCount>0} and ${loan.loanStatus} =='collected'">
+                                                        <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[0].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
+                                                            Report Lost
                                                         </a>
-                                                    </div>
-                                                    <div th:case="'collected'" class="text-primary" th:text="Collected"></div>
-                                                    <div th:case="'returned'" class="text-success" th:text="Returned"></div>
-                                                    <div th:case="'lost'" class="text-info" th:text="Lost"></div>
-                                                    <div th:case="'canceled'" class="text-secondary" th:text="Cancelled"></div>
-                                                </td>
+                                                    </td>
+                                                    <td th:unless="${passCount>0} and ${loan.loanStatus} =='collected'"></td> -->
 
-                                                <!-- <td th:if="${passCount>0} and ${loan.loanStatus} =='collected'">
-                                                    <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[0].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
-                                                        Report Lost
-                                                    </a>
-                                                </td>
-                                                <td th:unless="${passCount>0} and ${loan.loanStatus} =='collected'"></td> -->
+                                                    <!-- Report Lost Modal - STARTS -->
+                                                    
+                                                    <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[0].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Report Lost Pass?</h5>
+                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">Select "Confirm" below if you are sure to report lost.</div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                    <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/lost'" th:object="${loan}" th:method="PUT">
+                                                                        <button type="submit" class="btn btn-primary">Confirm</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- Report Lost Modal - ENDS -->
+                                                </tr>
 
-                                                <!-- Report Lost Modal - STARTS -->
-                                                
-                                                <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[0].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                <tr th:each="pass, stats:${loan.passList}" th:if="${!stats.first}">
+                                                    <td th:text="|ID${pass.passId}: ${pass.passType}|"></td>
+                                                    <!-- <td th:if="${loan.loanStatus} =='collected'">
+                                                        <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[stats.index].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
+                                                            Report Lost
+                                                        </a>
+                                                    </td>
+                                                    <td th:unless="${loan.loanStatus} =='collected'"></td> -->
+                                                    <!-- <td hidden></td>
+                                                    <td hidden></td>
+                                                    <td hidden></td> -->
+
+                                                    <!-- Report Lost Modal - STARTS -->
+                                                    <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[stats.index].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Report Lost Pass?</h5>
+                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">Select "Confirm" below if you are sure to report lost.</div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                                    <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/lost'" th:object="${loan}" th:method="PUT">
+                                                                        <button type="submit" class="btn btn-primary">Confirm</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- Report Lost Modal - ENDS -->
+                                                </tr>
+
+                                                <!-- Cancel Loan Modal - STARTS -->
+                                                <div class="modal fade" th:id="'cancelLoanModal'+ ${loan.loanId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Report Lost Pass?</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Cancel Loan?</h5>
                                                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">×</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">Select "Confirm" below if you are sure to report lost.</div>
+                                                            <div class="modal-body">Select "Confirm" below if you are sure to cancel the loan.</div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/lost'" th:object="${loan}" th:method="PUT">
+                                                                <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/cancel'" th:object="${loan}" th:method="PUT">
                                                                     <button type="submit" class="btn btn-primary">Confirm</button>
                                                                 </form>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- Report Lost Modal - ENDS -->
-                                            </tr>
-
-                                            <tr th:each="pass, stats:${loan.passList}" th:if="${!stats.first}">
-                                                <td th:text="|ID${pass.passId}: ${pass.passType}|"></td>
-                                                <!-- <td th:if="${loan.loanStatus} =='collected'">
-                                                    <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[stats.index].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
-                                                        Report Lost
-                                                    </a>
-                                                </td>
-                                                <td th:unless="${loan.loanStatus} =='collected'"></td> -->
-                                                <!-- <td hidden></td>
-                                                <td hidden></td>
-                                                <td hidden></td> -->
-
-                                                <!-- Report Lost Modal - STARTS -->
-                                                <!-- <div class="modal fade" th:id="'reportLostModal'+ ${loan.passList[stats.index].passId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Report Lost Pass?</h5>
-                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">Select "Confirm" below if you are sure to report lost.</div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                                <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/lost'" th:object="${loan}" th:method="PUT">
-                                                                    <button type="submit" class="btn btn-primary">Confirm</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- Report Lost Modal - ENDS -->
-                                            </tr>
-
-                                            <!-- Cancel Loan Modal - STARTS -->
-                                            <div class="modal fade" th:id="'cancelLoanModal'+ ${loan.loanId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Cancel Loan?</h5>
-                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">Select "Confirm" below if you are sure to cancel the loan.</div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                                            <form th:action="@{/loanedPasses/} + ${loan.loanId} + '/cancel'" th:object="${loan}" th:method="PUT">
-                                                                <button type="submit" class="btn btn-primary">Confirm</button>
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            
-                                            
+                                                
+                                                
 
-                                        </div>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-
+                    <!-- /.container-fluid -->
                 </div>
-                <!-- /.container-fluid -->
-
+                
+                <div th:replace="fragments/footer :: footer"></div>
             </div>
             <!-- End of Main Content -->
-
-            <div th:replace="fragments/footer :: footer"></div>
-
         </div>
         <!-- End of Content Wrapper -->
 

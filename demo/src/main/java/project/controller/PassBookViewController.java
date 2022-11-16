@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import project.entity.*;
@@ -57,7 +59,11 @@ public class PassBookViewController {
     public String updateAdminStuff(@PathVariable("chosenDate") String dateChosen, Model model, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) throws ParseException {
         Map<String, PassDTO> passes = new HashMap<String, PassDTO>();
 
-        if (!dateChosen.equals("")){
+        System.out.println("========================================");
+
+        System.out.println(dateChosen);
+        System.out.println("========================================");
+        // if (!dateChosen.equals("")){
             model.addAttribute("selectedDate", dateChosen);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -71,7 +77,7 @@ public class PassBookViewController {
             }
             model.addAttribute("isValidForBooking", isValidForBooking);
             
-        }
+        //}
         List<Loan> loans = loanService.getLoansByLoanDate(dateChosen);  
         passes = passService.getPassTypeInfoWithAvailableAndTotalCount(dateChosen);
         model.addAttribute("passDTO", passes);
@@ -81,7 +87,7 @@ public class PassBookViewController {
     }
 
     @PostMapping("/{chosenDate}")
-    public String createNewLoan(@PathVariable("chosenDate") String dateChosen, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO) {
+    public String createNewLoan(@PathVariable("chosenDate") String dateChosen, @ModelAttribute("loan") LoanRequestDTO loanRequestDTO, BindingResult result) {
         loanRequestDTO.setLoanDate(dateChosen);
         loanRequestDTO.setStaffId(staffService.getStaffIdFromLogin());
         Loan loan = loanService.createNewLoan(loanRequestDTO);
@@ -97,10 +103,23 @@ public class PassBookViewController {
         System.out.println("========================================");
         System.out.println("========================================");
         System.out.println("========================================");
-        if (loan != null){
-          return "redirect:/loanedPasses";  
+
+        // set an error msg: for dynamic msg
+        // if (loan == null) {
+        //     ObjectError error = new ObjectError("globalError", "Sorry, an error has occurred. Please try again");
+        //     result.addError(error);
+        // }
+
+        // if (result.hasErrors()) { // check if there's any error msg from the validation
+        //     return "bookAPass";
+        // }
+
+        if (loan != null){ 
+            return "redirect:/loanedPasses";  
         }
-        return "redirect:/bookAPass/" + dateChosen + "#book?failed";  
+
+        return "bookAPass";
+        //return "redirect:/bookAPass/" + dateChosen + "?failed";  
     }
 
 }

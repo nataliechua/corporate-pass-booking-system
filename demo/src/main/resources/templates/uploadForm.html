@@ -49,62 +49,61 @@
 
             <!-- Main Content -->
             <div id="content">
+                <div class="main">
+                    <!-- Topbar -->
+                    <div th:replace="fragments/topbar :: topbar"></div>
+                    <!-- End of Topbar -->
 
-                <!-- Topbar -->
-                <div th:replace="fragments/topbar :: topbar"></div>
-                <!-- End of Topbar -->
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Email Template</h1>
+                        <p class="mb-4"></p>
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Email Template</h1>
-                    <p class="mb-4"></p>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Template List</h6>
-                        </div>
-                        <div class="card-body">
-							<div th:if="${message}">
-								<h2 th:text="${message}"/>
-							</div>
-					
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-											<th>ID</th>
-                                            <th colspan="2">Template</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-										<tr th:each="file, stats : ${files}">
-											<td th:text="${stats.index + 1}"></td>
-											<td colspan="2"><a th:href="${file}" th:text="${#strings.substringAfter(file,'http://localhost:8080/files/')}" /></td>
-										</tr>
-										<tr>
-											<td></td>
-											<form th:action="@{/handleFileUpload}" method="POST" enctype="multipart/form-data">
-												<td><input type="file" name="file" /></td>
-												<td><input type="submit" value="Upload" /></td>					
-											</form>
-										</tr>
-                                    </tbody>
-                                </table>
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Template List</h6>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${message}">
+                                    <h2 th:text="${message}"/>
+                                </div>
+                        
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th colspan="2">Template</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="file, stats : ${files}">
+                                                <td th:text="${stats.index + 1}"></td>
+                                                <td colspan="2"><a th:href="${file}" th:text="${#strings.substringAfter(file,'http://localhost:8080/files/')}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <form th:action="@{/handleFileUpload}" method="POST" enctype="multipart/form-data">
+                                                    <td><input type="file" name="file" /></td>
+                                                    <td><input type="submit" value="Upload" /></td>					
+                                                </form>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-
+                    <!-- /.container-fluid -->
                 </div>
-                <!-- /.container-fluid -->
-
+                
+                <div th:replace="fragments/footer :: footer"></div>
             </div>
             <!-- End of Main Content -->
-
-            <div th:replace="fragments/footer :: footer"></div>
-
         </div>
         <!-- End of Content Wrapper -->
 
