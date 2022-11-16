@@ -218,7 +218,6 @@ public class SendEmail {
   public String generatePdfReportAsPDF(String reportAsHtml,String attachmentType) {
     ITextRenderer renderer = new ITextRenderer();
     
-
     // if you have html source in hand, use it to generate document object
     try{
         renderer.setDocumentFromString(reportAsHtml);

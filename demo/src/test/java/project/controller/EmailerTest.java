@@ -89,9 +89,16 @@ public class EmailerTest {
     }
 
     @Test
-    public void testEmailWithAttachmentTemplate() throws IOException, MessagingException {
+    public void testEmailWithAttachmentTemplateDigital() throws IOException, MessagingException {
         Loan loan = loanRepository.findById(1L).get();
         String ans = emailer.emailWithAttachmentTemplate("confirmLoanDigital",loan);
+        System.out.println(ans); 
+    }
+
+    @Test
+    public void testEmailWithAttachmentTemplatePhysical() throws IOException, MessagingException {
+        Loan loan = loanRepository.findById(6L).get();
+        String ans = emailer.emailWithAttachmentTemplate("confirmLoanPhysical",loan);
         System.out.println(ans); 
     }
 

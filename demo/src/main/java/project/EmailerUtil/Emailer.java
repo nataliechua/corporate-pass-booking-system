@@ -190,11 +190,15 @@ public class Emailer {
 
         // email attachment generation
         Pass[] passesArray = passList.toArray(new Pass [passList.size()]);
-        Pass p = passesArray[0];
-        String pdfAttachment = emailUtil.generateEmailAttachment(attachmentType + "/"+ attachmenthtml,attachmentType,attraction,p,staffName,loanDate);
-        System.out.println(template);
-        System.out.println(pdfAttachment);
-        emailUtil.sendEmailWithTemplateAttachment(mail,template,pdfAttachment);
+        //Pass p = passesArray[0];
+
+        for (Pass p:passesArray){
+            String pdfAttachment = emailUtil.generateEmailAttachment(attachmentType + "/"+ attachmenthtml,attachmentType,attraction,p,staffName,loanDate);
+            System.out.println(template);
+            System.out.println(pdfAttachment);
+            emailUtil.sendEmailWithTemplateAttachment(mail,template,pdfAttachment);
+        }
+
         return "SUCCESSED";
     }
 }
