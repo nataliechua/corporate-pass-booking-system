@@ -33,7 +33,7 @@
 
 ## User Account
 ### Admin
-- Eva.Yong@sportsschool.edu.sg; 123456
+- bettyyuyiling@gmail.com; 123456
 - Sophia.Toh@sportsschool.edu.sg; 123456
 ### Staff
 - Liam.The@sportsschool.edu.sg; 123456

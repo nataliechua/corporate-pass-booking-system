@@ -88,6 +88,15 @@ public class EmailerTest {
         System.out.println(ans);
     }
 
+    @Test
+    public void testEmailWithAttachmentTemplate() throws IOException, MessagingException {
+        Loan loan = loanRepository.findById(1L).get();
+        String ans = emailer.emailWithAttachmentTemplate("confirmLoanDigital",loan);
+        System.out.println(ans); 
+    }
+
+
+
     
 
     

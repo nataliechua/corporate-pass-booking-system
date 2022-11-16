@@ -8,6 +8,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,6 +28,7 @@ import org.apache.commons.io.IOUtils;
 import javax.faces.application.Resource;
 import java.util.Base64;
 import org.springframework.core.io.UrlResource;
+import project.entity.*;
 
 @Service
 public class SendEmail {
@@ -101,7 +104,7 @@ public class SendEmail {
                 
         String html = textTemplateEngine.process(template, context);
 
-        String attachFile = "demo/src/main/resources/PDFs/" + attachment;
+        String attachFile = "src/main/resources/PDFs/" + attachment;
         helper.addAttachment(attachment, new File(attachFile));
 
         helper.setTo(mail.getMailTo());
@@ -119,25 +122,64 @@ public class SendEmail {
      * @return String
      * @throws IOException
      */
-    public String generateCorporateEmailAttachment(String template,String attachmentType) throws IOException {
+    public String generateEmailAttachment(String template, String attachmentType, String attraction, Pass pass, String staffName, String date) throws IOException {
         Context context = new Context();
-        if(attachmentType.equals("corporateAttachment")){
+        String passId = String.valueOf(pass.getPassId());
+        String passType = pass.getPassType();
+        String passTypeWithoutSpaces = passType.replaceAll("\\s+","");
 
-            for(int i = 1; i <= 3 ;i++){
-                Path path = Paths.get("demo/src/main/resources/templates/" + attachmentType+ "/images/image" + i + ".png");
-                String base64Image = convertToBase64(path);
-                String image = "data:image/png;base64," + base64Image;
-                context.setVariable("image" + i,image);
+        //digital
+        if(attachmentType.equals("corporateAttachment")){
+            if (passType.equals("Mandai Wildlife Reserve")){
+                int k = 1;
+                for(int i = 1; i <= 3 ;i++){
+                    Path path;
+                    if (i==2){
+                        path = Paths.get("src/main/resources/templates/barcodes/barcode_" + passId + ".png");
+                    } else {
+                        path = Paths.get("src/main/resources/templates/" + attachmentType+ "/images/" + passTypeWithoutSpaces + k + ".png");
+                        k += 1;
+                    }
+                    System.out.println(path);
+                    String base64Image = convertToBase64(path);
+
+                    String image = "data:image/png;base64," + base64Image;
+                    context.setVariable("image" + i,image);
+                }
+            } else {
+                for(int i = 1; i <= 2 ;i++){
+                    Path path = Paths.get("src/main/resources/templates/" + attachmentType+ "/images/" + passTypeWithoutSpaces + ".png");
+                    if (i==2){
+                        path = Paths.get("src/main/resources/templates/barcodes_" + passId + ".png");
+                    }
+                    String base64Image = convertToBase64(path);
+                    String image = "data:image/png;base64," + base64Image;
+                    context.setVariable("image" + i,image);
+                }
             }
+        //physical
         }else if(attachmentType.equals("authorisationAttachment")){
             for(int i = 1; i <= 2 ;i++){
-                Path path = Paths.get("demo/src/main/resources/templates/" + attachmentType+ "/images/image" + i + ".png");
+                Path path = Paths.get("src/main/resources/templates/" + attachmentType+ "/images/image" + i + ".png");
                 String base64Image = convertToBase64(path);
                 String image = "data:image/png;base64," + base64Image;
                 context.setVariable("image" + i,image);
             }
         }
 
+        
+        String dateString ="";
+        try{
+            dateString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        context.setVariable("passType", passType);
+        context.setVariable("today", dateString);
+        context.setVariable("staffName", staffName);
+        context.setVariable("loanDate", date);
+        context.setVariable("attraction", attraction);
+        
         String html = htmlTemplateEngine.process(template, context);
         String FileName = generatePdfReportAsPDF(html,attachmentType);
         return FileName;
@@ -188,7 +230,8 @@ public class SendEmail {
         
     }
     
-    String fileNameWithPath = "demo/src/main/resources/PDFs/" + attachmentType + ".pdf";
+    String fileNameWithPath = "src/main/resources/PDFs/" + attachmentType + ".pdf";
+    System.out.println(fileNameWithPath);
     try{
 
         FileOutputStream fos = new FileOutputStream( fileNameWithPath );

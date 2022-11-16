@@ -1,10 +1,25 @@
-Dear [(${name})],
+Dear [(${staffName})],
 
-This email is to confirm your following pass booking:
+We are pleased to inform that your booking to [(${attraction})] is confirmed as follows: 
 
-- loan id: 
-- loan date:
-- attraction: 
-- loanStatus: 
-- pass(es) id(s): 
-- 
+- Date of Visit: [(${loanDate})]
+- Membership ID: [(${strPassList})]
+
+For any change in visit date, you are required to cancel your booking (at least 1 day before) and to submit a new booking in the system. 
+
+Attached is the authorisation letter to [(${attraction})]. Please check that the details are accurate. 
+
+Please take note of the following for your visit to [(${attraction})]:
+- Present this email confirmation to the General Office to collect the membership card(s).
+- Collect the membership card(s) from the General Office one day before your visit date and return the membership card(s) by 9am the next working day after your visit. 
+- Present the membership card(s), the authorisation letter and your staff pass at the entrance of [(${attraction})]. 
+- Entry is strictly based on the membership card(s) and the authorisation letter.
+- Your presence is required on the day of visit. Entry will be denied without staff’s presence. 
+- Your booking is non-transferable. 
+- Visit date is strictly based on the date stated in this email and the authorisation letter. 
+- Staff found abusing the membership(s) will be subject to disciplinary actions. 
+
+Enjoy your visit to [(${attraction})]! 
+
+Warm regards,
+HR Department 

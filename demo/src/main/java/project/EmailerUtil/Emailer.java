@@ -144,27 +144,58 @@ public class Emailer {
      */
     //@GetMapping(path = "/TemplateAttachmentEmail")
     //confirmLoanDigital, confirmLoanPhysical
-    public String emailWithAttachmentTemplate() throws IOException, MessagingException {
-            Email mail = new Email();
-            mail.setMailTo("nataliechua15@gmail.com");//replace with your desired email
-            mail.setFrom("testemailjava91@gmail.com");
-            mail.setSubject("test template attachment email");
-            Map<String, Object> model = new HashMap<String, Object>();
-            model.put("name", "valerie");
-            // model.put("message", "hi");
-            mail.setProps(model);
+    public String emailWithAttachmentTemplate(String template, Loan loan) throws IOException, MessagingException {
+        Staff staff = loan.getStaff();
+        String staffEmail = staff.getStaffEmail();
+        String staffName = staff.getStaffName();
 
-            // email attachment generation
+        Long loanId = loan.getLoanId();
+        String loanDate = loan.getLoanDate();
+        String attraction = loan.getAttraction();
+        String loanStatus = loan.getLoanStatus();
+        Set<Pass> passList = loan.getPassList();
+        String strPassList = loan.getPassList().stream().map(p->"P0000000"+String.valueOf(p.getPassId())).collect(Collectors.joining(","));
+        String saturdayBorrower = loan.getSaturdayBorrower();
 
-            // AuthorisationLetterPremiumCorporateFriendsoft
+        Map<String,String> subjectMap = new HashMap<>();
+        subjectMap.put("confirmLoanDigital","Confirmation of Pass(es) Booking (Digital)");
+        subjectMap.put("confirmLoanPhysical","Confirmation of Pass(es) Booking (Physical)");
+        subjectMap.put("confirmCollect","Confirmation of Pass(es) Collection");
+        subjectMap.put("confirmReturn","Confirmation of Pass(es) Returned");
+        subjectMap.put("remindCollect","Reminder to collect Pass(es)");
+        subjectMap.put("remindReturn","Reminder to return Pass(es)");
+        subjectMap.put("HRLostCard","To HR: Lost Card");
 
-            // authorisationAttachment, corporateAttachment
-            // AuthorisationLetterPremiumCorporateFriendsoft
-            // SAMPLENEWCorporateLetterTemplateCFOZP_002_
-            String attachmentType = "authorisationAttachment";
-            String pdfAttachment = emailUtil.generateCorporateEmailAttachment(attachmentType + "/"+ "AuthorisationLetterPremiumCorporateFriendsoft",attachmentType);
-            emailUtil.sendEmailWithTemplateAttachment(mail,"sampleTemplate",pdfAttachment);
-            return "SUCCESSED";
+        String attachmentType = "";
+        String attachmenthtml = "";
+        if(template.equals("confirmLoanDigital")){
+            attachmentType = "corporateAttachment";
+            attachmenthtml = "SAMPLENEWCorporateLetterTemplateCFOZP_002_";
+        } else {
+            attachmentType = "authorisationAttachment";
+            attachmenthtml = "AuthorisationLetterPremiumCorporateFriendsoft";
+        }
+        
+        Email mail = new Email();
+        mail.setMailTo(staffEmail);
+        mail.setFrom("testemailjava91@gmail.com");
+        mail.setSubject(subjectMap.get(template));
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("staffName", staffName);
+        model.put("loanId", loanId);
+        model.put("attraction", attraction);
+        model.put("strPassList", strPassList);
+        model.put("loanDate", loanDate);
+        mail.setProps(model);
+
+        // email attachment generation
+        Pass[] passesArray = passList.toArray(new Pass [passList.size()]);
+        Pass p = passesArray[0];
+        String pdfAttachment = emailUtil.generateEmailAttachment(attachmentType + "/"+ attachmenthtml,attachmentType,attraction,p,staffName,loanDate);
+        System.out.println(template);
+        System.out.println(pdfAttachment);
+        emailUtil.sendEmailWithTemplateAttachment(mail,template,pdfAttachment);
+        return "SUCCESSED";
     }
 }
     
