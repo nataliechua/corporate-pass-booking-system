@@ -55,10 +55,20 @@ public class Emailer {
             mail.setFrom("testemailjava91@gmail.com");
             mail.setSubject("test template attachment email");
             Map<String, Object> model = new HashMap<String, Object>();
-            // model.put("name", "valerie");
+            model.put("name", "valerie");
             // model.put("message", "hi");
             mail.setProps(model);
-            emailUtil.sendEmailWithAttachmentTemplate(mail, "SAMPLENEWCorporateLetterTemplateCFOZP_002_");
+
+            // email attachment generation
+
+            // AuthorisationLetterPremiumCorporateFriendsoft
+
+            // authorisationAttachment, corporateAttachment
+            // AuthorisationLetterPremiumCorporateFriendsoft
+            // SAMPLENEWCorporateLetterTemplateCFOZP_002_
+            String attachmentType = "authorisationAttachment";
+            String pdfAttachment = emailUtil.generateCorporateEmailAttachment(attachmentType + "/"+ "AuthorisationLetterPremiumCorporateFriendsoft",attachmentType);
+            emailUtil.sendEmailWithTemplateAttachment(mail,"sampleTemplate",pdfAttachment);
             return "SUCCESSED";
     }
 }

@@ -42,7 +42,7 @@ public class ThymeLeafConfig{
 
     public ITemplateResolver textTemplateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("/templates/");
+        templateResolver.setPrefix("/templates/emailTemplates/");
         templateResolver.setSuffix(".txt");
         templateResolver.setTemplateMode(TemplateMode.TEXT);
         templateResolver.setCharacterEncoding("UTF8");
@@ -54,7 +54,7 @@ public class ThymeLeafConfig{
     private ITemplateResolver htmlTemplateResolver() {
         final ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         // templateResolver.setResolvablePatterns(Collections.singleton("html/*"));
-        templateResolver.setPrefix("/templates/EmailAttachment/");
+        templateResolver.setPrefix("/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF8");
