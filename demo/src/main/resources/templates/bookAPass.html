@@ -91,6 +91,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <input type="hidden" id="passData" th:value="${passDTO}"/>
                                                     <tr th:each="pass : ${passDTO}">
                                                         <td th:text="${pass.value.passType}"></td>
                                                         <td th:text="${pass.value.attractions}"></td>
@@ -143,6 +144,7 @@
                                                                 </select>
                                                             </td>
                                                         </tr>
+                                                        <span id="passDTO" th:text="${jsonPassList}" style="display: none;"></span>
                                                         <tr>
                                                             <th scope="row">
                                                                 <label for="attraction">Attraction</label>
@@ -309,7 +311,6 @@
     
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
-
     <script>
         const app = Vue.createApp({
             data() {
@@ -343,7 +344,16 @@
                     }
                 },
                 onSelectChange(event) {
-                    this.attraction = event.target.value;
+                    let passDTO =  $('#passDTO').text();
+                    passDTOJSON = JSON.parse(passDTO);
+                    
+                    for(let i = 0; i < passDTOJSON.length; i++) {
+
+                        let obj = passDTOJSON[i];
+                        if (obj.passType == event.target.value) {
+                            this.attraction = obj.attractions;
+                        }
+                    }
                 }
             },
             computed:{
