@@ -9,28 +9,6 @@
 6. go to 'OOP\demo\src\main\java\project', right click on file 'Is424G1T5Application' and click 'Run Java'
 7. Go to http://localhost:8080 where the application should be working!
 
-## API Endpoints
-### Staff 
-- Get all staff: GET http://localhost:8080/staff
-- Get staff by ID: http://localhost:8080/staff/id
-- Create new staff: POST http://localhost:8080/staff
-- Update staff by ID: http://localhost:8080/staff/id
-### Pass
-- Get all passes: GET http://localhost:8080/passes
-- Get pass by ID: GET http://localhost:8080/passes/id
-- Create new pass: POST http://localhost:8080/passes
-- Update pass by ID: PUT http://localhost:8080/passes/id
-### Loan
-- Get all loans: GET http://localhost:8080/loans
-- Get loans by ID: GET http://localhost:8080/loans/id
-### Constraint
-- Get all constraints: GET http://localhost:8080/constraint
-- Get constraint by ID: GET http://localhost:8080/constraint/id
-- Update constraint: PUT http://localhost:8080/constraint
-- Update constraint data by ID: PUT http://localhost:8080/constraint/id
-### Booker
-- Update constraint data by ID: PUT http://localhost:8080/constraint/id
-
 ## User Account
 ### Admin
 - bettyyuyiling@gmail.com; 123456

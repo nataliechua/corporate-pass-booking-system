@@ -28,7 +28,7 @@ public class LoanServiceImplTest {
     public void testCreateNewLoan() {
 
         // TRY TO CREATE NEW LOAN ON THE 17 DEC 2022 FOR SINGAPORE FLYER
-        LoanRequestDTO dto = new LoanRequestDTO("2022-12-18", "Mandai Wildlife Reserve", "Singapore Zoo", 1, 4L);
+        LoanRequestDTO dto = new LoanRequestDTO("2022-11-18", "Mandai Wildlife Reserve", "Singapore Zoo", 1, 4L);
 
         Loan createdLoan = loanServiceImpl.createNewLoan(dto);
 
