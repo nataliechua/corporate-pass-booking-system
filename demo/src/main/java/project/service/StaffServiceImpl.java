@@ -56,7 +56,10 @@ public class StaffServiceImpl implements StaffService {
                 
             } catch (MessagingException e) {
 
-            } finally {
+            } catch (Exception e) {
+                
+            }
+            finally {
 
             }
         }
@@ -70,7 +73,7 @@ public class StaffServiceImpl implements StaffService {
         mail.setFrom("linpeishann@gmail.com");
         mail.setSubject("Welcome to your new account");
         
-        String message = String.format("Thank you for registering your account. Click this link: http://localhost:8080/updateStaffToActive/%d to verify your account.", staffId);
+        String message = String.format("Thank you for registering your account. \nClick this link: http://localhost:8080/updateStaffToActive/%d to verify your account. \n- Singapore Sports School", staffId);
         emailUtil.sendSimpleEmail(mail, message);
     }
 
@@ -153,6 +156,11 @@ public class StaffServiceImpl implements StaffService {
 
                         // Check if parameters are null
         if (Objects.nonNull(staff.getIsUserActive()) && !("".equalsIgnoreCase(staff.getIsUserActive()))) {
+
+
+            if (staffDB.getIsUserActive().equals(staff.getIsUserActive())) {
+                return null;
+            }
             staffDB.setIsUserActive(staff.getIsUserActive());
         }
 

@@ -4,9 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -21,13 +22,16 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import com.itextpdf.text.DocumentException;
 import java.io.InputStream;
-// import org.apache.commons.io.IOUtils;
-// import javax.faces.application.Resource;
+import org.apache.commons.io.IOUtils;
+import javax.faces.application.Resource;
+import java.util.Base64;
+import org.springframework.core.io.UrlResource;
 
 @Service
 public class SendEmail {
     @Autowired
     private JavaMailSender emailSender;
+    
     @Autowired
     private SpringTemplateEngine templateEngine;
     
@@ -52,10 +56,11 @@ public class SendEmail {
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
-        Context context = new Context();
-        context.setVariables(mail.getProps());
-
+                Context context = new Context();
+                context.setVariables(mail.getProps());
+                
         String html = textTemplateEngine.process(template, context);
+
         helper.setTo(mail.getMailTo());
         helper.setText(html);
         helper.setSubject(mail.getSubject());
@@ -64,45 +69,71 @@ public class SendEmail {
         emailSender.send(message);
     }
 
-    public void sendEmailWithAttachmentTemplate(Email mail, String template) throws MessagingException, IOException {
+    public void sendEmailWithTemplateAttachment(Email mail, String template,String attachment) throws MessagingException, IOException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
+                Context context = new Context();
+                context.setVariables(mail.getProps());
+                
+        String html = textTemplateEngine.process(template, context);
 
-        Path path = Paths.get("src/main/resources/templates/EmailAttachment/image1.png");
-        // String base64Image = convertToBase64(path);
-        Context context = new Context();
-        context.setVariables(mail.getProps());
+        String attachFile = "demo/src/main/resources/PDFs/" + attachment;
+        helper.addAttachment(attachment, new File(attachFile));
 
-        String html = htmlTemplateEngine.process(template, context);
-        generatePdfReportAsPDF(html);
         helper.setTo(mail.getMailTo());
         helper.setText(html);
         helper.setSubject(mail.getSubject());
         helper.setFrom(mail.getFrom());
         // message.setContent(html, "text/html");
-        
-
-        // emailSender.send(message);
+        emailSender.send(message);
     }
 
-    // private String convertToBase64(Path path) {
-        // byte[] imageAsBytes = new byte[0];
-        // try {
-        //   Resource resource = new UrlResource(path.toUri());
-        //   InputStream inputStream = resource.getInputStream();
-        //   imageAsBytes = IOUtils.toByteArray(inputStream);
-    
-        // } catch (IOException e) {
-        //   System.out.println("\n File read Exception");
-        // }
-    
-        // return Base64.getEncoder().encodeToString(imageAsBytes);
-    //   }
+    public String generateCorporateEmailAttachment(String template,String attachmentType) throws IOException {
+        Context context = new Context();
+        if(attachmentType.equals("corporateAttachment")){
+
+            for(int i = 1; i <= 3 ;i++){
+                Path path = Paths.get("demo/src/main/resources/templates/" + attachmentType+ "/images/image" + i + ".png");
+                String base64Image = convertToBase64(path);
+                String image = "data:image/png;base64," + base64Image;
+                context.setVariable("image" + i,image);
+            }
+        }else if(attachmentType.equals("authorisationAttachment")){
+            for(int i = 1; i <= 2 ;i++){
+                Path path = Paths.get("demo/src/main/resources/templates/" + attachmentType+ "/images/image" + i + ".png");
+                String base64Image = convertToBase64(path);
+                String image = "data:image/png;base64," + base64Image;
+                context.setVariable("image" + i,image);
+            }
+        }
+
+        String html = htmlTemplateEngine.process(template, context);
+        String FileName = generatePdfReportAsPDF(html,attachmentType);
+        return FileName;
+    }
+
+    private String convertToBase64(Path path) {
+        byte[] imageAsBytes = new byte[0];
+        try {
+          UrlResource resource = new UrlResource(path.toUri());
+          System.out.println(resource);
+          InputStream inputStream = resource.getInputStream();
+          System.out.println("\n gg to image as bytes");
+          imageAsBytes = IOUtils.toByteArray(inputStream);
 
     
-  public void generatePdfReportAsPDF(String reportAsHtml) {
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.out.println("\n File read Exception");
+        }
+    
+        return Base64.getEncoder().encodeToString(imageAsBytes);
+      }
+
+    
+  public String generatePdfReportAsPDF(String reportAsHtml,String attachmentType) {
     ITextRenderer renderer = new ITextRenderer();
     
 
@@ -113,10 +144,11 @@ public class SendEmail {
         renderer.layout();
     }catch(Exception e){
         
+        System.out.println(e.getMessage());
         
     }
     
-    String fileNameWithPath = "PDF-FromHtmlString.pdf";
+    String fileNameWithPath = "demo/src/main/resources/PDFs/" + attachmentType + ".pdf";
     try{
 
         FileOutputStream fos = new FileOutputStream( fileNameWithPath );
@@ -131,7 +163,9 @@ public class SendEmail {
         System.out.println("IOException exception");
 
     }
-    
-    System.out.println( "File 2: '" + fileNameWithPath + "' created." );
+    String[] parts = fileNameWithPath.split("/");
+    String LastPart = parts[parts.length-1];
+    System.out.println( "File : '" + fileNameWithPath + "' created." );
+    return LastPart;
 }
 }

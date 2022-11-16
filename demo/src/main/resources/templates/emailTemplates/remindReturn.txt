@@ -1,0 +1,12 @@
+Dear [(${staffName})],
+
+This email is to remind you to return pass(es) the following loan:
+
+- loan id: [(${loanId})]
+- loan date: [(${loanDate})]
+- attraction: [(${attraction})]
+- pass(es) id(s): [(${strPassList})]
+
+Best Regards,
+Singapore Sport School
+<This is a system generated email, please do not reply to this email>

@@ -80,8 +80,19 @@ public class PassBookViewController {
         //}
         List<Loan> loans = loanService.getLoansByLoanDate(dateChosen);  
         passes = passService.getPassTypeInfoWithAvailableAndTotalCount(dateChosen);
+        List<String> jsonPassList = new ArrayList<>();
+        
+        for (Map.Entry<String, PassDTO> entry : passes.entrySet()) {
+
+            // System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue().getAttractions());
+            // System.out.println("{ 'passType' : " + entry.getKey() + ", 'attractions' : '" + entry.getValue().getAttractions() + "'} ");
+            String jsonPassString = "{ \"passType\" : \"" + entry.getKey() + "\", \"attractions\" : \"" + entry.getValue().getAttractions() + "\"} ";
+            jsonPassList.add(jsonPassString);
+        }
+
         model.addAttribute("passDTO", passes);
         model.addAttribute("loans", loans);
+        model.addAttribute("jsonPassList", jsonPassList);
         
         return "bookAPass";  
     }

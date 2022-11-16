@@ -115,8 +115,18 @@ public class LoanServiceImpl implements LoanService {
         System.out.println("FINAL LOAN OBJ: " + loan);
 
         // Send booking confirmation
+        Pass[] chosenPassesArray = chosenPasses.toArray(new Pass [chosenPasses.size()]);
+        String isDigital = chosenPassesArray[0].getIsDigital();
+
+        String templateName = "";
+        if (isDigital.equals("TRUE")){
+            templateName = "confirmLoanDigital";
+        } else {
+            templateName = "confirmLoanPhysical";
+        }
+
         try {
-            emailer.simpleEmailTest(staff.getStaffEmail());
+            emailer.emailWithTemplate(templateName, loan);
         } catch (IOException | MessagingException e) {
             System.out.println("There was an exception. Email failed to send.");
         }

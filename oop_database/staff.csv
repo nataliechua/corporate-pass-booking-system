@@ -1,5 +1,5 @@
 ﻿staffID,staffName,staffEmail,contactNum,password,isAdminHold,isUserActive,staffType
-1,Eva,Eva.Yong@sportsschool.edu.sg,12345678,$2a$10$F1PxNjKMIMkZW.VLiZdftedKGasRQMWCgpwA0kzVlQ9qkTKKj8JJ6,FALSE,TRUE,Admin
+1,Eva,bettyyuyiling@gmail.com,12345678,$2a$10$F1PxNjKMIMkZW.VLiZdftedKGasRQMWCgpwA0kzVlQ9qkTKKj8JJ6,FALSE,TRUE,Admin
 2,Sophia,Sophia.Toh@sportsschool.edu.sg,22345678,$2a$10$F1PxNjKMIMkZW.VLiZdftedKGasRQMWCgpwA0kzVlQ9qkTKKj8JJ6,FALSE,TRUE,Admin
 3,Liam,Liam.The@sportsschool.edu.sg,32345678,$2a$10$F1PxNjKMIMkZW.VLiZdftedKGasRQMWCgpwA0kzVlQ9qkTKKj8JJ6,FALSE,TRUE,Staff
 4,Noah,Noah.Ng@sportsschool.edu.sg,42345678,$2a$10$F1PxNjKMIMkZW.VLiZdftedKGasRQMWCgpwA0kzVlQ9qkTKKj8JJ6,FALSE,TRUE,Staff

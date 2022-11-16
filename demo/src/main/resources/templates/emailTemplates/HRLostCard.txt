@@ -1,0 +1,15 @@
+Dear HR,
+
+This email is to inform you that [(${staffName})] has lost the pass with pass id = [(${lostPassId})].
+We have already deactivate the card. The replacement fee for the pass is $[(${replacementFee})].
+
+Here is the information about the Lost Pass Loan:
+
+- loan id: [(${loanId})]
+- loan date: [(${loanDate})]
+- attraction: [(${attraction})]
+- pass(es) id(s): [(${strPassList})]
+
+Best Regards,
+Singapore Sport School
+<This is a system generated email, please do not reply to this email>

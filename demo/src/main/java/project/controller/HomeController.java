@@ -80,7 +80,7 @@ public class HomeController {
             passService.foundPass(passId);
         }
         
-        return "redirect:/viewPasses";
+        return "redirect:/viewPasses?success";
         //return "redirect:/registration?success";
     }
 

@@ -115,7 +115,7 @@
                                                     
                                                 </td>
 
-                                                <td class="align-middle" th:if="${passCount>0} and ${loan.loanStatus} =='collected'">
+                                                <td class="align-middle" th:if="${passCount>0} and ${loan.loanStatus} =='collected' and ${loan.passList[0].isPassActive} != 'Lost'">
                                                     <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[0].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
                                                         Lost
                                                     </a>
@@ -148,7 +148,7 @@
 
                                             <tr class="align-middle" th:each="pass, stats:${loan.passList}" th:if="${!stats.first}">
                                                 <td class="align-middle" th:text="|ID${pass.passId}: ${pass.passType}|"></td>
-                                                <td class="align-middle" th:if="${loan.loanStatus} =='collected'">
+                                                <td class="align-middle" th:if="${loan.loanStatus} =='collected' and ${loan.passList[stats.index].isPassActive} != 'Lost'" >
                                                     <a href="#" data-toggle="modal" th:attr="data-target='#reportLostModal'+ ${loan.passList[stats.index].passId}"  class="d-sm-inline-block btn btn-sm btn-danger shadow-sm col-12 ">
                                                         Lost
                                                     </a>
