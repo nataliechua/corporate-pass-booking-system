@@ -33,6 +33,11 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private RegisterUtil registerUtil;
 
+    
+    /** 
+     * @param staff
+     * @return List<String>
+     */
     @Override
     public List<String> saveStaff(Staff staff) {
         
@@ -66,6 +71,13 @@ public class StaffServiceImpl implements StaffService {
         return errorMsg; // empty errorMsg
     }
 
+    
+    /** 
+     * @param staffId
+     * @param staffEmail
+     * @throws IOException
+     * @throws MessagingException
+     */
     private void sendVerificationEmail(Long staffId, String staffEmail) throws IOException, MessagingException {
         Email mail = new Email();
         //mail.setMailTo(staffEmail);
@@ -77,11 +89,20 @@ public class StaffServiceImpl implements StaffService {
         emailUtil.sendSimpleEmail(mail, message);
     }
 
+    
+    /** 
+     * @return List<Staff>
+     */
     @Override
     public List<Staff> getAllStaff() {
         return staffRepository.findAll();
     }
 
+    
+    /** 
+     * @param staffId
+     * @return Staff
+     */
     @Override
     public Staff getStaffById(Long staffId) {
         // .get() to get value of department
@@ -94,6 +115,11 @@ public class StaffServiceImpl implements StaffService {
         return staff.get();
     }
 
+    
+    /** 
+     * @param email
+     * @return Staff
+     */
     @Override
     public Staff getStaffByEmail(String email) { 
         // .get() to get value of department
@@ -106,6 +132,11 @@ public class StaffServiceImpl implements StaffService {
         return staff;
     }
 
+    
+    /** 
+     * @param UserDetails
+     * @return Long
+     */
     @Override
     public Long getStaffIdFromLogin() { // not sure if we need this
         
@@ -126,8 +157,17 @@ public class StaffServiceImpl implements StaffService {
         return result.getStaffId();
     }
 
+    
+    /** 
+     * @param staffId
+     * @param staff
+     * @return Staff
+     */
     @Override
     public Staff updateStaff(Long staffId, Staff staff) {
+        // staffDb is the staff obj in database
+        // staff is the staff obj w attributes u want to update populated
+
         Staff staffDB = staffRepository.findById(staffId).get();
         System.out.println(Objects.nonNull(staff.getStaffName()));
         System.out.println(Objects.nonNull("".equalsIgnoreCase(staff.getStaffName())));
@@ -166,10 +206,22 @@ public class StaffServiceImpl implements StaffService {
 
         // Check if parameters are null
         if (Objects.nonNull(staff.getStaffType()) && !("".equalsIgnoreCase(staff.getStaffType()))) {
+            System.out.println("UPDATING STAFF TYPE");
             staffDB.setStaffType(staff.getStaffType());
         }
 
         return staffRepository.save(staffDB);
+    }
+
+    
+    /** 
+     * @param staffId
+     * @param date
+     * @return List<Loan>
+     */
+    @Override
+    public Staff saveStaffToDB(Staff staff) {
+        return staffRepository.save(staff);
     }
 
     @Override
@@ -187,6 +239,12 @@ public class StaffServiceImpl implements StaffService {
         return result;
     };
 
+    
+    /** 
+     * @param staffId
+     * @param date
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getStaffPastLoans(Long staffId, String date) {
         Staff staff = staffRepository.findById(staffId).get();
@@ -210,6 +268,12 @@ public class StaffServiceImpl implements StaffService {
         return result;
     };
 
+    
+    /** 
+     * @param email
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override   
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         
@@ -229,6 +293,10 @@ public class StaffServiceImpl implements StaffService {
         return result;
     }
 
+    
+    /** 
+     * @param staffId
+     */
     @Override
     public void clearFees(Long staffId) {
         Staff staff = staffRepository.findById(staffId).get();
@@ -236,6 +304,11 @@ public class StaffServiceImpl implements StaffService {
         staffRepository.save(staff);
     }
 
+    
+    /** 
+     * @param role
+     * @return Collection<? extends GrantedAuthority>
+     */
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
 
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);

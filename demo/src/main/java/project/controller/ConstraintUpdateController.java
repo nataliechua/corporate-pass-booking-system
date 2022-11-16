@@ -22,10 +22,23 @@ public class ConstraintUpdateController {
         this.constraintService = constraintService;
     }
 
+    
+    /** 
+     * @return Constraint
+     */
     @ModelAttribute("constraint")
     public Constraint constraint() {
         return new Constraint();
     }
+    
+    
+    /** 
+     * @return String
+     */
+    // @GetMapping
+    // public String showUpdateForm() {
+    //     return "bookingCriteria";
+    // }
 
     @GetMapping
     public String bookingCriteria(Model model) {
@@ -34,6 +47,13 @@ public class ConstraintUpdateController {
         return "bookingCriteria";
     }
     
+    
+    /** 
+     * @param constraintId
+     * @param constraintName
+     * @param constraint
+     * @return String
+     */
     @PutMapping("/{id}/{name}")
     public String updateBookingConstraint(@PathVariable("id") Long constraintId, @PathVariable("name") String constraintName, @ModelAttribute("constraints") Constraint constraint) {
         constraint.setConstraintId(constraintId);

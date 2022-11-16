@@ -34,11 +34,20 @@ public class LoanServiceImpl implements LoanService {
     @Autowired
     private Emailer emailer;
 
+    
+    /** 
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getAllLoans() {
         return loanRepository.findAll();
     }
 
+    
+    /** 
+     * @param loanId
+     * @return Loan
+     */
     @Override
     public Loan getLoanById(Long loanId) {
        Optional<Loan> loan = loanRepository.findById(loanId); 
@@ -50,11 +59,21 @@ public class LoanServiceImpl implements LoanService {
         return loan.get();
     };
 
+    
+    /** 
+     * @param loan
+     * @return Loan
+     */
     @Override
     public Loan saveLoan(Loan loan) {
         return loanRepository.save(loan);
     }
 
+    
+    /** 
+     * @param loanRequest
+     * @return Loan
+     */
     @Override
     public Loan createNewLoan(LoanRequestDTO loanRequest) {
         String date = loanRequest.getLoanDate();
@@ -135,6 +154,11 @@ public class LoanServiceImpl implements LoanService {
         return loan;
     };
 
+    
+    /** 
+     * @param chosenPasses
+     * @return boolean
+     */
     @Override
     public boolean isDigitalPass(Set<Pass> chosenPasses) {
         boolean isDigitalPass = false;
@@ -146,11 +170,22 @@ public class LoanServiceImpl implements LoanService {
         return isDigitalPass;
     }
 
+    
+    /** 
+     * @param id
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getLoansByStaffId(Long id) {
         return loanRepository.findByStaffStaffId(id);
     }
 
+    
+    /** 
+     * @param loanId
+     * @param updatedLoan
+     * @return Loan
+     */
     @Override
     public Loan updateLoan(Long loanId, Loan updatedLoan) {
         Loan loanDB = loanRepository.findById(loanId).get();
@@ -178,12 +213,23 @@ public class LoanServiceImpl implements LoanService {
         return loanRepository.save(loanDB);
     }
 
+    
+    /** 
+     * @param date
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getLoansByLoanDate(String date) {
         List<Loan> loans = loanRepository.findByLoanDate(date);
         return loans;
     }
 
+    
+    /** 
+     * @param staffId
+     * @param date
+     * @return Map<String, Integer>
+     */
     @Override
     public Map<String, Integer> getNumOfPassesByStaffAndMonthAndAttraction(Long staffId, String date) {
         List<Loan> loans = loanRepository.findByStaffAndMonth(staffId, date);
@@ -200,6 +246,12 @@ public class LoanServiceImpl implements LoanService {
         return map;
     }
 
+    
+    /** 
+     * @param staffId
+     * @param date
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getLoansByStaffAndMonth(Long staffId, String date) {
         List<Loan> loans = loanRepository.findByStaffAndMonth(staffId, date);
@@ -208,6 +260,11 @@ public class LoanServiceImpl implements LoanService {
     }
 
 
+    
+    /** 
+     * @param loanId
+     * @throws ParseException
+     */
     @Override
     public void cancelLoanById(Long loanId) throws ParseException {
         Loan loan = loanRepository.findById(loanId).get();
@@ -230,21 +287,41 @@ public class LoanServiceImpl implements LoanService {
         }
     }
 
+    
+    /** 
+     * @param loanStatus
+     * @param date
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getLoansByStatusAndPassedLoanDate(String loanStatus, String date) {
         return loanRepository.findLoansByStatusAndPassedLoanDate(loanStatus, date);
     }
 
+    
+    /** 
+     * @param loanStatus
+     * @param date
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getLoansByStatusAndDate(String loanStatus, String date) {
         return loanRepository.findLoansByStatusAndDate(loanStatus, date);
     }
 
+    
+    /** 
+     * @return List<Loan>
+     */
     @Override
     public List<Loan> getAllNonCancelledLoans() {
         return loanRepository.findByLoanStatusNot("canceled");
     }
 
+    
+    /** 
+     * @param loan
+     */
     @Override
     public void updateSaturdayBorrowersAsReturned(Loan loan) {
         String saturdayBorrower = loan.getSaturdayBorrower();

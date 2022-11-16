@@ -18,6 +18,11 @@ public class GraphController {
     @Autowired
     private LoanService loanService;
 
+    
+    /** 
+     * @param model
+     * @return String
+     */
     @GetMapping("/")
     public String getDataForCharts(Model model) {
         List<Loan> loans = loanService.getAllNonCancelledLoans();
@@ -35,6 +40,11 @@ public class GraphController {
         return "dataCharts";
     }
 
+    
+    /** 
+     * @param loans
+     * @return Map<Integer, Integer>
+     */
     public Map<Integer, Integer> getLoansPerMonth(List<Loan> loans) {
         Map<Integer, Integer> loanCountByMonth = new TreeMap<>();
 
@@ -58,6 +68,11 @@ public class GraphController {
 
     }
 
+    
+    /** 
+     * @param loans
+     * @return Map<String, Integer>
+     */
     // @GetMapping("/loansPerMonth")
     public Map<String, Integer> getLoansPerAttraction(List<Loan> loans) {
         Map<String, Integer> loansPerAttraction = new TreeMap<>();
@@ -88,6 +103,11 @@ public class GraphController {
         return loansPerAttraction;
     }
 
+    
+    /** 
+     * @param loans
+     * @return String
+     */
     public String getAverageNumOfLoans(List<Loan> loans) {
 
         Map<Long, Integer> map = new HashMap<>();
@@ -111,6 +131,11 @@ public class GraphController {
 
     }
 
+    
+    /** 
+     * @param loans
+     * @return List<Entry<Staff, Integer>>
+     */
     public List<Map.Entry<Staff, Integer>> getTopBorrowers(List<Loan> loans) {
 
         Map<Staff, Integer> map = new TreeMap<>();

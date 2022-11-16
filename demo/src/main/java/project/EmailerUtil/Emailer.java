@@ -18,6 +18,13 @@ public class Emailer {
     @Autowired
     SendEmail emailUtil;
 
+    
+    /** 
+     * @param receiverEmail
+     * @return String
+     * @throws IOException
+     * @throws MessagingException
+     */
     @GetMapping(path = "/sendSimpleEmail/{toEmail}")
     public String simpleEmail(@PathVariable("toEmail") String receiverEmail) throws IOException, MessagingException {
         Email mail = new Email();
@@ -28,6 +35,14 @@ public class Emailer {
         return "SUCCESSED";
     }
 
+    
+    /** 
+     * @param template
+     * @param loan
+     * @return String
+     * @throws IOException
+     * @throws MessagingException
+     */
     //@GetMapping(path = "/sendTemplateEmail/{template}")
     //confirmCollect, confirmReturn, remindCollect, remindReturn
     public String emailWithTemplate(String template, Loan loan) throws IOException, MessagingException {
@@ -68,6 +83,15 @@ public class Emailer {
         return "SUCCESSED";
     }
 
+    
+    /** 
+     * @param template
+     * @param loan
+     * @param pass
+     * @return String
+     * @throws IOException
+     * @throws MessagingException
+     */
     //HRLostCard
     public String emailWithTemplate(String template, Loan loan, Pass pass) throws IOException, MessagingException {
 
@@ -112,6 +136,12 @@ public class Emailer {
         return "SUCCESSED";
     }
 
+    
+    /** 
+     * @return String
+     * @throws IOException
+     * @throws MessagingException
+     */
     //@GetMapping(path = "/TemplateAttachmentEmail")
     //confirmLoanDigital, confirmLoanPhysical
     public String emailWithAttachmentTemplate() throws IOException, MessagingException {

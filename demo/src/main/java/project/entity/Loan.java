@@ -67,6 +67,10 @@ public class Loan {
         this.saturdayBorrower = null;
     };
 
+    
+    /** 
+     * @param passes
+     */
     // Helper methods to update both ends of the bidirectional many-to-many relationship
     // Between loan and pass
     public void addPasses(Set<Pass> passes) {
@@ -76,6 +80,10 @@ public class Loan {
         }
     }
 
+    
+    /** 
+     * @param passes
+     */
     public void removePasses(Set<Pass> passes) {
         for (Pass p : passes) {
             this.passList.remove(p);
@@ -83,11 +91,19 @@ public class Loan {
         }
     }
 
+    
+    /** 
+     * @param s
+     */
     public void addStaff(Staff s) {
         this.staff = s;
         s.getLoans().add(this);
     }
 
+    
+    /** 
+     * @param saturdayBorrowerAndPassToCollect
+     */
     public void addSaturdayBorrower(String saturdayBorrowerAndPassToCollect) {
         if (this.saturdayBorrower==null) {
             this.saturdayBorrower = saturdayBorrowerAndPassToCollect;

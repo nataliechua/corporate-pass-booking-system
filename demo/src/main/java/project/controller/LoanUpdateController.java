@@ -32,11 +32,20 @@ public class LoanUpdateController {
         this.passService = passService;
     }
 
+    
+    /** 
+     * @return Loan
+     */
     @ModelAttribute("loan")
     public Loan loan() {
         return new Loan();
     }
 
+    
+    /** 
+     * @param model
+     * @return String
+     */
     @GetMapping
     public String gopReturnPass(Model model) {
         List<Loan> loans = loanService.getAllLoans(); 
@@ -44,6 +53,12 @@ public class LoanUpdateController {
         return "gopReturnPass";
     }
 
+    
+    /** 
+     * @param loanId
+     * @param loanStatus
+     * @return String
+     */
     @PutMapping("/{id}/{status}")
     public String gopUpdateLoanStatus(@PathVariable("id") Long loanId, @PathVariable("status") String loanStatus) throws IOException, MessagingException {
         Loan loan = loanService.getLoanById(loanId);
@@ -62,6 +77,13 @@ public class LoanUpdateController {
         }
         return "redirect:/gopReturnPass?success";  
     }
+    
+    /** 
+     * @param loanId
+     * @param passId
+     * @param updateType
+     * @return String
+     */
     @PutMapping("/{passId}/{loanId}/{type}")
     public String gopUpdateLostPass(@PathVariable("loanId") Long loanId, @PathVariable("passId") Long passId, @PathVariable("type") String updateType) throws IOException, MessagingException {
         passService.reportLostPass(passId, loanId);

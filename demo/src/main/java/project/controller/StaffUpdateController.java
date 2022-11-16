@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import project.entity.*;
 import project.service.*;
+import project.repository.*;
 
 import java.util.*;
 
@@ -16,17 +17,29 @@ public class StaffUpdateController {
     
     @Autowired
     private StaffService staffService;
+
+    @Autowired
+    private StaffRepository staffRepository;
     
     public StaffUpdateController(StaffService staffService) {
         super();
         this.staffService = staffService;
     }
 
+    
+    /** 
+     * @return Staff
+     */
     @ModelAttribute("staff")
     public Staff staff() {
         return new Staff();
     }
     
+    
+    /** 
+     * @param model
+     * @return String
+     */
     @GetMapping
     public String viewStaffs(Model model) {
         List<Staff> staffs = staffService.getAllStaff(); 
@@ -34,9 +47,16 @@ public class StaffUpdateController {
         return "staffs";
     }
 
+    
+    /** 
+     * @param staffId
+     * @param updateType
+     * @return String
+     */
     @PutMapping("/{id}/{type}")
     public String updateAdminStuff(@PathVariable("id") Long staffId, @PathVariable("type") String updateType) {
         Staff staff = staffService.getStaffById(staffId);
+        
         if (updateType.equals("clearFees")){
             staffService.clearFees(staffId);
         }else{
@@ -50,7 +70,9 @@ public class StaffUpdateController {
             else{
                 staff.setIsUserActive("FALSE");
             }
-            staffService.updateStaff(staffId, staff);
+            
+            // staffRepository.save(staff);
+            staffService.saveStaffToDB(staff);
         }
         
         return "redirect:/viewStaffs?success";  

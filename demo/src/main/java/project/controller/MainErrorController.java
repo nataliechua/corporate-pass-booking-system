@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainErrorController implements ErrorController {
+    
+    /** 
+     * @param request
+     * @return String
+     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
@@ -27,6 +32,10 @@ public class MainErrorController implements ErrorController {
         return "ErrorPage/errorPage";
     }
 
+    
+    /** 
+     * @return String
+     */
     @GetMapping("/403") 
     public String noPermissionError() {
         return "ErrorPage/403";

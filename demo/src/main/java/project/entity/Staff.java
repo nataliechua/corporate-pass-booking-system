@@ -60,6 +60,11 @@ public class Staff {
         this.isUserActive = "FALSE";
     }
 
+    
+    /** 
+     * @param loan
+     * @return List<Loan>
+     */
     public List<Loan> addLoan(Loan loan) {
         this.loans.add(loan);
         return this.loans;

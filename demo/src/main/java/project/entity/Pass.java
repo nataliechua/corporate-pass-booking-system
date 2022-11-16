@@ -60,6 +60,11 @@ public class Pass {
         this.isPassActive = isPassActive;
     }
 
+    
+    /** 
+     * @param o
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Pass) {
@@ -77,6 +82,10 @@ public class Pass {
     @ToString.Exclude
     private Set<Loan> loans = new HashSet<Loan>();
 
+    
+    /** 
+     * @return String[]
+     */
     public String[] getAttractionList() {
         return this.attractions.split(", ", -1);
     }

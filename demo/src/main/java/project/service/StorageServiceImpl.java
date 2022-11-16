@@ -28,6 +28,10 @@ public class StorageServiceImpl implements StorageService {
 		this.rootLocation = Paths.get(properties.getLocation());
 	}
 
+	
+	/** 
+	 * @param file
+	 */
 	@Override
 	public void store(MultipartFile file) {
 		try {
@@ -52,6 +56,10 @@ public class StorageServiceImpl implements StorageService {
 		}
 	}
 
+	
+	/** 
+	 * @return Stream<Path>
+	 */
 	@Override
 	public Stream<Path> loadAll() {
 		try {
@@ -65,11 +73,21 @@ public class StorageServiceImpl implements StorageService {
 
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @return Path
+	 */
 	@Override
 	public Path load(String filename) {
 		return rootLocation.resolve(filename);
 	}
 
+	
+	/** 
+	 * @param filename
+	 * @return Resource
+	 */
 	@Override
 	public Resource loadAsResource(String filename) {
 		try {

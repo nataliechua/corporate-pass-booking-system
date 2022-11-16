@@ -26,6 +26,10 @@ import org.thymeleaf.templateresolver.StringTemplateResolver;
 @PropertySource("classpath:application.properties")
 public class ThymeLeafConfig{
 
+    
+    /** 
+     * @return TemplateEngine
+     */
     @Bean(name = "textTemplateEngine")
     public TemplateEngine textTemplateEngine() {
         TemplateEngine templateEngine = new TemplateEngine();
@@ -33,6 +37,10 @@ public class ThymeLeafConfig{
         return templateEngine;
     }
 
+    
+    /** 
+     * @return TemplateEngine
+     */
     @Bean(name = "htmlTemplateEngine")
     public TemplateEngine htmlTemplateEngine() {
         TemplateEngine templateEngine = new TemplateEngine();
@@ -40,6 +48,10 @@ public class ThymeLeafConfig{
         return templateEngine;
     }
 
+    
+    /** 
+     * @return ITemplateResolver
+     */
     public ITemplateResolver textTemplateResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("/templates/emailTemplates/");
@@ -51,6 +63,10 @@ public class ThymeLeafConfig{
         return templateResolver;
     }
 
+    
+    /** 
+     * @return ITemplateResolver
+     */
     private ITemplateResolver htmlTemplateResolver() {
         final ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         // templateResolver.setResolvablePatterns(Collections.singleton("html/*"));

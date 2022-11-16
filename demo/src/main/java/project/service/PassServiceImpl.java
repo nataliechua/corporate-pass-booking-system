@@ -20,11 +20,20 @@ public class PassServiceImpl implements PassService {
     @Autowired
     private StaffRepository staffRepository;
 
+    
+    /** 
+     * @return List<Pass>
+     */
     @Override
     public List<Pass> getAllPasses() {
         return passRepository.findAll();
     }
 
+    
+    /** 
+     * @param passId
+     * @return Pass
+     */
     @Override
     public Pass getPassById(Long passId) {
        Optional<Pass> pass = passRepository.findById(passId); 
@@ -36,11 +45,22 @@ public class PassServiceImpl implements PassService {
        return pass.get();
     }
 
+    
+    /** 
+     * @param pass
+     * @return Pass
+     */
     @Override
     public Pass savePass(Pass pass) {
         return passRepository.save(pass);
     }
 
+    
+    /** 
+     * @param passId
+     * @param pass
+     * @return Pass
+     */
     @Override
     public Pass updatePass(Long passId, Pass pass) {
         Pass passDB = passRepository.findById(passId).get();
@@ -73,6 +93,10 @@ public class PassServiceImpl implements PassService {
         return passRepository.save(passDB);
     }
 
+    
+    /** 
+     * @return Map<String, Integer>
+     */
     public Map<String, Integer> getTotalPassNum() {
         Map<String, Integer> map = new HashMap<>();
 
@@ -91,6 +115,11 @@ public class PassServiceImpl implements PassService {
         return map;
     }
 
+    
+    /** 
+     * @param date
+     * @return Map<String, Integer>
+     */
     public Map<String, Integer> getMapOfPassAvailabilityByDate(String date) {
         List<Pass> passes = passRepository.findAvailablePassesForADate(date);
         
@@ -107,12 +136,23 @@ public class PassServiceImpl implements PassService {
         return map;
     } 
 
+    
+    /** 
+     * @param passType
+     * @param date
+     * @return List<Pass>
+     */
     public List<Pass> getAvailablePassesForPassTypeAndDate(String passType, String date) {
         List<Pass> passes = passRepository.findAvailablePassesForPassTypeAndDate(passType, date);
         
         return passes;
     } 
 
+    
+    /** 
+     * @param date
+     * @return Map<String, PassDTO>
+     */
     public Map<String, PassDTO> getPassTypeInfoWithAvailableAndTotalCount(String date) {
         Map<String, PassDTO> map = new HashMap<>();
 
@@ -144,6 +184,11 @@ public class PassServiceImpl implements PassService {
         return map;
     }
     
+    
+    /** 
+     * @param passId
+     * @param loanId
+     */
     public void reportLostPass(Long passId, Long loanId) {
         Loan loan = loanRepository.findById(loanId).get();
         Set<Pass> passList = loan.getPassList();
@@ -163,6 +208,10 @@ public class PassServiceImpl implements PassService {
         staffRepository.save(staff);
     }
 
+    
+    /** 
+     * @param passId
+     */
     @Override
     public void cancelLoanForLostPass(Long passId) {
         List<Long> loanIdList = loanRepository.findLoanByPass(passId);
@@ -176,6 +225,10 @@ public class PassServiceImpl implements PassService {
         }
     }
 
+    
+    /** 
+     * @param passId
+     */
     public void foundPass(Long passId) {
         Pass pass = passRepository.findById(passId).get();
         // List<Long> loanIdList = loanRepository.findLoanByPass(passId);
@@ -191,6 +244,12 @@ public class PassServiceImpl implements PassService {
         // }
     }
 
+    
+    /** 
+     * @param p
+     * @param date
+     * @return Loan
+     */
     public Loan getLoanByPassAndDate(Pass p, String date) {
         return passRepository.findLoanForAPassAndDate(p, date);
     }

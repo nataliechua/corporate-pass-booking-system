@@ -20,21 +20,41 @@ public class ConstraintController {
     @Autowired
     private ConstraintService constraintService;
 
+    
+    /** 
+     * @return List<Constraint>
+     */
     @GetMapping("/constraint")
     public List<Constraint> getAllConstraint() {
         return constraintService.getAllConstraint();
     }
 
+    
+    /** 
+     * @param constraintId
+     * @return Constraint
+     */
     @GetMapping("/constraint/{id}")
     public Constraint getConstraintById(@PathVariable("id") Long constraintId) {
         return constraintService.getConstraintById(constraintId);
     }
 
+    
+    /** 
+     * @param constraint
+     * @return Constraint
+     */
     @PutMapping("/constraint")
     public Constraint updateConstraint(@RequestBody Constraint constraint) {
         return constraintService.updateConstraint(constraint);
     }
 
+    
+    /** 
+     * @param constraintId
+     * @param constraint
+     * @return Constraint
+     */
     @PutMapping("/constraint/{id}")
     public Constraint updateConstraintById(@PathVariable("id") Long constraintId, @RequestBody Constraint constraint) {
         return constraintService.updateConstraintById(constraintId, constraint);

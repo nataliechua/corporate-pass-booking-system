@@ -12,6 +12,10 @@ public class ConstraintServiceImpl implements ConstraintService {
     @Autowired
     private ConstraintRepository constraintRepository;
 
+    
+    /** 
+     * @return List<Constraint>
+     */
     @Override
     public List<Constraint> getAllConstraint() {
         List<Constraint> constraint = new ArrayList<>();
@@ -19,12 +23,22 @@ public class ConstraintServiceImpl implements ConstraintService {
         return constraint;
     }
 
+    
+    /** 
+     * @param constraintId
+     * @return Constraint
+     */
     @Override
     public Constraint getConstraintById(Long constraintId) {
         Optional<Constraint> constraint = constraintRepository.findById(constraintId); 
         return constraint.get();
     }
 
+    
+    /** 
+     * @param constraint
+     * @return Constraint
+     */
     @Override
     public Constraint updateConstraint(Constraint constraint) {
         Constraint constraintDB = constraintRepository.findById(constraint.getConstraintId()).get();
@@ -37,6 +51,12 @@ public class ConstraintServiceImpl implements ConstraintService {
         return constraintRepository.save(constraintDB);
     }
 
+    
+    /** 
+     * @param constraintId
+     * @param constraint
+     * @return Constraint
+     */
     @Override
     public Constraint updateConstraintById(Long constraintId, Constraint constraint) {
         Constraint constraintDB = constraintRepository.findById(constraintId).get();
@@ -49,6 +69,11 @@ public class ConstraintServiceImpl implements ConstraintService {
         return constraintRepository.save(constraintDB);
     }
 
+    
+    /** 
+     * @param constraintName
+     * @return Constraint
+     */
     public Constraint getConstraintByConstraintName(String constraintName) {
         return constraintRepository.findByConstraintName(constraintName);
     };

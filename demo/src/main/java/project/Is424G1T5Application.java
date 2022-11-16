@@ -26,6 +26,10 @@ import project.service.*;
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
 public class Is424G1T5Application {
+	
+	/** 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(Is424G1T5Application.class, args);
 

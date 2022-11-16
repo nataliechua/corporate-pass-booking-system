@@ -30,11 +30,25 @@ public class HomeController {
     @Autowired
     private StorageService storageService;
 
+    
+    /** 
+     * @return String
+     */
+    // @GetMapping("/")
+    // public String index() {
+    //     return "index";
+    // }
+
     @GetMapping("/login")
     public String welcome() {
         return "login";
     }
     
+    
+    /** 
+     * @param staffId
+     * @return String
+     */
     @GetMapping("/updateStaffToActive/{id}") 
     public String updateStaffToActive(@PathVariable("id") Long staffId) {
         
@@ -49,6 +63,18 @@ public class HomeController {
         return "ErrorPage/verifiedError";
     }
 
+    
+    /** 
+     * @return String
+     */
+    // @GetMapping("/viewStaffs") 
+    // public String viewStaffs(Model model) {
+
+    //     List<Staff> staffs = staffService.getAllStaff(); 
+    //     model.addAttribute("staffs", staffs);
+    //     return "staffs";
+    // }
+
     @GetMapping("/viewPasses")
     public String viewPasses(Model model) {
         List<Pass> passes = passService.getAllPasses();
@@ -56,6 +82,12 @@ public class HomeController {
         return "passes";
     }
 
+    
+    /** 
+     * @param passId
+     * @param status
+     * @return String
+     */
     @PutMapping("/viewPasses/{id}/{status}")
     public String updatePassInactive(@PathVariable("id")Long passId, @PathVariable("status") String status) {
         Pass pass = passService.getPassById(passId);
@@ -69,12 +101,51 @@ public class HomeController {
         return "redirect:/viewPasses?success";
     }
 
+    
+     
+    // @GetMapping("/gopReturnPass")
+    // public String gopReturnPass() {
+    //     return "gopReturnPass";
+    // }
+
+    // @GetMapping("/bookAPass")
+    // public String bookAPass() {
+    //     return "bookAPass";
+    // }
+
+    // @GetMapping("/loanedPasses")
+    // public String loanedPasses() {
+    //     return "loanedPasses";
+    // }
+
     @GetMapping("/viewLoanHistory")
     public String viewLoanHistory(Model model) {
         List<Loan> loans = loanService.getAllLoans();
         model.addAttribute("loans", loans);
         return "adminViewLoanHistory";
     }
+
+    
+    /** 
+     * @return String
+     */
+    // @GetMapping("/bookingCriteria") 
+    // public String bookingCriteria(Model model) {
+    //     List<Constraint> constraints = constraintService.getAllConstraint(); 
+    //     model.addAttribute("constraints", constraints);
+    //     return "bookingCriteria";
+    // }
+
+    // @RequestMapping(value="/bookingCriteria", method=(RequestMethod.PUT))
+    // public String updateBookingCriteria(Model model, Long constraintId, Constraint constraint){
+    //     constraintService.updateConstraintById(constraintId, constraint);
+    //     return "bookingCriteria";
+    // }
+
+    // @GetMapping("/templateList") 
+    // public String templateList() {
+    //     return "templateList";
+    // }
 
     @GetMapping("/listUploadedFiles")
 	public String listUploadedFiles(Model model) throws IOException {
