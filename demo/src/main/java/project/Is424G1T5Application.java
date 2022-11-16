@@ -30,6 +30,4 @@ public class Is424G1T5Application {
 		SpringApplication.run(Is424G1T5Application.class, args);
 
 	}
-
-	
 }

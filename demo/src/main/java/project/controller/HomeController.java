@@ -30,10 +30,10 @@ public class HomeController {
     @Autowired
     private StorageService storageService;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+    // @GetMapping("/")
+    // public String index() {
+    //     return "index";
+    // }
 
     @GetMapping("/login")
     public String welcome() {

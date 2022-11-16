@@ -33,5 +33,7 @@ public interface LoanService {
     public List<Loan> getLoansByStatusAndPassedLoanDate(String loanStatus, String date);
 
     public List<Loan> getLoansByStatusAndDate(String loanStatus, String date);
+
+    public List<Loan> getAllNonCancelledLoans();
     
 }

@@ -230,6 +230,11 @@ public class LoanServiceImpl implements LoanService {
         return loanRepository.findLoansByStatusAndDate(loanStatus, date);
     }
 
+    @Override
+    public List<Loan> getAllNonCancelledLoans() {
+        return loanRepository.findByLoanStatusNot("canceled");
+    }
+
 
  
 

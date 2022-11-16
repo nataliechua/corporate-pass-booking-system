@@ -27,18 +27,20 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+console.log(loans_per_attraction)
+
 // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: Object.keys(loans_per_attraction),
     datasets: [{
-      label: "Revenue",
+      label: "No. of loans",
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
+      data: Object.keys(loans_per_attraction).map(function(key) {return loans_per_attraction[key];}),
     }],
   },
   options: {
@@ -53,9 +55,6 @@ var myBarChart = new Chart(ctx, {
     },
     scales: {
       xAxes: [{
-        time: {
-          unit: 'month'
-        },
         gridLines: {
           display: false,
           drawBorder: false
@@ -68,12 +67,11 @@ var myBarChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          // max: 20,
           maxTicksLimit: 5,
           padding: 10,
-          // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return number_format(value);
           }
         },
         gridLines: {
@@ -103,7 +101,7 @@ var myBarChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
         }
       }
     },

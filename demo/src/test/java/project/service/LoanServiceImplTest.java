@@ -47,4 +47,12 @@ public class LoanServiceImplTest {
         
         System.out.println("Loan list=" + loanList);
     }
+
+    @Test
+    public void testGetAllNonCancelledLoans() {
+        // Takes in 'not collected' as currentDate + 1
+        List<Loan> loanList = loanServiceImpl.getAllNonCancelledLoans();
+        
+        System.out.println("Loan list=" + loanList);
+    }
 }

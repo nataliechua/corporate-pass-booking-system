@@ -32,6 +32,8 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     @Query(value="select * from loan l where l.loan_status = :loanStatus and l.loan_date = :date", nativeQuery=true)
     List<Loan> findLoansByStatusAndDate(@Param("loanStatus") String loanStatus, @Param("date") String date);
 
+    List<Loan> findByLoanStatusNot(String loanStatus);
+
 
 
 
