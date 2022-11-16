@@ -52,7 +52,6 @@ public class StaffUpdateController {
             }
             staffService.updateStaff(staffId, staff);
         }
-        //Staff staff = new Staff();
         
         return "redirect:/viewStaffs?success";  
     }

@@ -30,11 +30,6 @@ public class HomeController {
     @Autowired
     private StorageService storageService;
 
-    // @GetMapping("/")
-    // public String index() {
-    //     return "index";
-    // }
-
     @GetMapping("/login")
     public String welcome() {
         return "login";
@@ -54,14 +49,6 @@ public class HomeController {
         return "ErrorPage/verifiedError";
     }
 
-    // @GetMapping("/viewStaffs") 
-    // public String viewStaffs(Model model) {
-
-    //     List<Staff> staffs = staffService.getAllStaff(); 
-    //     model.addAttribute("staffs", staffs);
-    //     return "staffs";
-    // }
-
     @GetMapping("/viewPasses")
     public String viewPasses(Model model) {
         List<Pass> passes = passService.getAllPasses();
@@ -72,7 +59,6 @@ public class HomeController {
     @PutMapping("/viewPasses/{id}/{status}")
     public String updatePassInactive(@PathVariable("id")Long passId, @PathVariable("status") String status) {
         Pass pass = passService.getPassById(passId);
-        //Pass pass = new Pass();
         if (status.equals("deactive")){
             pass.setIsPassActive("Inactive");
             passService.updatePass(passId, pass); 
@@ -81,23 +67,7 @@ public class HomeController {
         }
         
         return "redirect:/viewPasses?success";
-        //return "redirect:/registration?success";
     }
-
-    // @GetMapping("/gopReturnPass")
-    // public String gopReturnPass() {
-    //     return "gopReturnPass";
-    // }
-
-    // @GetMapping("/bookAPass")
-    // public String bookAPass() {
-    //     return "bookAPass";
-    // }
-
-    // @GetMapping("/loanedPasses")
-    // public String loanedPasses() {
-    //     return "loanedPasses";
-    // }
 
     @GetMapping("/viewLoanHistory")
     public String viewLoanHistory(Model model) {
@@ -105,24 +75,6 @@ public class HomeController {
         model.addAttribute("loans", loans);
         return "adminViewLoanHistory";
     }
-
-    // @GetMapping("/bookingCriteria") 
-    // public String bookingCriteria(Model model) {
-    //     List<Constraint> constraints = constraintService.getAllConstraint(); 
-    //     model.addAttribute("constraints", constraints);
-    //     return "bookingCriteria";
-    // }
-
-    // @RequestMapping(value="/bookingCriteria", method=(RequestMethod.PUT))
-    // public String updateBookingCriteria(Model model, Long constraintId, Constraint constraint){
-    //     constraintService.updateConstraintById(constraintId, constraint);
-    //     return "bookingCriteria";
-    // }
-
-    // @GetMapping("/templateList") 
-    // public String templateList() {
-    //     return "templateList";
-    // }
 
     @GetMapping("/listUploadedFiles")
 	public String listUploadedFiles(Model model) throws IOException {

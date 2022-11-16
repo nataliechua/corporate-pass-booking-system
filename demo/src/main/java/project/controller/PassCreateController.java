@@ -46,22 +46,10 @@ public class PassCreateController {
         if (result.hasErrors()) { // ensure staff is not empty
             return "adminAddPass";
         }
-        // check if digitalPath is true/false
-        // check pass start date and pass expiry date
-        //pass.setPassId((long) 11);
-        //=========================================
-        // fileUploadController.handleFileUpload(null, null);
+        
         pass.setIsPassActive("TRUE");
         passService.savePass(pass);
         return "redirect:/viewPasses?success";
-        //=========================================
-        //staffDto.setIsAdminHold("FALSE");
-        //staffDto.setIsUserActive("FALSE");
-        //staffDto.setStaffType("Staff");
-
-        //System.out.println(staffDto.toString()); // *** TODO: Add try-catch exception in this portion
-        
-        //staffService.saveStaff(staffDto); // *** TODO: Ensure there's no duplication of email and contact number?
-        //return "redirect:/registration?success";
+      
     }
 }

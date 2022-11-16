@@ -102,34 +102,11 @@ public class PassBookViewController {
         loanRequestDTO.setLoanDate(dateChosen);
         loanRequestDTO.setStaffId(staffService.getStaffIdFromLogin());
         Loan loan = loanService.createNewLoan(loanRequestDTO);
-        // boolean loanCreationResult = booker.validate(loanRequestDTO.getLoanDate(), loanRequestDTO.getPassType()
-        //     , loanRequestDTO.getAttraction(), loanRequestDTO.getNumOfPasses(), loanRequestDTO.getStaffId()); 
-
-        System.out.println("========================================");
-        System.out.println("========================================");
-        System.out.println("========================================");
-        System.out.println("========================================");
-
-        System.out.println(loanRequestDTO);
-        System.out.println("========================================");
-        System.out.println("========================================");
-        System.out.println("========================================");
-
-        // set an error msg: for dynamic msg
-        // if (loan == null) {
-        //     ObjectError error = new ObjectError("globalError", "Sorry, an error has occurred. Please try again");
-        //     result.addError(error);
-        // }
-
-        // if (result.hasErrors()) { // check if there's any error msg from the validation
-        //     return "bookAPass";
-        // }
 
         if (loan != null){ 
             return "redirect:/loanedPasses";  
         }
 
-        //return "bookAPass";
         return "redirect:/bookAPass/" + dateChosen + "?failed";  
     }
 

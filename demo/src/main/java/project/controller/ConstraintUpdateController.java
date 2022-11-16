@@ -26,11 +26,6 @@ public class ConstraintUpdateController {
     public Constraint constraint() {
         return new Constraint();
     }
-    
-    // @GetMapping
-    // public String showUpdateForm() {
-    //     return "bookingCriteria";
-    // }
 
     @GetMapping
     public String bookingCriteria(Model model) {
@@ -45,7 +40,5 @@ public class ConstraintUpdateController {
         constraint.setConstraintName(constraintName);
         constraintService.updateConstraint(constraint);
         return "redirect:/bookingCriteria?success";
-        
-        //return "redirect:/registration?success";
     }
 }
