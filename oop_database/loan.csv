@@ -1,9 +1,9 @@
 ﻿loanID,staffID,loanDate,attraction,loanStatus,saturdayBorrower
 1,1,2022-10-03,Singapore Zoo,collected,NULL
 2,3,2022-10-06,Singapore Zoo,returned,NULL
-3,4,2022-10-07,Singapore Zoo,returned,NULL
+3,4,2022-10-07,River Wonders,returned,NULL
 4,5,2022-10-08,Jurong Bird Park,collected,NULL
-5,6,2022-10-10,Jurong Bird Park,not collected,NULL
+5,6,2022-10-10,Singapore Flyer,not collected,NULL
 6,1,2022-10-11,Singapore Flyer,returned,NULL
-7,1,2022-11-02,Art Science Museum,returned,NULL
-8,1,2022-12-11,Singapore Flyer,not collected,NULL
+7,1,2022-11-02,River Wonders,returned,NULL
+8,1,2022-12-11,Garden by the Bay,not collected,NULL
