@@ -128,7 +128,7 @@ public class PassBookViewController {
         Loan loan = loanService.createNewLoan(loanRequestDTO);
 
         if (loan != null){ 
-            return "redirect:/loanedPasses";  
+            return "redirect:/loanedPasses?success";  
         }
 
         return "redirect:/bookAPass/" + dateChosen + "?failed";  
